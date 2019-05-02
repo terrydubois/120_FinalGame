@@ -4,6 +4,7 @@ Preload.prototype = {
 	preload: function() {
 		console.log('Preload: preload');
 
+		game.load.image('sky', 'assets/img/background.png');
 	},
 	create: function() {
 		console.log('Preload: create');
