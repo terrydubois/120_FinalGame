@@ -20,6 +20,8 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO);
 
 // add states to StateManager
 game.state.add('Boot', Boot);
+game.state.add('Preload', Preload);
+game.state.add('LogoScreen', LogoScreen);
 
 // start on Logo
 game.state.start('Boot');

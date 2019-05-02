@@ -7,7 +7,7 @@ LogoScreen.prototype = {
 	},
 	create: function() {
 		console.log('LogoScreen: create');
-
+	game.add.sprite(0,0,'sky');
 	},
 	update: function() {
 

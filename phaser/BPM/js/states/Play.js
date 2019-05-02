@@ -11,7 +11,7 @@ Play.prototype = {
 	create: function() {
 		console.log('Play: create');
 
-	
+
 	},
 	update: function() {
 

@@ -13,8 +13,9 @@ Boot.prototype = {
 	},
 	create: function() {
 		console.log('Boot: create');
-
+game.state.start('Preload');
 	},
 	update: function() {
+
 	}
 }
