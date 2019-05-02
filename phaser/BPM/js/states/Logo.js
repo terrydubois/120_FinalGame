@@ -11,6 +11,6 @@ LogoScreen.prototype = {
 	},
 	update: function() {
 
-	
+	//wow
 	}
 }
