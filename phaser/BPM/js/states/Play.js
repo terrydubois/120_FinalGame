@@ -15,14 +15,15 @@ Play.prototype = {
 		game.player = game.add.sprite(game.world.width/2,game.world.height/2,'player');
 		game.player.anchor.setTo(.5);
 
-		game.switchRate = 2;
-		game.playerXSpeed = 10;
-		game.playerYSpeed = 10;
+		game.switchRate = 1;
+		game.playerXSpeed = 20;
+		game.playerYSpeed = 12;
 		game.playerPos = 0;
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
 
 		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
+		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 
 	},
 	update: function() {
@@ -47,7 +48,7 @@ Play.prototype = {
 }
 
 function switchSides() {
-	console.log('buh');
+	
 	if (game.playerPos == 0) {
 		game.playerPos = 1;
 	}
@@ -55,7 +56,20 @@ function switchSides() {
 		game.playerPos = 0;
 	}
 
+
 	game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
+}
+
+function spawnEnemy() {
+
+	var newEnemySpeed = Math.random() * 350;
+	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 350);
+	game.enemy = new Avoid(game, 'skull', 'skull', 1, 0, game.playerPos, newEnemySpeed);
+	game.add.existing(game.enemy);
+
+	var timeTilNextSpawn = Math.random() * 2;
+	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, 0.5, 2);
+	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnEnemy, this);
 }
 
 function approach(value, valueDest, speed) {
@@ -65,6 +79,10 @@ function approach(value, valueDest, speed) {
 	}
 	else if (value > valueDest) {
 		value -= speed;
+	}
+
+	if (Math.abs(value - valueDest) < speed) {
+		value = valueDest;
 	}
 
 	return value;
