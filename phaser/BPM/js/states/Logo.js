@@ -10,7 +10,13 @@ LogoScreen.prototype = {
 	game.add.sprite(0,0,'sky');
 	},
 	update: function() {
-
+		
+		//start game
+		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+			    			game.sound.stopAll();
+			game.state.start('Play');
+		}
+		
 	//wow
 	}
 }
