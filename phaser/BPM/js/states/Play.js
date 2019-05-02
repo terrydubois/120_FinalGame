@@ -19,6 +19,8 @@ Play.prototype = {
 		game.playerXSpeed = 20;
 		game.playerYSpeed = 12;
 		game.playerPos = 0;
+		game.playerCollisionRad = game.player.width / 4;
+
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
 
@@ -27,6 +29,20 @@ Play.prototype = {
 
 	},
 	update: function() {
+
+		if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
+			game.posLeft--;
+		}
+		if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
+			game.posLeft++;
+		}
+		game.posRight = game.world.width - game.posLeft;
+
+
+
+
+
+
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
 			game.player.y -= game.playerYSpeed;

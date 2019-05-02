@@ -4,7 +4,7 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	this.goingUp = goingUp;
 
 	xPos = Math.random() * game.world.width;
-	xPos = Phaser.Math.clamp(xPos, 200, game.world.width - 200);
+	xPos = Phaser.Math.clamp(xPos, game.posLeft + 150, game.posRight - 150);
 
 
 	if (goingUp) {
@@ -50,8 +50,8 @@ Avoid.prototype.update = function() {
 	}
 
 
-	if (Math.abs(game.player.x - this.x) < this.collisionRad
-	&& Math.abs(game.player.y - this.y) < this.collisionRad) {
+	if (Math.abs(game.player.x - this.x) < this.collisionRad + game.playerCollisionRad
+	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad) {
 		console.log("die!!!!!");
 		this.kill();
 	}
