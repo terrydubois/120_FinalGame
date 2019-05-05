@@ -12,7 +12,19 @@ Play.prototype = {
 	create: function() {
 		console.log('Play: create');
 		game.add.sprite(0,0,'sky');
-		game.player = game.add.sprite(game.world.width/2,game.world.height/2,'player');
+        //audio
+		this.song1 = game.add.audio('ALPHA');
+		this.song1.play('',0,1,true);
+
+		game.posLeft = 50;
+		game.posRight = game.world.width - game.posLeft;
+
+
+		rightside = game.add.tileSprite(game.posRight-300, 0, 600, 1600, 'waveformR');
+        leftside = game.add.tileSprite(game.posLeft-300, 0, 600, 1600, 'waveformL');
+
+
+		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
 		game.player.anchor.setTo(.5);
 
 		game.switchRate = 1;
@@ -21,14 +33,19 @@ Play.prototype = {
 		game.playerPos = 0;
 		game.playerCollisionRad = game.player.width / 4;
 
-		game.posLeft = 50;
-		game.posRight = game.world.width - game.posLeft;
+
 
 		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 
+
+
 	},
 	update: function() {
+
+ 		rightside.tilePosition.y -= .1;
+ 		leftside.tilePosition.y -= .1;
+
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
 			game.posLeft--;
