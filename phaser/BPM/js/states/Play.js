@@ -43,15 +43,20 @@ Play.prototype = {
 	},
 	update: function() {
 
- 		rightside.tilePosition.y -= .3;
- 		leftside.tilePosition.y -= .3;
+ 		rightside.tilePosition.y -= .33;
+ 		leftside.tilePosition.y -= .33;
 
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
 			game.posLeft--;
+			leftside.tilePosition.x --;
+			rightside.tilePosition.x ++;
+
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
 			game.posLeft++;
+			leftside.tilePosition.x ++;
+			rightside.tilePosition.x --;
 		}
 		game.posRight = game.world.width - game.posLeft;
 
@@ -73,9 +78,11 @@ Play.prototype = {
 
 		if (game.playerPos == 1) {
 			game.player.x = approach(game.player.x, game.posLeft, game.playerXSpeed);
+			
 		}
 		else {
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
+			
 		}
 	}
 }
