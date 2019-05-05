@@ -1,5 +1,5 @@
-// avoid constructor
-function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
+// Collect constructor
+function Collect(game, key, frame, scale, rotation, goingUp, ySpeed) {
 
 	this.goingUp = goingUp;
 
@@ -31,11 +31,11 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	game.physics.enable(this);
 }
 
-Avoid.prototype = Object.create(Phaser.Sprite.prototype);
-Avoid.prototype.constructor = Avoid;
+Collect.prototype = Object.create(Phaser.Sprite.prototype);
+Collect.prototype.constructor = Collect;
 
 // override update function
-Avoid.prototype.update = function() {
+Collect.prototype.update = function() {
 
 	// make this move forward
 	this.body.velocity.y = this.yVelocity;
@@ -52,7 +52,7 @@ Avoid.prototype.update = function() {
 
 	if (Math.abs(game.player.x - this.x) < this.collisionRad + game.playerCollisionRad
 	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad) {
-		//console.log("die!!!!!");
+		console.log("WOZ MUCH POINT");
 		this.kill();
 	}
 }
