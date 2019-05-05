@@ -43,8 +43,8 @@ Play.prototype = {
 	},
 	update: function() {
 
- 		rightside.tilePosition.y -= .1;
- 		leftside.tilePosition.y -= .1;
+ 		rightside.tilePosition.y -= .3;
+ 		leftside.tilePosition.y -= .3;
 
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
