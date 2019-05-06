@@ -8,9 +8,17 @@ LogoScreen.prototype = {
 	create: function() {
 		console.log('LogoScreen: create');
 	game.add.sprite(0,0,'sky');
+	var menu = game.add.sprite(0,0,'title');
+
 	},
 	update: function() {
-
+		
+		//start game
+		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+			    			game.sound.stopAll();
+			game.state.start('Play');
+		}
+		
 	//wow
 	}
 }
