@@ -52,6 +52,11 @@ Play.prototype = {
 		for (var i = 0; i < game.maxHearts; i++) {
 			game.heartSprite[i] = -1;
 		}
+
+		game.plussesToLevelUp = 5;
+		game.level = 1;
+		game.levelUpText1 = game.add.text(16, 64, 'plusses to levelup: ' + game.plussesToLevelUp, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
+		game.levelUpText2 = game.add.text(16, 84, 'current level: ' + game.level, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
 	},
 	update: function() {
 
@@ -105,6 +110,14 @@ Play.prototype = {
 		else {
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
 			
+		}
+
+
+
+		// level up every time plussesToLevelUp hits zero
+		if (game.plussesToLevelUp <= 0) {
+			game.level++;
+			game.plussesToLevelUp = 5;
 		}
 
 		gameplayHUD();
@@ -195,6 +208,9 @@ function gameplayHUD() {
 			game.currentHearts--;
 		}
 	}
+
+	game.levelUpText1.text = 'plusses to levelup: ' + game.plussesToLevelUp;
+	game.levelUpText2.text = 'current level: ' + game.level;
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 
