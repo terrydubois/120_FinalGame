@@ -26,7 +26,9 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	this.alpha = 1;
 
 	this.collisionRad = this.width / 2;
+	this.hasHitPlayer = false;
 
+	this.heart = (key == 'heart');
 
 	game.physics.enable(this);
 }
@@ -51,8 +53,17 @@ Avoid.prototype.update = function() {
 
 
 	if (Math.abs(game.player.x - this.x) < this.collisionRad + game.playerCollisionRad
-	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad) {
-		//console.log("die!!!!!");
+	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad
+	&& !this.hasHitPlayer) {
+		console.log("collision");
+		this.hasHitPlayer = true;
 		this.kill();
+
+		if (this.heart) {
+			game.currentHearts++;
+		}
+		else {
+			game.currentHearts--;
+		}
 	}
 }

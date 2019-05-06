@@ -42,8 +42,7 @@ Play.prototype = {
 		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
 
-
-
+		game.debugControls = false;
 
 		// setup hearts
 		game.maxHearts = 8;
@@ -56,22 +55,30 @@ Play.prototype = {
 	},
 	update: function() {
 
+		// take out for final game
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT)) {
+			game.debugControls = !game.debugControls;
+			console.log("DEBUG CONTROLS: " + game.debugControls);
+		}
 
 		//waveform scrolling
  		rightside.tilePosition.y -= .33;
  		leftside.tilePosition.y -= .33;
 
- 		//screen size changing
-		if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
-			game.posLeft--;
-			leftside.tilePosition.x --;
-			rightside.tilePosition.x ++;
 
-		}
-		if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
-			game.posLeft++;
-			leftside.tilePosition.x ++;
-			rightside.tilePosition.x --;
+		 //screen size changing
+		if (game.debugControls) {
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
+				game.posLeft--;
+				leftside.tilePosition.x --;
+				rightside.tilePosition.x ++;
+
+			}
+			if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
+				game.posLeft++;
+				leftside.tilePosition.x ++;
+				rightside.tilePosition.x --;
+			}
 		}
 		game.posRight = game.world.width - game.posLeft;
 
@@ -180,12 +187,15 @@ function approach(value, valueDest, speed) {
 
 function gameplayHUD() {
 
-	if (game.input.keyboard.justPressed(Phaser.Keyboard.D)) {
-		game.currentHearts++;
+	if (game.debugControls) {
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.D)) {
+			game.currentHearts++;
+		}
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.A)) {
+			game.currentHearts--;
+		}
 	}
-	if (game.input.keyboard.justPressed(Phaser.Keyboard.A)) {
-		game.currentHearts--;
-	}
+
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 
 
