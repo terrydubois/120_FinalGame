@@ -6,6 +6,13 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	xPos = Math.random() * game.world.width;
 	xPos = Phaser.Math.clamp(xPos, game.posLeft + 150, game.posRight - 150);
 
+	while (Math.abs(xPos - game.lastSpawnX) < 60) {
+		xPos = Math.random() * game.world.width;
+		xPos = Phaser.Math.clamp(xPos, game.posLeft + 150, game.posRight - 150);
+	}
+	game.lastSpawnX = xPos;
+	console.log("NEW LASTSPAWNX: " + game.lastSpawnX);
+
 
 	if (goingUp) {
 		yPos = game.world.height + 100;
@@ -69,7 +76,7 @@ Avoid.prototype.update = function() {
 			game.plussesToLevelUp--;
 		}
 		else {
-			console.log("collision with enemy");
+			console.log("collision with skull");
 			game.currentHearts--;
 		}
 	}

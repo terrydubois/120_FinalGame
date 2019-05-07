@@ -33,6 +33,8 @@ Play.prototype = {
 		game.playerPos = 0;
 		game.playerCollisionRad = game.player.width / 4;
 
+		game.lastSpawnX = -1;
+
 
 		//timer to switch sides
 		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
@@ -120,6 +122,8 @@ Play.prototype = {
 			game.plussesToLevelUp = 5;
 		}
 
+		// game over if 
+
 		gameplayHUD();
 	}
 }
@@ -148,7 +152,10 @@ function spawnEnemy() {
 	game.add.existing(game.enemy);
 
 	var timeTilNextSpawn = Math.random() * 2;
-	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, 0.5, 2);
+	var minTimeTilNextSpawn = 0.5;
+	var maxTimeTilNextSpawn = 2;
+	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
+
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnEnemy, this);
 }
 
@@ -161,7 +168,11 @@ function spawnCollect() {
 	game.add.existing(game.Heart);
 
 	var timeTilNextSpawn = Math.random() * 10;
-	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, 5, 10);
+	var minTimeTilNextSpawn = 5;
+	var maxTimeTilNextSpawn = 10;
+	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
+	console.log("time til next plus: " + timeTilNextSpawn);
+
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnCollect, this);
 }
 
@@ -175,8 +186,12 @@ function spawnHealth() {
 	game.add.existing(game.Heart);
 
 	var timeTilNextSpawn = Math.random() * 15;
-	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, 10, 15);
-	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnCollect, this);
+	var minTimeTilNextSpawn = 10;
+	var maxTimeTilNextSpawn = 15;
+	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
+	console.log("time til next health: " + timeTilNextSpawn);
+
+	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnHealth, this);
 }
 
 
