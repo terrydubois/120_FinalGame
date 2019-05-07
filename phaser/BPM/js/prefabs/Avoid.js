@@ -6,9 +6,11 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	xPos = Math.random() * game.world.width;
 	xPos = Phaser.Math.clamp(xPos, game.posLeft + 150, game.posRight - 150);
 
-	while (Math.abs(xPos - game.lastSpawnX) < 60) {
+	var xPosTries = 0;
+	while (Math.abs(xPos - game.lastSpawnX) < 60 && xPosTries < 10) {
 		xPos = Math.random() * game.world.width;
 		xPos = Phaser.Math.clamp(xPos, game.posLeft + 150, game.posRight - 150);
+		xPosTries++;
 	}
 	game.lastSpawnX = xPos;
 	console.log("NEW LASTSPAWNX: " + game.lastSpawnX);

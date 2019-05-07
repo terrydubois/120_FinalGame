@@ -120,6 +120,9 @@ Play.prototype = {
 		if (game.plussesToLevelUp <= 0) {
 			game.level++;
 			game.plussesToLevelUp = 5;
+			game.playerXSpeed += 3;
+			game.playerYSpeed += 3;
+
 		}
 
 		// game over if 
@@ -168,8 +171,8 @@ function spawnCollect() {
 	game.add.existing(game.Heart);
 
 	var timeTilNextSpawn = Math.random() * 10;
-	var minTimeTilNextSpawn = 5;
-	var maxTimeTilNextSpawn = 10;
+	var minTimeTilNextSpawn = 4;
+	var maxTimeTilNextSpawn = 8;
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next plus: " + timeTilNextSpawn);
 
