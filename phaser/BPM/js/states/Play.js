@@ -151,7 +151,7 @@ function spawnEnemy() {
 
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 250, 350);
-	game.enemy = new Avoid(game, 'skull', 'skull', 1, 0, game.playerPos, newEnemySpeed);
+	game.enemy = new Avoid(game, 'skull', 'skull', .5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.enemy);
 
 	var timeTilNextSpawn = Math.random() * 2;
@@ -167,7 +167,7 @@ function spawnEnemy() {
 function spawnCollect() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 350);
-	game.Heart = new Avoid(game, 'plus', 'plus', 1, 0, game.playerPos, newEnemySpeed);
+	game.Heart = new Avoid(game, 'plus', 'plus', .5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.Heart);
 
 	var timeTilNextSpawn = Math.random() * 10;
@@ -185,7 +185,7 @@ function spawnCollect() {
 function spawnHealth() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 250);
-	game.Heart = new Avoid(game, 'heart', 'heart', 1, 0, game.playerPos, newEnemySpeed);
+	game.Heart = new Avoid(game, 'heart', 'heart', .5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.Heart);
 
 	var timeTilNextSpawn = Math.random() * 15;
@@ -246,6 +246,7 @@ function gameplayHUD() {
 			var currentHeartY = 30;
 			game.heartSprite[i] = game.add.sprite(currentHeartX, currentHeartY, 'heartHUD');
 			game.heartSprite[i].anchor.setTo(0.5);
+			game.heartSprite[i].scale.setTo(0.5);
 		}
 	}
 }
