@@ -28,7 +28,8 @@ Play.prototype = {
 		game.player.anchor.setTo(.5);
 
 		game.switchRate = 1;
-		game.playerXSpeed = 20;
+		game.playerXSpeedTarget = 20;
+		game.playerXSpeed = game.playerXSpeedTarget;
 		game.playerYSpeed = 12;
 		game.playerPos = 0;
 		game.playerCollisionRad = game.player.width / 4;
@@ -61,6 +62,20 @@ Play.prototype = {
 		game.levelUpText2 = game.add.text(16, 84, 'current level: ' + game.level, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
 	},
 	update: function() {
+
+		//speedup
+		if (game.player.x > game.world.width / 2 + 250 && game.playerPos == 0){
+
+			game.playerXSpeed -= Math.abs((game.playerXSpeed)) / 12;
+		}
+		else if (game.player.x < game.world.width / 2 - 250 &&  game.playerPos == 1){
+
+			game.playerXSpeed -= Math.abs((game.playerXSpeed)) / 12;
+		}
+		else {
+			game.playerXSpeed = game.playerXSpeedTarget;
+		}
+
 
 		// take out for final game
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT)) {
@@ -107,11 +122,11 @@ Play.prototype = {
 		//player move speed determination
 		if (game.playerPos == 1) {
 			game.player.x = approach(game.player.x, game.posLeft, game.playerXSpeed);
-			
+
 		}
 		else {
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
-			
+
 		}
 
 
@@ -120,13 +135,12 @@ Play.prototype = {
 		if (game.plussesToLevelUp <= 0) {
 			game.level++;
 			game.plussesToLevelUp = 5;
-			game.playerXSpeed += 3;
+			game.playerXSpeedTarget += 3;
 			game.playerYSpeed += 3;
 
 		}
 
 		// game over if 
-
 		gameplayHUD();
 	}
 }
@@ -185,7 +199,7 @@ function spawnCollect() {
 function spawnHealth() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 250);
-	game.Heart = new Avoid(game, 'heart', 'heart', .5, 0, game.playerPos, newEnemySpeed);
+	game.Heart = new Avoid(game, 'heart', 'heart', 0.5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.Heart);
 
 	var timeTilNextSpawn = Math.random() * 15;
@@ -215,6 +229,9 @@ function approach(value, valueDest, speed) {
 
 	return value;
 }
+
+
+
 
 function gameplayHUD() {
 
