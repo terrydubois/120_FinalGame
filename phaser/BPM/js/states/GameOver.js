@@ -7,14 +7,13 @@ GameOver.prototype = {
 	create: function() {
 		console.log('GameOver: create');
 		game.add.sprite(0,0,'sky');
-
-		game.player = game.add.sprite(game.world.width/2,game.world.height/2,'player');
-		game.player.anchor.setTo(.5);
+		gameover = game.add.sprite(0,0,'goscreen');
+		gameover.scale.setTo(0.52);
 
 	},
 	update: function(){
 
-		scoreText = game.add.text(game.world.width/2-300,game.world.height/2-65,"GAME OVER",{ fontSize: '108px',fill:'#000'});
+		//scoreText = game.add.text(game.world.width/2-300,game.world.height/2-65,"GAME OVER",{ fontSize: '108px',fill:'#000'});
 
 
 		//esc key also goes back to play state
