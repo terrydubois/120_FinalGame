@@ -63,7 +63,13 @@ Play.prototype = {
 	},
 	update: function() {
 
-		//speedup
+
+		//Game Over checking
+		if(game.currentHearts == 0){
+			game.state.start("GameOver");
+		}
+
+		//slowdown while approach
 		if (game.player.x > game.world.width / 2 + 250 && game.playerPos == 0){
 
 			game.playerXSpeed -= Math.abs((game.playerXSpeed)) / 12;
@@ -139,6 +145,15 @@ Play.prototype = {
 			game.playerYSpeed += 3;
 
 		}
+
+
+		//esc key also goes back to main menu
+		if(game.input.keyboard.justPressed(Phaser.Keyboard.ESC)){
+			game.sound.stopAll();
+			game.state.start("GameOver");
+		}
+
+
 
 		// game over if 
 		gameplayHUD();
