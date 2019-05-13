@@ -13,18 +13,18 @@ Play.prototype = {
 		console.log('Play: create');
 		game.add.sprite(0,0,'sky');
         //audio
-		this.song1 = game.add.audio('BETA');
+		game.song1 = game.add.audio('BETA');
 		this.beat = game.add.audio('BEAT');
 		this.beat.volume = 0.1;
 
 
 
 
-		this.song1.play('',0,1,true);
+		game.song1.play('',0,1,true);
 		this.beat.play('',0,.5,false);
 
 
-		this.song1._sound.playbackRate.value = .7
+		game.song1._sound.playbackRate.value = .7
 
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
@@ -66,12 +66,27 @@ Play.prototype = {
 			game.heartSprite[i] = -1;
 		}
 
+		// bar for speedup
+		game.barFill = game.add.sprite(game.world.width / 2, 20, 'barFill');		
+		game.barOutline = game.add.sprite(game.world.width / 2, 20, 'barOutline');
+		game.barFill.anchor.setTo(0);
+		game.barOutline.anchor.setTo(0);
+		game.barFillWidthDest = 0;
+		game.barFill.width = 0;
+
+		game.speedupText = game.add.text(game.world.width / 2, 55, 'SPEEDUP', {fontStyle: 'italic', fontSize: '30px', fill: '#fff', align: 'center'});
+		game.speedupText2 = game.add.text(game.world.width / 2 - 2, 55 - 2, 'SPEEDUP', {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+		game.speedupText.anchor.setTo(0.5);
+		game.speedupText2.anchor.setTo(0.5);
+
 		game.plussesToLevelUp = 5;
+		game.currentPlussesToLevelUp = game.plussesToLevelUp;
 		game.level = 1;
-		game.levelUpText1 = game.add.text(16, 64, 'plusses to levelup: ' + game.plussesToLevelUp, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
-		game.levelUpText2 = game.add.text(16, 84, 'current level: ' + game.level, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
+		//game.levelUpText1 = game.add.text(16, 64, 'plusses to levelup: ' + game.currentPlussesToLevelUp, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
+		game.levelUpText2 = game.add.text(game.world.width / 2, 100, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+		game.levelUpText2.anchor.setTo(0.5);
 	
-		console.log(this.song1._sound.playbackRate.value);
+		console.log(game.song1._sound.playbackRate.value);
 	},
 	update: function() {
 
@@ -81,12 +96,18 @@ Play.prototype = {
 			game.state.start("GameOver");
 		}
 
+		// resize speedup bar
+		game.barOutline.x = (game.world.width / 2) - (game.barOutline.width / 2);
+		game.barFill.x = game.barOutline.x;
+		game.barFillWidthDest = ((game.plussesToLevelUp - game.currentPlussesToLevelUp) / game.plussesToLevelUp) * game.barOutline.width;
+		game.barFill.width = approachSmooth(game.barFill.width, game.barFillWidthDest, 6);
+
 		//slowdown while approach
-		if (game.player.x > game.world.width / 2 + 250 && game.playerPos == 0){
+		if (game.player.x > game.world.width / 2 + 250 && game.playerPos == 0) {
 
 			game.playerXSpeed -= Math.abs((game.playerXSpeed)) / 12;
 		}
-		else if (game.player.x < game.world.width / 2 - 250 &&  game.playerPos == 1){
+		else if (game.player.x < game.world.width / 2 - 250 &&  game.playerPos == 1) {
 
 			game.playerXSpeed -= Math.abs((game.playerXSpeed)) / 12;
 		}
@@ -125,10 +146,10 @@ Play.prototype = {
 
 
 		//player input control
-		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+		if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
 			game.player.y -= game.playerYSpeed;
 		}
-		if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+		if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
 			game.player.y += game.playerYSpeed;
 		}
 
@@ -151,14 +172,15 @@ Play.prototype = {
 
 
 
-		// level up every time plussesToLevelUp hits zero
-		if (game.plussesToLevelUp <= 0) {
+		// level up every time currentPlussesToLevelUp hits zero
+		if (game.currentPlussesToLevelUp <= 0) {
 			game.level++;
-			game.plussesToLevelUp = 5;
+			game.plussesToLevelUp++;
+			game.currentPlussesToLevelUp = game.plussesToLevelUp;
 			game.playerXSpeedTarget += 3;
 			game.playerYSpeed += 3;
 			game.switchRate -=.05;
-			this.song1._sound.playbackRate.value += .1
+			game.song1._sound.playbackRate.value += .1
 
 		}
 
@@ -171,7 +193,6 @@ Play.prototype = {
 
 
 
-		// game over if 
 		gameplayHUD();
 	}
 }
@@ -263,6 +284,16 @@ function approach(value, valueDest, speed) {
 	return value;
 }
 
+function approachSmooth(value, valueDest, divisor) {
+	if (value < valueDest) {
+		value += Math.abs(valueDest - value) / divisor;
+	}
+	else if (value > valueDest) {
+		value -= Math.abs(valueDest - value) / divisor;
+	}
+	return value;
+}
+
 
 
 
@@ -277,8 +308,8 @@ function gameplayHUD() {
 		}
 	}
 
-	game.levelUpText1.text = 'plusses to levelup: ' + game.plussesToLevelUp;
-	game.levelUpText2.text = 'current level: ' + game.level;
+	//game.levelUpText1.text = 'plusses to levelup: ' + game.currentPlussesToLevelUp;
+	game.levelUpText2.text = 'LEVEL ' + game.level;
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 

@@ -75,7 +75,7 @@ Avoid.prototype.update = function() {
 		}
 		else if (this.plus) {
 			console.log("collision with levelup");
-			game.plussesToLevelUp--;
+			game.currentPlussesToLevelUp--;
 		}
 		else {
 			console.log("collision with skull");
