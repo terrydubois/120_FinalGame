@@ -96,7 +96,9 @@ Play.prototype = {
 	},
 	update: function() {
 
-
+			highscore = game.level;
+			console.log(highscore);
+		
 		//Game Over checking
 		if(game.currentHearts == 0){
 			game.state.start("GameOver");
@@ -137,14 +139,14 @@ Play.prototype = {
 		if (game.debugControls) {
 			if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
 				game.posLeft--;
-				leftside.tilePosition.x --;
-				rightside.tilePosition.x ++;
+				leftside.x --;
+				rightside.x ++;
 
 			}
 			if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
 				game.posLeft++;
-				leftside.tilePosition.x ++;
-				rightside.tilePosition.x --;
+				leftside.x ++;
+				rightside.x --;
 			}
 		}
 		game.posRight = game.world.width - game.posLeft;
@@ -187,6 +189,7 @@ Play.prototype = {
 			game.playerYSpeed += 3;
 			game.switchRate -=.05;
 			game.song1._sound.playbackRate.value += .1
+
 
 		}
 

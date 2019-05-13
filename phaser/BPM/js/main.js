@@ -14,7 +14,7 @@
 
 var game = new Phaser.Game(1000, 600, Phaser.AUTO);
 
-
+var highscore;
 
 // add states to StateManager
 game.state.add('Boot', Boot);

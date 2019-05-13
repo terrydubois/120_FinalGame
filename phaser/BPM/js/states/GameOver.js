@@ -13,7 +13,9 @@ GameOver.prototype = {
 	},
 	update: function(){
 
-		//scoreText = game.add.text(game.world.width/2-300,game.world.height/2-65,"GAME OVER",{ fontSize: '108px',fill:'#000'});
+
+
+		scoreText = game.add.text(game.world.width/2+100,game.world.height/2-35,highscore,{ fontSize: '96px',fill:'#FFCC33',fontStyle: 'italic'});
 
 
 		//esc key also goes back to play state
