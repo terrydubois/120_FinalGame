@@ -26,6 +26,10 @@ Preload.prototype = {
 		game.load.audio('BETA', ['BETA TRACK.mp3']);
 		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
+		game.load.audio('hitEnemySound', 'hitEnemy.mp3');
+		game.load.audio('hitPlusSound', 'hitPlus.mp3');
+		game.load.audio('hitHeartSound', 'hitHeart.mp3');
+
 	},
 	create: function() {
 		console.log('Preload: create');

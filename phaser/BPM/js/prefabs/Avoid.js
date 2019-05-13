@@ -72,14 +72,17 @@ Avoid.prototype.update = function() {
 		if (this.heart) {
 			console.log("collision with heart");
 			game.currentHearts++;
+			game.hitHeartSound.play();
 		}
 		else if (this.plus) {
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
+			game.hitPlusSound.play();
 		}
 		else {
 			console.log("collision with skull");
 			game.currentHearts--;
+			game.hitEnemySound.play();
 		}
 	}
 }

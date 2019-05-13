@@ -85,6 +85,12 @@ Play.prototype = {
 		//game.levelUpText1 = game.add.text(16, 64, 'plusses to levelup: ' + game.currentPlussesToLevelUp, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
 		game.levelUpText2 = game.add.text(game.world.width / 2, 100, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 		game.levelUpText2.anchor.setTo(0.5);
+
+
+		// add sounds to game
+		game.hitEnemySound = game.add.audio('hitEnemySound');
+		game.hitPlusSound = game.add.audio('hitPlusSound');
+		game.hitHeartSound = game.add.audio('hitHeartSound');
 	
 		console.log(game.song1._sound.playbackRate.value);
 	},
