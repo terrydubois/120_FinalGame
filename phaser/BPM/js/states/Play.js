@@ -185,8 +185,8 @@ Play.prototype = {
 			game.level++;
 			game.plussesToLevelUp++;
 			game.currentPlussesToLevelUp = game.plussesToLevelUp;
-			game.playerXSpeedTarget += 3;
-			game.playerYSpeed += 3;
+			game.playerXSpeedTarget += 2;
+			game.playerYSpeed += 2;
 			game.switchRate -=.05;
 			game.song1._sound.playbackRate.value += .1
 
@@ -231,9 +231,23 @@ function spawnEnemy() {
 	game.enemy = new Avoid(game, 'skull', 'skull', .5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.enemy);
 
-	var timeTilNextSpawn = Math.random() * 2;
-	var minTimeTilNextSpawn = 0.5;
 	var maxTimeTilNextSpawn = 2;
+	if (game.level == 1) {
+		maxTimeTilNextSpawn = 2;
+	}
+	else if (game.level == 2) {
+		maxTimeTilNextSpawn = 1.5;
+	}
+	else if (game.level == 3) {
+		maxTimeTilNextSpawn = 1;
+	}
+	else {
+		maxTimeTilNextSpawn = 0.5;
+	}
+
+	var minTimeTilNextSpawn = 0.5;
+	var timeTilNextSpawn = Math.random() * maxTimeTilNextSpawn;
+
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnEnemy, this);
