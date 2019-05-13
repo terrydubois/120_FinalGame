@@ -8,7 +8,7 @@ GameOver.prototype = {
 		console.log('GameOver: create');
 		game.add.sprite(0,0,'sky');
 		gameover = game.add.sprite(0,0,'goscreen');
-		gameover.scale.setTo(0.52);
+		gameover.scale.setTo(0.5);
 
 	},
 	update: function(){

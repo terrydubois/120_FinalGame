@@ -17,7 +17,14 @@ Play.prototype = {
 		this.beat = game.add.audio('BEAT');
 		this.beat.volume = 0.1;
 
+
+
+
 		this.song1.play('',0,1,true);
+		this.beat.play('',0,.5,false);
+
+
+		this.song1._sound.playbackRate.value = .7
 
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
@@ -63,6 +70,8 @@ Play.prototype = {
 		game.level = 1;
 		game.levelUpText1 = game.add.text(16, 64, 'plusses to levelup: ' + game.plussesToLevelUp, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
 		game.levelUpText2 = game.add.text(16, 84, 'current level: ' + game.level, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
+	
+		console.log(this.song1._sound.playbackRate.value);
 	},
 	update: function() {
 
@@ -149,6 +158,7 @@ Play.prototype = {
 			game.playerXSpeedTarget += 3;
 			game.playerYSpeed += 3;
 			game.switchRate -=.05;
+			this.song1._sound.playbackRate.value += .1
 
 		}
 
