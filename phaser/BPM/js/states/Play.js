@@ -13,7 +13,10 @@ Play.prototype = {
 		console.log('Play: create');
 		game.add.sprite(0,0,'sky');
         //audio
-		this.song1 = game.add.audio('ALPHA');
+		this.song1 = game.add.audio('BETA');
+		this.beat = game.add.audio('BEAT');
+		this.beat.volume = 0.1;
+
 		this.song1.play('',0,1,true);
 
 		game.posLeft = 50;
@@ -127,10 +130,12 @@ Play.prototype = {
 
 		//player move speed determination
 		if (game.playerPos == 1) {
+
 			game.player.x = approach(game.player.x, game.posLeft, game.playerXSpeed);
 
 		}
 		else {
+
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
 
 		}
@@ -143,6 +148,7 @@ Play.prototype = {
 			game.plussesToLevelUp = 5;
 			game.playerXSpeedTarget += 3;
 			game.playerYSpeed += 3;
+			game.switchRate -=.05;
 
 		}
 
@@ -165,9 +171,11 @@ function switchSides() {
 	
 	if (game.playerPos == 0) {
 		game.playerPos = 1;
+		this.beat.play('',0,.5,false);
 	}
 	else {
 		game.playerPos = 0;
+		this.beat.play('',0,.5,false);
 	}
 
 

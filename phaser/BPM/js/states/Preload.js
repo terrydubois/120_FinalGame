@@ -21,6 +21,8 @@ Preload.prototype = {
 		//LOAD AUDIO
 		game.load.path = 'assets/audio/';
 		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
+		game.load.audio('BETA', ['BETA TRACK.mp3']);
+		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
 	},
 	create: function() {

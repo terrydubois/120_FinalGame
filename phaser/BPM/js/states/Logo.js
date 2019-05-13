@@ -10,6 +10,7 @@ LogoScreen.prototype = {
 	game.add.sprite(0,0,'sky');
 	var menu = game.add.sprite(0,0,'title');
 
+
 	},
 	update: function() {
 		
