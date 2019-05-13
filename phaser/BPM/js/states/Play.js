@@ -30,8 +30,8 @@ Play.prototype = {
 		game.posRight = game.world.width - game.posLeft;
 
 
-		rightside = game.add.tileSprite(game.posRight-60, 0, 600, 1600, 'waveformR');
-        leftside = game.add.tileSprite(game.posLeft-60, 0, 600, 1600, 'waveformL');
+		rightside = game.add.tileSprite(game.posRight-64, 0, 127, 1800, 'waveformR');
+        leftside = game.add.tileSprite(game.posLeft-64, 0, 127, 1800, 'waveformL');
 
 
 		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
