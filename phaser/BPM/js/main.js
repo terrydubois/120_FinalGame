@@ -16,6 +16,8 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO);
 
 var highscore;
 
+var emitter;
+
 // add states to StateManager
 game.state.add('Boot', Boot);
 game.state.add('Preload', Preload);

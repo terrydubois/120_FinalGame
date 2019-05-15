@@ -18,6 +18,11 @@ Play.prototype = {
 		this.beat.volume = 0.1;
 
 
+		emitter = game.add.emitter(game.world.width/2,game.world.height/2+175, 250);
+		emitter.makeParticles('particle');
+
+		emitter.setAlpha(1, 0.0, 500);
+    	emitter.start(false, 5000, 50);
 
 
 		game.song1.play('',0,1,true);
@@ -111,7 +116,9 @@ Play.prototype = {
 
 		buldge();
 
-		console.log(game.isBig);
+		emitter.emitX = game.player.x;
+
+		emitter.emitY = game.player.y;
 
 			highscore = game.level;
 			//console.log(highscore);
