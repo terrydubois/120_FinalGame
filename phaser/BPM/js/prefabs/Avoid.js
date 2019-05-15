@@ -13,7 +13,7 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 		xPosTries++;
 	}
 	game.lastSpawnX = xPos;
-	console.log("NEW LASTSPAWNX: " + game.lastSpawnX);
+	//console.log("NEW LASTSPAWNX: " + game.lastSpawnX);
 
 
 	if (goingUp) {
@@ -64,7 +64,7 @@ Avoid.prototype.update = function() {
 
 	if (Math.abs(game.player.x - this.x) < this.collisionRad + game.playerCollisionRad
 	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad
-	&& !this.hasHitPlayer) {
+	&& !game.hasHitPlayer&& !this.hasHitPlayer) {
 		
 		this.hasHitPlayer = true;
 		this.kill();
@@ -81,6 +81,7 @@ Avoid.prototype.update = function() {
 		}
 		else {
 			console.log("collision with skull");
+			game.hasHitPlayer = true;
 			game.currentHearts--;
 			game.hitEnemySound.play('',0,.3,false);
 		}

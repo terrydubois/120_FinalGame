@@ -10,9 +10,11 @@ LogoScreen.prototype = {
 	game.add.sprite(0,0,'sky');
 	var menu = game.add.sprite(0,0,'title');
 
+
 	game.instructionText = game.add.text(game.world.width / 2, game.world.height - 25, "UP and DOWN arrows to move!", { fontSize: '24px',fill:'#4669FE',fontStyle: 'italic'});
 	game.instructionText.anchor.setTo(0.5);
 
+	game.song1 = game.add.audio('BETA');
 
 	},
 	update: function() {

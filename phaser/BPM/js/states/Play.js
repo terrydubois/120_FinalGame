@@ -18,7 +18,15 @@ Play.prototype = {
 		this.beat = game.add.audio('BEAT');
 		this.beat.volume = 0.1;
 
-		// play music
+
+		emitter = game.add.emitter(game.world.width/2,game.world.height/2+175, 250);
+		emitter.makeParticles('particle');
+
+		emitter.setAlpha(1, 0.0, 500);
+    	emitter.start(false, 5000, 50);
+
+
+
 		game.song1.play('',0,1,true);
 		this.beat.play('',0,.5,false);
 
@@ -28,12 +36,14 @@ Play.prototype = {
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
 
-		// waves on left and right
-		rightside = game.add.tileSprite(game.posRight-64, 0, 127, 1800, 'waveformR');
-        leftside = game.add.tileSprite(game.posLeft-64, 0, 127, 1800, 'waveformL');
 
-		// add player to game
-		game.player = game.add.sprite(game.world.width / 2, (game.world.height / 2) + 175,'player');
+
+		rightside = game.add.tileSprite(game.posRight, 0, 127, 1800, 'waveformR');
+		rightside.anchor.setTo(.5);
+        leftside = game.add.tileSprite(game.posLeft, 0, 127, 1800, 'waveformL');
+        leftside.anchor.setTo(.5);
+
+		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
 		game.player.anchor.setTo(.5);
 
 		game.switchRate = 1;
@@ -44,6 +54,7 @@ Play.prototype = {
 		game.playerCollisionRad = game.player.width / 4;
 
 		game.lastSpawnX = -1;
+		game.hasHitPlayer = false;
 
 
 		//timer to switch sides
@@ -53,6 +64,8 @@ Play.prototype = {
 		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
+
+
 
 		game.debugControls = false;
 
@@ -79,8 +92,8 @@ Play.prototype = {
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
 
-		// how many plusses to level up
-		game.plussesToLevelUp = 5;
+
+		game.plussesToLevelUp = 4;
 		game.currentPlussesToLevelUp = game.plussesToLevelUp;
 		game.level = 1;
 
@@ -89,13 +102,29 @@ Play.prototype = {
 		game.hitEnemySound = game.add.audio('hitEnemySound');
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
-	
+
+		//sprite scaling variables
+		game.minScale = 0.8;
+		game.maxScale = 1.2;
+		game.scaleFactor = .01
+		game.isBig = false;
+
+
+			console.log(game.player.scale);
 		console.log(game.song1._sound.playbackRate.value);
+
 	},
 	update: function() {
 
-		highscore = game.level;
-		console.log(highscore);
+
+		buldge();
+
+		emitter.emitX = game.player.x;
+
+		emitter.emitY = game.player.y;
+
+			highscore = game.level;
+			//console.log(highscore);
 		
 		// Game Over checking
 		if(game.currentHearts == 0) {
@@ -179,9 +208,9 @@ Play.prototype = {
 			game.level++;
 			game.plussesToLevelUp++;
 			game.currentPlussesToLevelUp = game.plussesToLevelUp;
-			game.playerXSpeedTarget += 2;
-			game.playerYSpeed += 2;
-			game.switchRate -=.05;
+			game.playerXSpeedTarget += 1;
+			game.playerYSpeed += 1.5;
+			game.switchRate -=.03;
 			game.song1._sound.playbackRate.value += .1
 		}
 
@@ -205,10 +234,12 @@ function switchSides() {
 	if (game.playerPos == 0) {
 		game.playerPos = 1;
 		this.beat.play('',0,.5,false);
+		game.hasHitPlayer = false;
 	}
 	else {
 		game.playerPos = 0;
 		this.beat.play('',0,.5,false);
+		game.hasHitPlayer = false;
 	}
 
 	// repeat this function
@@ -226,20 +257,23 @@ function spawnEnemy() {
 
 	// decrease time until next spawn as levels progress
 	var maxTimeTilNextSpawn = 2;
+	var minTimeTilNextSpawn = 1;
 	if (game.level == 1) {
 		maxTimeTilNextSpawn = 2;
 	}
 	else if (game.level == 2) {
-		maxTimeTilNextSpawn = 1.5;
+		maxTimeTilNextSpawn = 1.75;
 	}
 	else if (game.level == 3) {
-		maxTimeTilNextSpawn = 1;
+		maxTimeTilNextSpawn = 1.5;
+	}
+	else if (game.level == 4) {
+		maxTimeTilNextSpawn = 1.25;
 	}
 	else {
-		maxTimeTilNextSpawn = 0.5;
+		maxTimeTilNextSpawn = 1;
 	}
 
-	var minTimeTilNextSpawn = 0.5;
 	var timeTilNextSpawn = Math.random() * maxTimeTilNextSpawn;
 
 	// clamp time until next spawn between reasonable minimum and maximum
@@ -286,6 +320,31 @@ function spawnHealth() {
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnHealth, this);
+}
+
+function buldge(){
+
+	if(game.player.scale.x < game.maxScale && game.isBig == false){
+		game.player.scale.setTo(game.player.scale.x += game.scaleFactor,game.player.scale.y += game.scaleFactor);
+
+		rightside.scale.setTo(rightside.scale.x += game.scaleFactor, rightside.scale.y);
+		leftside.scale.setTo(leftside.scale.x += game.scaleFactor, leftside.scale.y);
+	}
+	if(game.player.scale.x >= game.maxScale){
+		game.isBig = true;
+	}
+
+
+	if(game.player.scale.x > game.minScale && game.isBig == true){
+		game.player.scale.setTo(game.player.scale.x -= game.scaleFactor,game.player.scale.y -= game.scaleFactor);
+
+		rightside.scale.setTo(rightside.scale.x -= game.scaleFactor, rightside.scale.y);
+		leftside.scale.setTo(leftside.scale.x -= game.scaleFactor, leftside.scale.y);
+
+	}
+	if(game.player.scale.x <= game.minScale){
+		game.isBig = false;
+	}
 }
 
 
