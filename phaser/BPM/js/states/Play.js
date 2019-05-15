@@ -12,14 +12,13 @@ Play.prototype = {
 	create: function() {
 		console.log('Play: create');
 		game.add.sprite(0,0,'sky');
-        //audio
+
+        // add music
 		game.song1 = game.add.audio('BETA');
 		this.beat = game.add.audio('BEAT');
 		this.beat.volume = 0.1;
 
-
-
-
+		// play music
 		game.song1.play('',0,1,true);
 		this.beat.play('',0,.5,false);
 
@@ -29,12 +28,12 @@ Play.prototype = {
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
 
-
+		// waves on left and right
 		rightside = game.add.tileSprite(game.posRight-64, 0, 127, 1800, 'waveformR');
         leftside = game.add.tileSprite(game.posLeft-64, 0, 127, 1800, 'waveformL');
 
-
-		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
+		// add player to game
+		game.player = game.add.sprite(game.world.width / 2, (game.world.height / 2) + 175,'player');
 		game.player.anchor.setTo(.5);
 
 		game.switchRate = 1;
@@ -74,17 +73,16 @@ Play.prototype = {
 		game.barFillWidthDest = 0;
 		game.barFill.width = 0;
 
-		game.speedupText = game.add.text(game.world.width / 2, 55, 'SPEEDUP', {fontStyle: 'italic', fontSize: '30px', fill: '#fff', align: 'center'});
-		game.speedupText2 = game.add.text(game.world.width / 2 - 2, 55 - 2, 'SPEEDUP', {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+		// text for leveling up
+		game.speedupText = game.add.text(game.world.width / 2, 55, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#fff', align: 'center'});
+		game.speedupText2 = game.add.text(game.world.width / 2 - 2, 55 - 2, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
 
+		// how many plusses to level up
 		game.plussesToLevelUp = 5;
 		game.currentPlussesToLevelUp = game.plussesToLevelUp;
 		game.level = 1;
-		//game.levelUpText1 = game.add.text(16, 64, 'plusses to levelup: ' + game.currentPlussesToLevelUp, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
-		game.levelUpText2 = game.add.text(game.world.width / 2, 100, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
-		game.levelUpText2.anchor.setTo(0.5);
 
 
 		// add sounds to game
@@ -96,11 +94,11 @@ Play.prototype = {
 	},
 	update: function() {
 
-			highscore = game.level;
-			console.log(highscore);
+		highscore = game.level;
+		console.log(highscore);
 		
-		//Game Over checking
-		if(game.currentHearts == 0){
+		// Game Over checking
+		if(game.currentHearts == 0) {
 			game.state.start("GameOver");
 		}
 
@@ -168,14 +166,10 @@ Play.prototype = {
 
 		//player move speed determination
 		if (game.playerPos == 1) {
-
 			game.player.x = approach(game.player.x, game.posLeft, game.playerXSpeed);
-
 		}
 		else {
-
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
-
 		}
 
 
@@ -189,8 +183,6 @@ Play.prototype = {
 			game.playerYSpeed += 2;
 			game.switchRate -=.05;
 			game.song1._sound.playbackRate.value += .1
-
-
 		}
 
 
@@ -209,6 +201,7 @@ Play.prototype = {
 
 function switchSides() {
 	
+	// switch which side player will slide to
 	if (game.playerPos == 0) {
 		game.playerPos = 1;
 		this.beat.play('',0,.5,false);
@@ -218,7 +211,7 @@ function switchSides() {
 		this.beat.play('',0,.5,false);
 	}
 
-
+	// repeat this function
 	game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
 }
 
@@ -231,6 +224,7 @@ function spawnEnemy() {
 	game.enemy = new Avoid(game, 'skull', 'skull', .5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.enemy);
 
+	// decrease time until next spawn as levels progress
 	var maxTimeTilNextSpawn = 2;
 	if (game.level == 1) {
 		maxTimeTilNextSpawn = 2;
@@ -248,25 +242,29 @@ function spawnEnemy() {
 	var minTimeTilNextSpawn = 0.5;
 	var timeTilNextSpawn = Math.random() * maxTimeTilNextSpawn;
 
+	// clamp time until next spawn between reasonable minimum and maximum
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 
+	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnEnemy, this);
 }
 
 
-//plus spawner
+// plus spawner
 function spawnCollect() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 350);
 	game.Heart = new Avoid(game, 'plus', 'plus', .5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.Heart);
 
+	// set up how long to wait until next plus spawn
 	var timeTilNextSpawn = Math.random() * 10;
 	var minTimeTilNextSpawn = 4;
 	var maxTimeTilNextSpawn = 8;
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next plus: " + timeTilNextSpawn);
 
+	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnCollect, this);
 }
 
@@ -279,18 +277,20 @@ function spawnHealth() {
 	game.Heart = new Avoid(game, 'heart', 'heart', 0.5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.Heart);
 
+	// set up how long to wait until next heart spawn
 	var timeTilNextSpawn = Math.random() * 15;
 	var minTimeTilNextSpawn = 10;
 	var maxTimeTilNextSpawn = 15;
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next health: " + timeTilNextSpawn);
 
+	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnHealth, this);
 }
 
 
 
-//function for clean movement
+// function for clean movement
 function approach(value, valueDest, speed) {
 
 	if (value < valueDest) {
@@ -299,7 +299,6 @@ function approach(value, valueDest, speed) {
 	else if (value > valueDest) {
 		value -= speed;
 	}
-
 	if (Math.abs(value - valueDest) < speed) {
 		value = valueDest;
 	}
@@ -307,6 +306,7 @@ function approach(value, valueDest, speed) {
 	return value;
 }
 
+// function for movement that "eases" (curved movement)
 function approachSmooth(value, valueDest, divisor) {
 	if (value < valueDest) {
 		value += Math.abs(valueDest - value) / divisor;
@@ -322,6 +322,7 @@ function approachSmooth(value, valueDest, divisor) {
 
 function gameplayHUD() {
 
+	// debug controls
 	if (game.debugControls) {
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.D)) {
 			game.currentHearts++;
@@ -331,8 +332,9 @@ function gameplayHUD() {
 		}
 	}
 
-	//game.levelUpText1.text = 'plusses to levelup: ' + game.currentPlussesToLevelUp;
-	game.levelUpText2.text = 'LEVEL ' + game.level;
+	// update level text
+	game.speedupText.text = 'LEVEL ' + game.level;
+	game.speedupText2.text = 'LEVEL ' + game.level;
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 

@@ -14,7 +14,7 @@ GameOver.prototype = {
 	update: function(){
 
 
-
+		// game over text
 		scoreText = game.add.text(game.world.width/2+100,game.world.height/2-35,highscore,{ fontSize: '96px',fill:'#FFCC33',fontStyle: 'italic'});
 
 
