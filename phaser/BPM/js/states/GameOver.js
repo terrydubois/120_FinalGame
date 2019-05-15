@@ -48,6 +48,10 @@ GameOver.prototype = {
 		game.scoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 135, game.currentScore, { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
 		game.highScoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 60, game.highScore, { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
 
+
+		if (newHS) {
+			game.newHSText = game.add.text(game.world.width / 2 - 300 ,(game.world.height / 2) - 40, "NEW", { fontSize: '40px',fill:'#FFCC33',fontStyle: 'italic'});
+		}
 	},
 	update: function(){
 		
