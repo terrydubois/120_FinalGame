@@ -30,9 +30,10 @@ Play.prototype = {
 		game.posRight = game.world.width - game.posLeft;
 
 
-		rightside = game.add.tileSprite(game.posRight-64, 0, 127, 1800, 'waveformR');
-        leftside = game.add.tileSprite(game.posLeft-64, 0, 127, 1800, 'waveformL');
-
+		rightside = game.add.tileSprite(game.posRight, 0, 127, 1800, 'waveformR');
+		rightside.anchor.setTo(.5);
+        leftside = game.add.tileSprite(game.posLeft, 0, 127, 1800, 'waveformL');
+        leftside.anchor.setTo(.5);
 
 		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
 		game.player.anchor.setTo(.5);
@@ -98,6 +99,7 @@ Play.prototype = {
 		//sprite scaling variables
 		game.minScale = 0.8;
 		game.maxScale = 1.2;
+		game.scaleFactor = .01
 		game.isBig = false;
 
 
@@ -251,16 +253,19 @@ function spawnEnemy() {
 		maxTimeTilNextSpawn = 2;
 	}
 	else if (game.level == 2) {
-		maxTimeTilNextSpawn = 1.5;
+		maxTimeTilNextSpawn = 1.75;
 	}
 	else if (game.level == 3) {
-		maxTimeTilNextSpawn = 1;
+		maxTimeTilNextSpawn = 1.5;
+	}
+	else if (game.level == 4) {
+		maxTimeTilNextSpawn = 1.25;
 	}
 	else {
-		maxTimeTilNextSpawn = 0.5;
+		maxTimeTilNextSpawn = 1;
 	}
 
-	var minTimeTilNextSpawn = 0.5;
+	var minTimeTilNextSpawn = 1;
 	var timeTilNextSpawn = Math.random() * maxTimeTilNextSpawn;
 
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
@@ -306,9 +311,10 @@ function spawnHealth() {
 function buldge(){
 
 	if(game.player.scale.x < game.maxScale && game.isBig == false){
-		game.player.scale.setTo(game.player.scale.x +=.01,game.player.scale.y +=.01);
-		console.log(game.player.scale.x);
-	
+		game.player.scale.setTo(game.player.scale.x += game.scaleFactor,game.player.scale.y += game.scaleFactor);
+
+		rightside.scale.setTo(rightside.scale.x += game.scaleFactor, rightside.scale.y);
+		leftside.scale.setTo(leftside.scale.x += game.scaleFactor, leftside.scale.y);
 	}
 	if(game.player.scale.x >= game.maxScale){
 		game.isBig = true;
@@ -316,8 +322,11 @@ function buldge(){
 
 
 	if(game.player.scale.x > game.minScale && game.isBig == true){
-		game.player.scale.setTo(game.player.scale.x -=.01,game.player.scale.y -=.01);
-		console.log(game.player.scale.x);
+		game.player.scale.setTo(game.player.scale.x -= game.scaleFactor,game.player.scale.y -= game.scaleFactor);
+
+		rightside.scale.setTo(rightside.scale.x -= game.scaleFactor, rightside.scale.y);
+		leftside.scale.setTo(leftside.scale.x -= game.scaleFactor, leftside.scale.y);
+
 	}
 	if(game.player.scale.x <= game.minScale){
 		game.isBig = false;

@@ -9,7 +9,7 @@ LogoScreen.prototype = {
 		console.log('LogoScreen: create');
 	game.add.sprite(0,0,'sky');
 	var menu = game.add.sprite(0,0,'title');
-
+		game.song1 = game.add.audio('BETA');
 
 	},
 	update: function() {
