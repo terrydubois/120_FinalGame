@@ -113,6 +113,8 @@ Play.prototype = {
 			console.log(game.player.scale);
 		console.log(game.song1._sound.playbackRate.value);
 
+		game.currentScore = 0;
+
 	},
 	update: function() {
 
@@ -120,11 +122,7 @@ Play.prototype = {
 		buldge();
 
 		emitter.emitX = game.player.x;
-
 		emitter.emitY = game.player.y;
-
-			highscore = game.level;
-			//console.log(highscore);
 		
 		// Game Over checking
 		if(game.currentHearts == 0) {
@@ -175,6 +173,10 @@ Play.prototype = {
 				leftside.x ++;
 				rightside.x --;
 			}
+			if(game.input.keyboard.justPressed(Phaser.Keyboard.T)){
+				game.currentHearts--;
+			}
+			
 		}
 		game.posRight = game.world.width - game.posLeft;
 

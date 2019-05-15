@@ -77,6 +77,7 @@ Avoid.prototype.update = function() {
 		else if (this.plus) {
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
+			game.currentScore += 1;
 			game.hitPlusSound.play('',0,.5,false);
 		}
 		else {
