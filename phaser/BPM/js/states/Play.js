@@ -45,6 +45,7 @@ Play.prototype = {
 		game.playerCollisionRad = game.player.width / 4;
 
 		game.lastSpawnX = -1;
+		game.beenHit = false;
 
 
 		//timer to switch sides
@@ -54,6 +55,8 @@ Play.prototype = {
 		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
+
+
 
 		game.debugControls = false;
 
@@ -79,7 +82,7 @@ Play.prototype = {
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
 
-		game.plussesToLevelUp = 5;
+		game.plussesToLevelUp = 4;
 		game.currentPlussesToLevelUp = game.plussesToLevelUp;
 		game.level = 1;
 		//game.levelUpText1 = game.add.text(16, 64, 'plusses to levelup: ' + game.currentPlussesToLevelUp, {fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'left'});
@@ -91,13 +94,25 @@ Play.prototype = {
 		game.hitEnemySound = game.add.audio('hitEnemySound');
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
-	
+
+		//sprite scaling variables
+		game.minScale = 0.8;
+		game.maxScale = 1.2;
+		game.isBig = false;
+
+
+			console.log(game.player.scale);
 		console.log(game.song1._sound.playbackRate.value);
+
 	},
 	update: function() {
 
+		buldge();
+
+		console.log(game.isBig);
+
 			highscore = game.level;
-			console.log(highscore);
+			//console.log(highscore);
 		
 		//Game Over checking
 		if(game.currentHearts == 0){
@@ -185,9 +200,9 @@ Play.prototype = {
 			game.level++;
 			game.plussesToLevelUp++;
 			game.currentPlussesToLevelUp = game.plussesToLevelUp;
-			game.playerXSpeedTarget += 2;
-			game.playerYSpeed += 2;
-			game.switchRate -=.05;
+			game.playerXSpeedTarget += 1;
+			game.playerYSpeed += 1.5;
+			game.switchRate -=.03;
 			game.song1._sound.playbackRate.value += .1
 
 
@@ -286,6 +301,27 @@ function spawnHealth() {
 	console.log("time til next health: " + timeTilNextSpawn);
 
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnHealth, this);
+}
+
+function buldge(){
+
+	if(game.player.scale.x < game.maxScale && game.isBig == false){
+		game.player.scale.setTo(game.player.scale.x +=.01,game.player.scale.y +=.01);
+		console.log(game.player.scale.x);
+	
+	}
+	if(game.player.scale.x >= game.maxScale){
+		game.isBig = true;
+	}
+
+
+	if(game.player.scale.x > game.minScale && game.isBig == true){
+		game.player.scale.setTo(game.player.scale.x -=.01,game.player.scale.y -=.01);
+		console.log(game.player.scale.x);
+	}
+	if(game.player.scale.x <= game.minScale){
+		game.isBig = false;
+	}
 }
 
 

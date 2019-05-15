@@ -13,7 +13,7 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 		xPosTries++;
 	}
 	game.lastSpawnX = xPos;
-	console.log("NEW LASTSPAWNX: " + game.lastSpawnX);
+	//console.log("NEW LASTSPAWNX: " + game.lastSpawnX);
 
 
 	if (goingUp) {
