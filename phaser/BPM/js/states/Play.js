@@ -249,6 +249,7 @@ function spawnEnemy() {
 	game.add.existing(game.enemy);
 
 	var maxTimeTilNextSpawn = 2;
+	var minTimeTilNextSpawn = 1;
 	if (game.level == 1) {
 		maxTimeTilNextSpawn = 2;
 	}
@@ -265,7 +266,6 @@ function spawnEnemy() {
 		maxTimeTilNextSpawn = 1;
 	}
 
-	var minTimeTilNextSpawn = 1;
 	var timeTilNextSpawn = Math.random() * maxTimeTilNextSpawn;
 
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
