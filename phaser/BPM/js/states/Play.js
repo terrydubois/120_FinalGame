@@ -51,7 +51,7 @@ Play.prototype = {
 		game.playerCollisionRad = game.player.width / 4;
 
 		game.lastSpawnX = -1;
-		game.beenHit = false;
+		game.hasHitPlayer = false;
 
 
 		//timer to switch sides
@@ -236,10 +236,12 @@ function switchSides() {
 	if (game.playerPos == 0) {
 		game.playerPos = 1;
 		this.beat.play('',0,.5,false);
+		game.hasHitPlayer = false;
 	}
 	else {
 		game.playerPos = 0;
 		this.beat.play('',0,.5,false);
+		game.hasHitPlayer = false;
 	}
 
 
