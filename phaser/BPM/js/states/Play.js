@@ -27,7 +27,6 @@ Play.prototype = {
 
 
 
-		game.song1._sound.playbackRate.value = .7
 
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
@@ -70,7 +69,7 @@ Play.prototype = {
 		game.debugControls = false;
 
 		// setup hearts
-		game.maxHearts = 8;
+		game.maxHearts = 7;
 		game.startingHearts = 5;
 		game.currentHearts = game.startingHearts;
 		game.heartSprite = [];
@@ -199,6 +198,7 @@ Play.prototype = {
 		
 
 		game.song1.play('',0,1,true);
+		game.song1._sound.playbackRate.value = .7
 		this.beat.play('',0,.5,false);
 			game.hasStarted = true;
 		}
@@ -216,6 +216,7 @@ Play.prototype = {
 
 
 		game.song1.play('',0,1,true);
+		game.song1._sound.playbackRate.value = .7
 		this.beat.play('',0,.5,false);
 			game.hasStarted = true;
 		}
