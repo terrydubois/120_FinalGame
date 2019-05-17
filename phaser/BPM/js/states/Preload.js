@@ -10,7 +10,7 @@ Preload.prototype = {
 		game.load.image('heart', 'assets/img/heart.png');
 		game.load.image('skull', 'assets/img/skull.png');
 		game.load.image('plus', 'assets/img/plus.png');
-		game.load.image('player', 'assets/img/player.png');
+		game.load.atlas('player', 'assets/img/player.png', 'assets/img/player.json');
 		game.load.image('waveformR', 'assets/img/waveformO.png');
 		game.load.image('waveformL', 'assets/img/waveformB.png');
 		game.load.image('title','assets/img/title.png');

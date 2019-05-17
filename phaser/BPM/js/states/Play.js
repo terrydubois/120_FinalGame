@@ -45,6 +45,10 @@ Play.prototype = {
 
 		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
 		game.player.anchor.setTo(.5);
+		game.player.scale.setTo(0.7);
+
+		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],4,true);
+		game.player.animations.play('squiggle');
 
 		game.switchRate = 1;
 		game.playerXSpeedTarget = 20;
@@ -104,8 +108,8 @@ Play.prototype = {
 		game.hitHeartSound = game.add.audio('hitHeartSound');
 
 		//sprite scaling variables
-		game.minScale = 0.8;
-		game.maxScale = 1.2;
+		game.minScale = 0.6;
+		game.maxScale = 0.8;
 		game.scaleFactor = .01
 		game.isBig = false;
 
