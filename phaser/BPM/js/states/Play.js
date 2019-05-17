@@ -27,9 +27,6 @@ Play.prototype = {
 
 
 
-		game.song1.play('',0,1,true);
-
-
 		game.song1._sound.playbackRate.value = .7
 
 		game.posLeft = 50;
@@ -199,6 +196,9 @@ Play.prototype = {
 		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
+		
+
+		game.song1.play('',0,1,true);
 		this.beat.play('',0,.5,false);
 			game.hasStarted = true;
 		}
@@ -213,6 +213,9 @@ Play.prototype = {
 		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
+
+
+		game.song1.play('',0,1,true);
 		this.beat.play('',0,.5,false);
 			game.hasStarted = true;
 		}
