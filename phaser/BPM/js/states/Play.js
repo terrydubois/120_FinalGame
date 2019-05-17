@@ -28,7 +28,6 @@ Play.prototype = {
 
 
 		game.song1.play('',0,1,true);
-		this.beat.play('',0,.5,false);
 
 
 		game.song1._sound.playbackRate.value = .7
@@ -54,13 +53,13 @@ Play.prototype = {
 		game.playerXSpeedTarget = 20;
 		game.playerXSpeed = game.playerXSpeedTarget;
 		game.playerYSpeed = 12;
-		game.playerPos = 0;
+		game.playerPos = 1;
 		game.playerCollisionRad = game.player.width / 4;
 
 		game.lastSpawnX = -1;
 		game.hasHitPlayer = false;
 
-
+/*
 		//timer to switch sides
 		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
 
@@ -69,7 +68,7 @@ Play.prototype = {
 		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
 
-
+*/
 
 		game.debugControls = false;
 
@@ -114,8 +113,7 @@ Play.prototype = {
 		game.isBig = false;
 
 
-			console.log(game.player.scale);
-		console.log(game.song1._sound.playbackRate.value);
+		game.hasStarted = false;
 
 		game.currentScore = 0;
 
@@ -186,6 +184,40 @@ Play.prototype = {
 
 
 
+
+
+
+		//player input control to start game
+		if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.hasStarted == false){
+
+
+
+		//timer to switch sides
+		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
+
+		//timers to spawn objects
+		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
+		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
+		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
+		this.beat.play('',0,.5,false);
+			game.hasStarted = true;
+		}
+
+		if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN&& game.hasStarted == false)){
+
+
+		//timer to switch sides
+		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
+
+		//timers to spawn objects
+		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
+		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
+		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
+		this.beat.play('',0,.5,false);
+			game.hasStarted = true;
+		}
+
+
 		//player input control
 		if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
 			game.player.y -= game.playerYSpeed;
@@ -200,11 +232,14 @@ Play.prototype = {
 
 
 		//player move speed determination
-		if (game.playerPos == 1) {
+		if (game.playerPos == 1 && game.hasStarted == true) {
 			game.player.x = approach(game.player.x, game.posLeft, game.playerXSpeed);
 		}
-		else {
+		else if(game.playerPos == 0 && game.hasStarted == true) {
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
+		}
+		else{
+
 		}
 
 
