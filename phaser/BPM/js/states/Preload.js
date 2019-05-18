@@ -13,7 +13,8 @@ Preload.prototype = {
 		game.load.atlas('player', 'assets/img/player.png', 'assets/img/player.json');
 		game.load.image('waveformR', 'assets/img/waveformO.png');
 		game.load.image('waveformL', 'assets/img/waveformB.png');
-		game.load.image('title','assets/img/title.png');
+		//game.load.image('title','assets/img/title.png');
+		game.load.atlas('title', 'assets/img/titlesheet.png', 'assets/img/title.json');
 		game.load.image('heartHUD','assets/img/heartHUD.png');
 		game.load.image('barFill','assets/img/barFill.png');
 		game.load.image('barOutline','assets/img/barOutline.png');
