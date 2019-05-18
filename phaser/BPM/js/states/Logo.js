@@ -36,9 +36,9 @@ LogoScreen.prototype = {
 
 
 	update: function() {
-console.log(game.mode);
+console.log(game.choice);
 
-console.log(game.currmode);
+//console.log(game.currmode);
 
 //play button selection
 if(game.choice == 0){
@@ -46,7 +46,7 @@ if(game.choice == 0){
 	game.menu.frameName = 'title0';
 	game.arrows.frameName = 'titlee';
 
-if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)){
 game.choice = 1;
 }
 }
@@ -84,7 +84,7 @@ if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)){
 game.choice = 0;
 }
 
-if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN,1)){
+if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN,100)){
 game.choice = 2;
 }
 
@@ -95,12 +95,12 @@ game.choice = 2;
 
 if(game.choice == 10){
 	game.arrows.animations.play('right');
-	game.time.events.repeat(Phaser.Timer.SECOND * .3, 0, resetFrame, this);
+	game.time.events.repeat(Phaser.Timer.SECOND * .4, 0, resetFrame, this);
 
 }
 if(game.choice == 11){
 	game.arrows.animations.play('left');
-	game.time.events.repeat(Phaser.Timer.SECOND * .3, 0, resetFrame, this);
+	game.time.events.repeat(Phaser.Timer.SECOND * .4, 0, resetFrame, this);
 }
 
 
@@ -232,6 +232,10 @@ game.currmode = 4;
 game.choice = 4;
 }
 if(game.mode == 3){	
+game.currmode = 5;
+game.choice = 5;
+}
+if(game.mode == 4){	
 game.currmode = 5;
 game.choice = 5;
 }
