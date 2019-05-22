@@ -13,13 +13,6 @@ Play.prototype = {
 		console.log('Play: create');
 		game.add.sprite(0,0,'sky');
 
-		// roadpaint animation
-		game.bg = game.add.sprite(0, 0, "bgAnim1");
-		game.bg.animations.add("bgAnim1", Phaser.Animation.generateFrameNames("Comp 2_", 0, 29, "", 5), 60, true);
-		game.bg.animations.play("bgAnim1");
-
-
-
         // add music
 		game.song1 = game.add.audio('BETA');
 		this.beat = game.add.audio('BEAT');

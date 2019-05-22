@@ -21,10 +21,6 @@ Preload.prototype = {
 		game.load.image('particle','assets/img/particle.png');
 
 
-
-		game.load.atlas('bgAnim1', 'assets/img/bg2.png', 'assets/img/bg1.json');
-
-
 		//LOAD AUDIO
 		game.load.path = 'assets/audio/';
 		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
