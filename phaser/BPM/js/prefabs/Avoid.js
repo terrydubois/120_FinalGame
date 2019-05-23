@@ -55,10 +55,10 @@ Avoid.prototype.update = function() {
 
 	// destroy this obstacle if it is out of bounds
 	if (this.goingUp && this.y < -100) {
-		this.kill();
+		this.destroy();
 	}
 	else if (!this.goingUp && this.y > game.world.height + 100) {
-		this.kill();
+		this.destroy();
 	}
 
 
