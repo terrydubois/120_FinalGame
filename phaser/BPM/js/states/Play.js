@@ -11,6 +11,9 @@ Play.prototype = {
 	},
 	create: function() {
 		console.log('Play: create');
+
+		game.time.advancedTiming = true;
+
 		game.add.sprite(0,0,'sky');
 
         // add music
@@ -92,6 +95,11 @@ Play.prototype = {
 		game.speedupText2.anchor.setTo(0.5);
 
 
+
+		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
+		game.fpsText.anchor.setTo(0.5);
+
+
 		game.plussesToLevelUp = 4;
 		game.currentPlussesToLevelUp = game.plussesToLevelUp;
 		game.level = 1;
@@ -116,6 +124,7 @@ Play.prototype = {
 	},
 	update: function() {
 
+		game.fpsText.text = "fps: " + (game.time.fps);
 
 		buldge();
 
