@@ -46,7 +46,11 @@ MainMenu.prototype = {
 		game.menuTriangleRightPlusX = 0;
 		game.menuTriangleAlphaDest = 0;
 
-		game.modeStarsToUnlock = [1, 5, 10];
+		game.modeStarsToUnlock = [0, 1, 5, 10];
+		game.starCountMenuSprite = game.add.sprite(40, 40, 'star');
+		game.starCountMenuSprite.scale.setTo(0.4);
+		game.starCountMenuSprite.anchor.setTo(0.5);
+		game.starCountMenuText = game.add.text(60, 35, 'x 0', {font: 'Impact', fontStyle: 'italic', fontSize: '25px', fill: '#333', align: 'center'});
 
 		game.flavorTextPlusY = 100;
 		game.flavorTextPlusYDest = 0;
@@ -54,6 +58,8 @@ MainMenu.prototype = {
 		game.flavorText.anchor.setTo(0.5);
 	},
 	update: function() {
+
+		game.starCountMenuText.text = 'x ' + game.starsColl + ' ';
 		
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
 		game.menuTitle.y = 150 + game.menuTitlePlusY;
@@ -122,12 +128,16 @@ MainMenu.prototype = {
 		game.menuTriangleRight.y = game.menuGraphics.y + (game.menuGraphics.height / 2);
 
 
-
+		if (game.modeStarsToUnlock[game.currentMode] > game.starsColl) {
+			game.flavorText.text = "COLLECT " + game.modeStarsToUnlock[game.currentMode] + " TO UNLOCK! ";
+		}
+		else {
+			game.flavorTextPlusYDest = 100;
+		}
 		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest, 8);
 		game.flavorText.y = (game.world.height - 30) + game.flavorTextPlusY;
-		if (game.modeStarsToUnlock[game.currentMode] < game.starsColl) {
-			game.flavorText.text = "COLLECT " + game.modeStarsToUnlock[game.currentMode] + " TO UNLOCK!";
-		}
+
+
 
 
 
