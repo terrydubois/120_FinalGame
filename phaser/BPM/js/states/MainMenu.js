@@ -3,13 +3,136 @@ var MainMenu = function(game) {};
 MainMenu.prototype = {
 	preload: function() {
 		console.log('MainMenu: preload');
-	
 	},
 	create: function() {
 		console.log('MainMenu: create');
 
+		game.add.sprite(0,0,'sky');
+
+		game.menuTitlePlusY = -600;
+
+		game.menuTitle = game.add.sprite(game.world.width / 2, 200 + game.menuTitlePlusY, 'title');
+		game.menuTitle.anchor.setTo(0.5);
+
+		
+		game.menuOptionCurrent = 0;
+		game.menuGraphics = game.add.graphics(0, 400);
+		game.menuGraphics.beginFill(0x3361E2);
+		game.menuRect = game.menuGraphics.drawRoundedRect((game.world.width / 2) - 150, 0, 300, 50, 10);
+		game.menuGraphics.endFill();
+		game.menuGraphics.alpha = 0.8;
+		game.menuGraphicsYDest = 0;
+		game.menuGraphics.anchor.setTo(0.5);
+		window.graphics = game.menuGraphics;
+
+		game.menuModes = ['PRACTICE', 'MODE 1', 'MODE 2', 'MODE 3'];
+		game.menuOptions = ['PLAY', 'MODE', 'CREDITS'];
+		game.menuOptionsText = [game.menuOptions.length];
+
+		for (var i = 0; i < game.menuOptions.length; i++) {
+			game.menuOptionsText[i] = game.add.text(game.world.width / 2, 400 + (i * 50), game.menuOptions[i], {font: 'Impact', fontSize: '30px', fill: '#000', align: 'center'});
+			game.menuOptionsText[i].anchor.setTo(0.5);
+		}
+
+		game.menuTriangleLeft = game.add.sprite((game.world.width / 2) - 100, 0, 'menuTriangle');
+		game.menuTriangleRight = game.add.sprite((game.world.width / 2) + 100, 0, 'menuTriangle');
+		game.menuTriangleLeft.anchor.setTo(0.5);
+		game.menuTriangleRight.anchor.setTo(0.5);
+		game.menuTriangleLeft.angle = 180;
+		game.menuTriangleLeftPlusX = 0;
+		game.menuTriangleRightPlusX = 0;
+
 	},
 	update: function() {
+		
+		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
+		game.menuTitle.y = 150 + game.menuTitlePlusY;
+
+		for (var i = 0; i < game.menuOptionsText.length; i++) {
+			game.menuOptionsText[i].y = 400 + (i * 50) - game.menuTitlePlusY;
+			if (game.menuOptionCurrent == i) {
+				game.menuGraphicsYDest = game.menuOptionsText[i].y - 30;
+			}
+		}
+		game.menuGraphics.y = approachSmooth(game.menuGraphics.y, game.menuGraphicsYDest, 6);
+
+
+		// show arrows if on option 1 (mode select)
+		if (game.menuOptionCurrent == 1) {
+			game.menuTriangleLeft.alpha = 1;
+			game.menuTriangleRight.alpha = 1;
+
+			// change modes if player presses LEFT while on option 1
+			if (game.input.keyboard.justPressed(Phaser.Keyboard.LEFT)) {
+				if (game.currentMode > 0) {
+					game.currentMode--;
+				}
+				else {
+					game.currentMode = game.menuModes.length - 1;
+				}
+				game.menuTriangleLeftPlusX += 20;
+			}
+
+			// change modes if player presses RIGHT while on option 1
+			if (game.input.keyboard.justPressed(Phaser.Keyboard.RIGHT)) {
+				if (game.currentMode < game.menuModes.length - 1) {
+					game.currentMode++;
+				}
+				else {
+					game.currentMode = 0;
+				}
+				game.menuTriangleRightPlusX += 20;
+			}
+		}
+		else {
+			game.menuTriangleLeft.alpha = 0;
+			game.menuTriangleRight.alpha = 0;
+		}
+		
+		game.menuOptionsText[1].text = game.menuModes[game.currentMode];
+
+		game.menuTriangleLeftPlusX = approachSmooth(game.menuTriangleLeftPlusX, 0, 8);
+		game.menuTriangleRightPlusX = approachSmooth(game.menuTriangleRightPlusX, 0, 8);
+
+		game.menuTriangleLeft.x = (game.world.width / 2) - 100 - game.menuTriangleLeftPlusX;
+		game.menuTriangleLeft.y = game.menuGraphics.y + (game.menuGraphics.height / 2);
+		game.menuTriangleRight.x = (game.world.width / 2) + 100 + game.menuTriangleRightPlusX;
+		game.menuTriangleRight.y = game.menuGraphics.y + (game.menuGraphics.height / 2);
+
+
+
+		
+		// player cycles through options using UP and DOWN
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)) {
+			if (game.menuOptionCurrent < game.menuOptions.length - 1) {
+				game.menuOptionCurrent++;
+			}
+			else {
+				game.menuOptionCurrent = 0;
+			}
+		}
+		else if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)) {
+			if (game.menuOptionCurrent > 0) {
+				game.menuOptionCurrent--;
+			}
+			else {
+				game.menuOptionCurrent = game.menuOptions.length - 1;
+			}
+		}
+
+		// player selects option with SPACE
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
+			console.log("menuOptionCurrent: " + game.menuOptionCurrent);
+			if (game.menuOptionCurrent == 0) {
+				// play game
+				game.state.start('Play');
+			}
+			else if (game.menuOptionCurrent == 2) {
+				// show credits
+			}
+		}
+
 
 	}
 }

@@ -22,6 +22,7 @@ var emitter;
 game.state.add('Boot', Boot);
 game.state.add('Preload', Preload);
 game.state.add('LogoScreen', LogoScreen);
+game.state.add('MainMenu', MainMenu);
 game.state.add('Play', Play);
 game.state.add('GameOver', GameOver);
 
