@@ -39,6 +39,7 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 
 	this.heart = (key == 'heart');
 	this.plus = (key == 'plus');
+	this.star = (key =='star');
 
 	game.physics.enable(this);
 }
@@ -77,7 +78,13 @@ Avoid.prototype.update = function() {
 		else if (this.plus) {
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
-			game.currentScore += 1;
+			game.currentScore += 10;
+			game.hitPlusSound.play('',0,.5,false);
+		}
+		else if (this.star) {
+			console.log("collision with star");
+			game.starsColl++;
+			game.currentScore += 50;
 			game.hitPlusSound.play('',0,.5,false);
 		}
 		else {
