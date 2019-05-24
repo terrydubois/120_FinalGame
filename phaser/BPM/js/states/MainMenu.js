@@ -69,10 +69,13 @@ MainMenu.prototype = {
 		if (game.debugControls) {
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.L)) {
 				game.starsColl++;
+
 			}
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.K)) {
 				game.starsColl--;
 			}
+
+			localStorage.setItem('starsColl', game.starsColl.toString());
 		}
 
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';

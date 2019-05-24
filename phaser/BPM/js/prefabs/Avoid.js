@@ -83,6 +83,13 @@ Avoid.prototype.update = function() {
 		}
 		else if (this.star) {
 			console.log("collision with star");
+
+let storedStars = parseInt(localStorage.getItem('starsColl'));
+
+			game.storedStars ++;
+
+			localStorage.setItem('starsColl', game.starsColl.toString());
+
 			game.starsColl++;
 			game.currentScore += 50;
 			game.hitPlusSound.play('',0,.5,false);

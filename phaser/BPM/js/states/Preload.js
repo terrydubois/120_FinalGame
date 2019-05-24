@@ -48,12 +48,8 @@ Preload.prototype = {
 		}
 		else {
 
-			// in this case, we have a saved browser highscore, so we compare it to this score
-			let storedStars = parseInt(localStorage.getItem('starsColl'));
-
-				game.starsColl = game.storedStars;
-
-				console.log("loading in previous stars");
+			game.starsColl = parseInt(localStorage.getItem('starsColl'));	
+			console.log("loading in previous stars");
 			
 		}
 
