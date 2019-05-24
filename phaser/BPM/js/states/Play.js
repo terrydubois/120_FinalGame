@@ -202,7 +202,8 @@ Play.prototype = {
 			game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
-			
+			game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnStar, this);
+						
 
 			game.song1.play('',0,1,true);
 			game.song1._sound.playbackRate.value = .7
@@ -355,6 +356,26 @@ function spawnCollect() {
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnCollect, this);
+}
+
+
+
+// star spawner
+function spawnStar() {
+	var newEnemySpeed = Math.random() * 350;
+	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 350);
+	game.Star = new Avoid(game, 'star', 'star', .5, 0, game.playerPos, newEnemySpeed);
+	game.add.existing(game.Star);
+
+	// set up how long to wait until next plus spawn
+	var timeTilNextSpawn = Math.random() * 50;
+	var minTimeTilNextSpawn = 30;
+	var maxTimeTilNextSpawn = 45;
+	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
+	console.log("time til next plus: " + timeTilNextSpawn);
+
+	// call this function again in "timeTilNextSpawn" seconds
+	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnStar, this);
 }
 
 
