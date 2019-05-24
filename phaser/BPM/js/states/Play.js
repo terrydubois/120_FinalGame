@@ -193,7 +193,8 @@ Play.prototype = {
 
 
 		//player input control to start game
-		if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && !game.hasStarted) {
+		if ((game.input.keyboard.isDown(Phaser.Keyboard.UP) && !game.hasStarted)
+		|| (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.hasStarted)) {
 
 			//timer to switch sides
 			game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
@@ -204,23 +205,6 @@ Play.prototype = {
 			game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnStar, this);
 						
-
-			game.song1.play('',0,1,true);
-			game.song1._sound.playbackRate.value = .7
-			this.beat.play('',0,.5,false);
-			game.hasStarted = true;
-		}
-
-		if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN && !game.hasStarted)) {
-
-			//timer to switch sides
-			game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
-
-			//timers to spawn objects
-			game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
-			game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
-			game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
-
 
 			game.song1.play('',0,1,true);
 			game.song1._sound.playbackRate.value = .7
@@ -246,7 +230,7 @@ Play.prototype = {
 		if (game.playerPos == 1 && game.hasStarted) {
 			game.player.x = approach(game.player.x, game.posLeft, game.playerXSpeed);
 		}
-		else if(game.playerPos == 0 && game.hasStarted) {
+		else if (game.playerPos == 0 && game.hasStarted) {
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
 		}
 		else{
