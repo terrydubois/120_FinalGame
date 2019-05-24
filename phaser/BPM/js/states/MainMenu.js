@@ -41,6 +41,7 @@ MainMenu.prototype = {
 		game.menuTriangleLeft.angle = 180;
 		game.menuTriangleLeftPlusX = 0;
 		game.menuTriangleRightPlusX = 0;
+		game.menuTriangleAlphaDest = 0;
 
 	},
 	update: function() {
@@ -59,8 +60,8 @@ MainMenu.prototype = {
 
 		// show arrows if on option 1 (mode select)
 		if (game.menuOptionCurrent == 1) {
-			game.menuTriangleLeft.alpha = 1;
-			game.menuTriangleRight.alpha = 1;
+			game.menuTriangleAlphaDest = 1;
+			game.menuTriangleAlphaDest = 1;
 
 			// change modes if player presses LEFT while on option 1
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.LEFT)) {
@@ -85,14 +86,16 @@ MainMenu.prototype = {
 			}
 		}
 		else {
-			game.menuTriangleLeft.alpha = 0;
-			game.menuTriangleRight.alpha = 0;
+			game.menuTriangleAlphaDest = 0;
+			game.menuTriangleAlphaDest = 0;
 		}
 		
 		game.menuOptionsText[1].text = game.menuModes[game.currentMode];
 
 		game.menuTriangleLeftPlusX = approachSmooth(game.menuTriangleLeftPlusX, 0, 8);
 		game.menuTriangleRightPlusX = approachSmooth(game.menuTriangleRightPlusX, 0, 8);
+		game.menuTriangleLeft.alpha = Phaser.Math.clamp(approach(game.menuTriangleLeft.alpha, game.menuTriangleAlphaDest, 0.25), 0, 1);
+		game.menuTriangleRight.alpha = game.menuTriangleLeft.alpha;
 
 		game.menuTriangleLeft.x = (game.world.width / 2) - 100 - game.menuTriangleLeftPlusX;
 		game.menuTriangleLeft.y = game.menuGraphics.y + (game.menuGraphics.height / 2);
