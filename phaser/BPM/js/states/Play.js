@@ -203,7 +203,7 @@ Play.prototype = {
 			game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
-			game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnStar, this);
+			game.time.events.repeat(Phaser.Timer.SECOND * 30, 1, spawnStar, this);
 						
 
 			game.song1.play('',0,1,true);
