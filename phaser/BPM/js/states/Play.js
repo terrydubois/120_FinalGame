@@ -264,9 +264,9 @@ Play.prototype = {
 			game.switchRate -=.03;
 			game.song1._sound.playbackRate.value += .1;
 
-			game.posLeft += 20;
-			leftside.x += 20;
-			rightside.x -= 20;
+			//game.posLeft += 20;
+			//leftside.x += 20;
+			//rightside.x -= 20;
 		}
 
 
