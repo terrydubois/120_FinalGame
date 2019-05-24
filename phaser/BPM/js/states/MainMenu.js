@@ -46,6 +46,7 @@ MainMenu.prototype = {
 		game.menuTriangleRightPlusX = 0;
 		game.menuTriangleAlphaDest = 0;
 
+		game.currentModeUnlocked = false;
 		game.modeStarsToUnlock = [0, 1, 5, 10];
 		game.starCountMenuSprite = game.add.sprite(40, 40, 'star');
 		game.starCountMenuSprite.scale.setTo(0.4);
@@ -153,6 +154,9 @@ MainMenu.prototype = {
 		else {
 			game.flavorTextPlusYDest = 100;
 		}
+
+		game.currentModeLocked = (game.modeStarsToUnlock[game.currentMode] > game.starsColl);
+
 		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest, 8);
 		game.flavorText.y = (game.world.height - 30) + game.flavorTextPlusY;
 
@@ -180,8 +184,9 @@ MainMenu.prototype = {
 		}
 
 		// player selects option with SPACE
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
-		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
+		if ((game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER))
+		&& !game.currentModeLocked) {
 			console.log("menuOptionCurrent: " + game.menuOptionCurrent);
 			if (game.menuOptionCurrent == 0) {
 				// play game
