@@ -17,6 +17,7 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO);
 
 var highscore;
 game.starsColl = 0;
+game.debugControls = false;
 
 var emitter;
 

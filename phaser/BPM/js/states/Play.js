@@ -69,7 +69,7 @@ Play.prototype = {
 
 */
 
-		game.debugControls = false;
+		
 
 		// setup hearts
 		game.maxHearts = 7;
@@ -156,11 +156,6 @@ Play.prototype = {
 		}
 
 
-		// take out for final game
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT)) {
-			game.debugControls = !game.debugControls;
-			console.log("DEBUG CONTROLS: " + game.debugControls);
-		}
 
 		//waveform scrolling
  		rightside.tilePosition.y -= .33;

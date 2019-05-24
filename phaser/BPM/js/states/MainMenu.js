@@ -59,7 +59,23 @@ MainMenu.prototype = {
 	},
 	update: function() {
 
-		game.starCountMenuText.text = 'x ' + game.starsColl + ' ';
+
+							// take out for final game
+							if (game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT)) {
+								game.debugControls = !game.debugControls;
+								console.log("DEBUG CONTROLS: " + game.debugControls);
+							}
+
+		if (game.debugControls) {
+			if (game.input.keyboard.justPressed(Phaser.Keyboard.L)) {
+				game.starsColl++;
+			}
+			if (game.input.keyboard.justPressed(Phaser.Keyboard.K)) {
+				game.starsColl--;
+			}
+		}
+
+		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
 		
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
 		game.menuTitle.y = 150 + game.menuTitlePlusY;
