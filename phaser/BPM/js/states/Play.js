@@ -126,6 +126,8 @@ Play.prototype = {
 
 		game.currentScore = 0;
 
+		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnBGCircle, this);
+
 	},
 	update: function() {
 
@@ -497,4 +499,19 @@ function gameplayHUD() {
 			game.heartSprite[i].scale.setTo(0.5);
 		}
 	}
+}
+
+
+//heart spawner
+function spawnBGCircle() {
+
+	game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+	game.add.existing(game.bgCircle);
+
+
+	// set up how long to wait until next heart spawn
+	var timeTilNextSpawn = 1;
+
+	// call this function again in "timeTilNextSpawn" seconds
+	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnBGCircle, this);
 }
