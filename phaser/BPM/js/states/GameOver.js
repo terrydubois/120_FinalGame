@@ -8,9 +8,16 @@ GameOver.prototype = {
 		console.log('GameOver: create');
 		game.add.sprite(0,0,'sky');
 		gameover = game.add.sprite(0,0,'goscreen');
-		gameover.scale.setTo(0.5);
 
 		game.highScore = 0;
+
+		game.player = game.add.sprite(game.world.width/2,game.world.height/2+180,'player');
+		game.player.anchor.setTo(.5);
+		game.player.scale.setTo(1);
+
+		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
+		game.player.animations.play('squiggle');
+
 
 
 		// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
@@ -45,8 +52,8 @@ GameOver.prototype = {
 		}
 
 		// game over text
-		game.scoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 135, game.currentScore, { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
-		game.highScoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 60, game.highScore, { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
+		game.scoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 115, game.currentScore+"  ", { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
+		game.highScoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 30, game.highScore+"  ", { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
 
 
 		if (newHS) {
