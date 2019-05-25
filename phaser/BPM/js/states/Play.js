@@ -127,7 +127,7 @@ Play.prototype = {
 		game.currentScore = 0;
 
 		// start BG animation
-		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnBGCircle, this);
+		//game.time.events.repeat(Phaser.Timer.SECOND * 0.25, 1, spawnBGCircle, this);
 		game.bgGroup = game.add.group();
 		game.add.existing(game.bgGroup);
 
@@ -213,6 +213,8 @@ Play.prototype = {
 			game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 30, 1, spawnStar, this);
+
+			spawnBGCircle();
 						
 
 			game.waveScaleDest = game.maxScale;	
