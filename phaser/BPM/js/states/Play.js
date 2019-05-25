@@ -203,7 +203,9 @@ Play.prototype = {
 
 		//player input control to start game
 		if ((game.input.keyboard.isDown(Phaser.Keyboard.UP) && !game.hasStarted)
-		|| (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.hasStarted)) {
+		|| (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.hasStarted)
+		|| (game.input.keyboard.isDown(Phaser.Keyboard.W) && !game.hasStarted)
+		|| (game.input.keyboard.isDown(Phaser.Keyboard.S) && !game.hasStarted)) {
 
 			//timer to switch sides
 			game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
@@ -228,10 +230,12 @@ Play.prototype = {
 
 
 		//player input control
-		if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+		if (game.input.keyboard.isDown(Phaser.Keyboard.UP)
+		|| game.input.keyboard.isDown(Phaser.Keyboard.W)) {
 			game.player.y -= game.playerYSpeed;
 		}
-		if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+		if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
+		|| game.input.keyboard.isDown(Phaser.Keyboard.S)) {
 			game.player.y += game.playerYSpeed;
 		}
 
