@@ -25,6 +25,35 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 		this.yVelocity = ySpeed; 	
 	}
 
+		this.colliderEmitter = game.add.emitter(xPos,yPos, 50);
+		this.colliderEmitter.minParticleScale = 0.2;
+		this.colliderEmitter.maxParticleScale = 0.5;
+
+	if(key == 'heart'){
+
+			this.colliderEmitter.makeParticles('heartP');
+	}
+
+	else if(key == 'plus'){
+
+			this.colliderEmitter.makeParticles('plusP');
+	}
+
+	else if(key == 'star'){
+
+			this.colliderEmitter.makeParticles('starP');
+	}
+	else{
+			this.colliderEmitter.makeParticles('skullP');
+
+	}
+
+	
+		this.colliderEmitter.setAlpha(1, 0, 500);
+    	this.colliderEmitter.start(false, 5000, 250);
+
+
+
 	Phaser.Sprite.call(this, game, xPos, yPos, key, frame);
 
 	// set other essential variables for this object
@@ -41,6 +70,9 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	this.plus = (key == 'plus');
 	this.star = (key =='star');
 
+
+
+
 	game.physics.enable(this);
 }
 
@@ -52,6 +84,8 @@ Avoid.prototype.update = function() {
 
 	// make this move forward
 	this.body.velocity.y = this.yVelocity;
+
+this.colliderEmitter.y = this.y;
 
 
 	// destroy this obstacle if it is out of bounds
@@ -68,7 +102,8 @@ Avoid.prototype.update = function() {
 	&& !game.hasHitPlayer&& !this.hasHitPlayer) {
 		
 		this.hasHitPlayer = true;
-		this.kill();
+		this.destroy();
+		this.colliderEmitter.destroy();
 
 		if (this.heart) {
 			console.log("collision with heart");

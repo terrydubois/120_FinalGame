@@ -312,6 +312,10 @@ function spawnEnemy() {
 	game.enemy = new Avoid(game, 'skull', 'skull', .5, 0, game.playerPos, newEnemySpeed);
 	game.add.existing(game.enemy);
 
+
+
+
+
 	// decrease time until next spawn as levels progress
 	var maxTimeTilNextSpawn = 2;
 	var minTimeTilNextSpawn = 1;

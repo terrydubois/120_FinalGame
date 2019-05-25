@@ -21,6 +21,10 @@ Preload.prototype = {
 		game.load.image('barFill','assets/img/barFill.png');
 		game.load.image('barOutline','assets/img/barOutline.png');
 		game.load.image('particle','assets/img/particle.png');
+		game.load.image('skullP','assets/img/skullCut.png');
+		game.load.image('heartP','assets/img/heart1Cut.png');
+		game.load.image('plusP','assets/img/plusCut.png');	
+		game.load.image('starP','assets/img/starCut.png');	
 		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
 
 
