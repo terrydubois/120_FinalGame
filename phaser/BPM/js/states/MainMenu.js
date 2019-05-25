@@ -166,7 +166,8 @@ MainMenu.prototype = {
 
 		
 		// player cycles through options using UP and DOWN
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)) {
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.S)) {
 			if (game.menuOptionCurrent < game.menuOptions.length - 1) {
 				game.menuOptionCurrent++;
 			}
@@ -174,7 +175,8 @@ MainMenu.prototype = {
 				game.menuOptionCurrent = 0;
 			}
 		}
-		else if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)) {
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.W)) {
 			if (game.menuOptionCurrent > 0) {
 				game.menuOptionCurrent--;
 			}
