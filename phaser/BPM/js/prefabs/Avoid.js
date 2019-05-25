@@ -91,9 +91,11 @@ this.colliderEmitter.y = this.y;
 	// destroy this obstacle if it is out of bounds
 	if (this.goingUp && this.y < -100) {
 		this.destroy();
+			this.colliderEmitter.destroy();
 	}
 	else if (!this.goingUp && this.y > game.world.height + 100) {
 		this.destroy();
+		this.colliderEmitter.destroy();
 	}
 
 
