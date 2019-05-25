@@ -124,7 +124,10 @@ Play.prototype = {
 	},
 	update: function() {
 
+		
+
 		game.fpsText.text = "fps: " + (game.time.fps);
+		
 
 		buldge();
 
@@ -229,13 +232,13 @@ Play.prototype = {
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
 		}
 		else{
-// sweeg
 		}
 
 
 
 		// level up every time currentPlussesToLevelUp hits zero
-		if (game.currentPlussesToLevelUp <= 0) {
+		if (game.currentPlussesToLevelUp <= 0
+		|| (game.debugControls && game.input.keyboard.justPressed(Phaser.Keyboard.O))) {
 			game.level++;
 			game.plussesToLevelUp++;
 			game.currentPlussesToLevelUp = game.plussesToLevelUp;
@@ -259,7 +262,10 @@ Play.prototype = {
 
 
 		gameplayHUD();
+
+		
 	}
+	
 }
 
 
@@ -279,6 +285,7 @@ function switchSides() {
 
 	// repeat this function
 	game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
+	
 }
 
 
@@ -457,7 +464,7 @@ function gameplayHUD() {
 	for (var i = 0; i < game.maxHearts; i++) {
 
 		if (game.heartSprite[i] != -1) {
-			game.heartSprite[i].kill();
+			game.heartSprite[i].destroy();
 			game.heartSprite[i] = -1;
 		}
 
