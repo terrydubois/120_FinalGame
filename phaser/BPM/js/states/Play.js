@@ -341,9 +341,26 @@ function spawnCollect() {
 	game.add.existing(game.Heart);
 
 	// set up how long to wait until next plus spawn
-	var timeTilNextSpawn = Math.random() * 10;
-	var minTimeTilNextSpawn = 4;
+	var minTimeTilNextSpawn = 3;
 	var maxTimeTilNextSpawn = 8;
+	if (game.level == 1) {
+		maxTimeTilNextSpawn = 7;
+	}
+	else if (game.level == 2) {
+		maxTimeTilNextSpawn = 6;
+	}
+	else if (game.level == 3) {
+		maxTimeTilNextSpawn = 5;
+	}
+	else if (game.level == 4) {
+		maxTimeTilNextSpawn = 4;
+	}
+	else {
+		maxTimeTilNextSpawn = 3;
+	}
+	
+		var timeTilNextSpawn = Math.random() * 10;
+
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next plus: " + timeTilNextSpawn);
 
