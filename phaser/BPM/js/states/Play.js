@@ -14,7 +14,7 @@ Play.prototype = {
 
 		game.time.advancedTiming = true;
 
-		game.add.sprite(0,0,'sky');
+		game.bgFill = game.add.sprite(0,0,'sky');
 
         // add music
 		game.song1 = game.add.audio('BETA');
@@ -126,7 +126,10 @@ Play.prototype = {
 
 		game.currentScore = 0;
 
+		// start BG animation
 		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnBGCircle, this);
+		game.bgGroup = game.add.group();
+		game.add.existing(game.bgGroup);
 
 	},
 	update: function() {
@@ -506,11 +509,14 @@ function gameplayHUD() {
 function spawnBGCircle() {
 
 	game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
-	game.add.existing(game.bgCircle);
+	game.bgGroup.add(game.bgCircle);
+	game.world.sendToBack(game.bgGroup);
+	game.world.sendToBack(game.bgFill);
+
 
 
 	// set up how long to wait until next heart spawn
-	var timeTilNextSpawn = 1;
+	var timeTilNextSpawn = 0.25;
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnBGCircle, this);

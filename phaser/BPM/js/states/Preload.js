@@ -21,7 +21,7 @@ Preload.prototype = {
 		game.load.image('barFill','assets/img/barFill.png');
 		game.load.image('barOutline','assets/img/barOutline.png');
 		game.load.image('particle','assets/img/particle.png');
-		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircleTemp.png');
+		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
 
 
 		//LOAD AUDIO

@@ -20,7 +20,7 @@ BGCircle.prototype.constructor = Avoid;
 BGCircle.prototype.update = function() {
 
 	if (this.scale.x < 1) {
-		this.scale.x += 0.01;
+		this.scale.x += 0.005;
 		this.scale.y = this.scale.x;
 	}
 	else {
