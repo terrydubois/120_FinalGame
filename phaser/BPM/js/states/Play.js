@@ -38,8 +38,10 @@ Play.prototype = {
 
 		rightside = game.add.tileSprite(game.posRight, 0, 127, 1800, 'waveformR');
 		rightside.anchor.setTo(.5);
+		rightside.scale.x  = .2;
         leftside = game.add.tileSprite(game.posLeft, 0, 127, 1800, 'waveformL');
         leftside.anchor.setTo(.5);
+        leftside.scale.x  = .2;
 
 		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
 		game.player.anchor.setTo(.5);
@@ -110,12 +112,15 @@ Play.prototype = {
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
 
-		//sprite scaling variables
+		//sprite scaling variables for player
 		game.minScale = 0.6;
 		game.maxScale = 0.8;
-		game.scaleFactor = .01
+		game.scaleFactor = .01;
 		game.isBig = false;
 
+		//sprite scaling variables for waves
+		game.playerPosChanged = 0;
+		game.waveScaleDest = .2;
 
 		game.hasStarted = false;
 
@@ -130,6 +135,7 @@ Play.prototype = {
 		
 
 		buldge();
+		buldgeWaves();
 
 		emitter.emitX = game.player.x;
 		emitter.emitY = game.player.y;
@@ -282,6 +288,7 @@ function switchSides() {
 		this.beat.play('',0,.5,false);
 		game.hasHitPlayer = false;
 	}
+	game.playerPosChanged = 1;
 
 	// repeat this function
 	game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
@@ -387,10 +394,7 @@ function spawnHealth() {
 function buldge(){
 
 	if(game.player.scale.x < game.maxScale && game.isBig == false){
-		game.player.scale.setTo(game.player.scale.x += game.scaleFactor,game.player.scale.y += game.scaleFactor);
-
-		rightside.scale.setTo(rightside.scale.x += game.scaleFactor, rightside.scale.y);
-		leftside.scale.setTo(leftside.scale.x += game.scaleFactor, leftside.scale.y);
+		game.player.scale.setTo(game.player.scale.x += game.scaleFactor, game.player.scale.y += game.scaleFactor);
 	}
 	if(game.player.scale.x >= game.maxScale){
 		game.isBig = true;
@@ -399,14 +403,31 @@ function buldge(){
 
 	if(game.player.scale.x > game.minScale && game.isBig == true){
 		game.player.scale.setTo(game.player.scale.x -= game.scaleFactor,game.player.scale.y -= game.scaleFactor);
-
-		rightside.scale.setTo(rightside.scale.x -= game.scaleFactor, rightside.scale.y);
-		leftside.scale.setTo(leftside.scale.x -= game.scaleFactor, leftside.scale.y);
-
 	}
 	if(game.player.scale.x <= game.minScale){
 		game.isBig = false;
 	}
+}
+
+function buldgeWaves(){
+	if (game.playerPosChanged){
+		game.playerPosChanged = 0;
+
+		game.waveScaleDest = game.maxScale;
+	}
+
+	if (Math.abs(rightside.scale.x - game.maxScale) < 0.1) {
+		game.waveScaleDest = 0.2;
+	}
+	
+
+	if (rightside.scale.x < game.waveScaleDest) {
+		rightside.scale.x += Math.abs(rightside.scale.x - game.waveScaleDest) / 4;
+	}
+	else if (rightside.scale.x > game.waveScaleDest) {
+		rightside.scale.x -= Math.abs(rightside.scale.x - game.waveScaleDest) / 16;	
+	}
+	leftside.scale.x = rightside.scale.x;
 }
 
 
