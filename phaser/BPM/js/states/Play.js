@@ -23,9 +23,11 @@ Play.prototype = {
 
 
 		emitter = game.add.emitter(game.world.width/2,game.world.height/2+175, 250);
-		emitter.makeParticles('particle');
+		emitter.makeParticles('player');
 
-		emitter.setAlpha(1, 0.0, 500);
+		emitter.minParticleScale = 0.3;
+		emitter.maxParticleScale = 0.5;
+		emitter.setAlpha(1, 0.0, 250);
     	emitter.start(false, 5000, 50);
 
 
