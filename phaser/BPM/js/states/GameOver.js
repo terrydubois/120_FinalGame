@@ -57,7 +57,7 @@ GameOver.prototype = {
 
 
 		if (newHS) {
-			game.newHSText = game.add.text(game.world.width / 2 - 300 ,(game.world.height / 2) - 40, "NEW", { fontSize: '40px',fill:'#FFCC33',fontStyle: 'italic'});
+			game.newHSText = game.add.text(game.world.width / 2 - 300 ,(game.world.height / 2) +10, "NEW  ", { fontSize: '40px',fill:'#FFCC33',fontStyle: 'italic'});
 		}
 	},
 	update: function(){
