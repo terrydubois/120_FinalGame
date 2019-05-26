@@ -98,8 +98,13 @@ Play.prototype = {
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
 
+		// text for score
+		game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {fontStyle: 'italic', fontSize: '50px', fill: '#000', align: 'center'});
+		game.scoreText.anchor.setTo(1);
+		game.scoreTextDisplay = 0;
 
 
+		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
 
@@ -128,8 +133,7 @@ Play.prototype = {
 
 		game.currentScore = 0;
 
-		// start BG animation
-		//game.time.events.repeat(Phaser.Timer.SECOND * 0.25, 1, spawnBGCircle, this);
+		// add group for BG sprites
 		game.bgGroup = game.add.group();
 		game.add.existing(game.bgGroup);
 
@@ -514,6 +518,15 @@ function gameplayHUD() {
 	// update level text
 	game.speedupText.text = 'LEVEL ' + game.level;
 	game.speedupText2.text = 'LEVEL ' + game.level;
+
+	// update score text
+	if (game.scoreTextDisplay < game.currentScore) {
+		game.scoreTextDisplay++;
+	}
+	else if (game.scoreTextDisplay > game.currentScore) {
+		game.scoreTextDisplay = game.currentScore;
+	}
+	game.scoreText.text = game.scoreTextDisplay + '  ';
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 

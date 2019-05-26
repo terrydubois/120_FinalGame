@@ -1,5 +1,5 @@
-// bg Circle constructor
-function BGCircle(game, key, frame, scale, rotation) {
+// bg Flash constructor
+function Flash(game, key, frame, scale, rotation) {
 
 	Phaser.Sprite.call(this, game, game.world.width / 2, game.world.height / 2, key, frame);
 
@@ -11,15 +11,14 @@ function BGCircle(game, key, frame, scale, rotation) {
 	this.alpha = 1;
 }
 
-BGCircle.prototype = Object.create(Phaser.Sprite.prototype);
-BGCircle.prototype.constructor = Avoid;
+Flash.prototype = Object.create(Phaser.Sprite.prototype);
+Flash.prototype.constructor = Avoid;
 
 // override update function
-BGCircle.prototype.update = function() {
+Flash.prototype.update = function() {
 
-	if (this.scale.x < 1) {
-		this.scale.x += 0.005;
-		this.scale.y = this.scale.x;
+	if (this.alpha > 0) {
+		this.alpha -= 0.01;
 	}
 	else {
 		this.destroy();
