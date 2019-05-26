@@ -99,8 +99,10 @@ Play.prototype = {
 		game.speedupText2.anchor.setTo(0.5);
 
 		// text for score
-		game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {fontStyle: 'italic', fontSize: '50px', fill: '#000', align: 'center'});
+		game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
 		game.scoreText.anchor.setTo(1);
+	    game.scoreText.stroke = '#299F2D';
+    	game.scoreText.strokeThickness = 2;
 		game.scoreTextDisplay = 0;
 
 
