@@ -61,7 +61,7 @@ Preload.prototype = {
 
 			game.starsColl = parseInt(localStorage.getItem('starsColl'));
 			
-			game.starsColl = 0;
+			//game.starsColl = 0;
 			console.log("loading in previous stars");
 			
 		}
