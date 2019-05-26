@@ -9,8 +9,6 @@ function BGCircle(game, key, frame, scale, rotation) {
 	this.scale.y = scale;
 	this.rotation = rotation;
 	this.alpha = 1;
-
-	//game.physics.enable(this);
 }
 
 BGCircle.prototype = Object.create(Phaser.Sprite.prototype);

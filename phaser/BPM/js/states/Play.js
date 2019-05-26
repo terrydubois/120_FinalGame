@@ -98,8 +98,13 @@ Play.prototype = {
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
 
+		// text for score
+		game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {fontStyle: 'italic', fontSize: '50px', fill: '#000', align: 'center'});
+		game.scoreText.anchor.setTo(1);
+		game.scoreTextDisplay = 0;
 
 
+		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
 
@@ -128,10 +133,11 @@ Play.prototype = {
 
 		game.currentScore = 0;
 
-		// start BG animation
-		//game.time.events.repeat(Phaser.Timer.SECOND * 0.25, 1, spawnBGCircle, this);
+		// add group for BG sprites
 		game.bgGroup = game.add.group();
 		game.add.existing(game.bgGroup);
+		game.bgFlashGroup = game.add.group();
+		game.add.existing(game.bgFlashGroup);
 
 	},
 	update: function() {
@@ -500,6 +506,10 @@ function approachSmooth(value, valueDest, divisor) {
 
 
 function gameplayHUD() {
+	
+	game.world.sendToBack(game.bgGroup);
+	game.world.sendToBack(game.bgFlashGroup);
+	game.world.sendToBack(game.bgFill);
 
 	// debug controls
 	if (game.debugControls) {
@@ -514,6 +524,15 @@ function gameplayHUD() {
 	// update level text
 	game.speedupText.text = 'LEVEL ' + game.level;
 	game.speedupText2.text = 'LEVEL ' + game.level;
+
+	// update score text
+	if (game.scoreTextDisplay < game.currentScore) {
+		game.scoreTextDisplay++;
+	}
+	else if (game.scoreTextDisplay > game.currentScore) {
+		game.scoreTextDisplay = game.currentScore;
+	}
+	game.scoreText.text = game.scoreTextDisplay + '  ';
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 
@@ -542,8 +561,6 @@ function spawnBGCircle() {
 
 	game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
 	game.bgGroup.add(game.bgCircle);
-	game.world.sendToBack(game.bgGroup);
-	game.world.sendToBack(game.bgFill);
 
 
 
@@ -552,4 +569,22 @@ function spawnBGCircle() {
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnBGCircle, this);
+}
+
+function spawnFlash(type) {
+
+	if (type == 0) {
+		game.flashSprite = new Flash(game, 'flashBlack', 'flashBlack', 1, 0);
+	}
+	else if (type == 1) {
+		game.flashSprite = new Flash(game, 'flashGreen', 'flashGreen', 1, 0);
+	}
+	else if (type == 2) {
+		game.flashSprite = new Flash(game, 'flashHeart', 'flashHeart', 1, 0);
+	}
+	else if (type == 3) {
+		game.flashSprite = new Flash(game, 'flashYellow', 'flashYellow', 1, 0);
+	}
+	game.bgFlashGroup.add(game.flashSprite);
+	
 }
