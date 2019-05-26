@@ -84,6 +84,8 @@ Play.prototype = {
 			game.heartSprite[i] = -1;
 		}
 
+
+		game.HUDgroup = game.add.group();
 		// bar for speedup
 		game.barFill = game.add.sprite(game.world.width / 2, 20, 'barFill');		
 		game.barOutline = game.add.sprite(game.world.width / 2, 20, 'barOutline');
@@ -103,10 +105,18 @@ Play.prototype = {
 		game.scoreText.anchor.setTo(1);
 		game.scoreTextDisplay = 0;
 
+		// text for stars
+		game.starCountMenuSprite = game.add.sprite(game.world.width - 90, 80, 'star');
+		game.starCountMenuSprite.scale.setTo(0.25);
+		game.starCountMenuSprite.anchor.setTo(0.5);
+		game.starCountMenuText = game.add.text(game.world.width - 110, 95, '0  ', {font: 'Impact', fontStyle: 'italic', fontSize: '20px', fill: '#333', align: 'center'});
+		game.starCountMenuText.anchor.setTo(1);
+
 
 		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
+
 
 
 		game.plussesToLevelUp = 4;
@@ -533,6 +543,9 @@ function gameplayHUD() {
 		game.scoreTextDisplay = game.currentScore;
 	}
 	game.scoreText.text = game.scoreTextDisplay + '  ';
+
+	// update stars text
+	game.starCountMenuText.text = game.starsColl + '  ';
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 
