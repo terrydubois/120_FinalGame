@@ -136,6 +136,8 @@ Play.prototype = {
 		// add group for BG sprites
 		game.bgGroup = game.add.group();
 		game.add.existing(game.bgGroup);
+		game.bgFlashGroup = game.add.group();
+		game.add.existing(game.bgFlashGroup);
 
 	},
 	update: function() {
@@ -504,6 +506,10 @@ function approachSmooth(value, valueDest, divisor) {
 
 
 function gameplayHUD() {
+	
+	game.world.sendToBack(game.bgGroup);
+	game.world.sendToBack(game.bgFlashGroup);
+	game.world.sendToBack(game.bgFill);
 
 	// debug controls
 	if (game.debugControls) {
@@ -555,8 +561,6 @@ function spawnBGCircle() {
 
 	game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
 	game.bgGroup.add(game.bgCircle);
-	game.world.sendToBack(game.bgGroup);
-	game.world.sendToBack(game.bgFill);
 
 
 
@@ -565,4 +569,22 @@ function spawnBGCircle() {
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnBGCircle, this);
+}
+
+function spawnFlash(type) {
+
+	if (type == 0) {
+		game.flashSprite = new Flash(game, 'flashBlack', 'flashBlack', 1, 0);
+	}
+	else if (type == 1) {
+		game.flashSprite = new Flash(game, 'flashGreen', 'flashGreen', 1, 0);
+	}
+	else if (type == 2) {
+		game.flashSprite = new Flash(game, 'flashHeart', 'flashHeart', 1, 0);
+	}
+	else if (type == 3) {
+		game.flashSprite = new Flash(game, 'flashYellow', 'flashYellow', 1, 0);
+	}
+	game.bgFlashGroup.add(game.flashSprite);
+	
 }
