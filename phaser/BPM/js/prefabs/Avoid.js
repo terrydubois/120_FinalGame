@@ -110,32 +110,35 @@ this.colliderEmitter.y = this.y;
 		if (this.heart) {
 			console.log("collision with heart");
 			game.currentHearts++;
-			game.hitHeartSound.play('',0,.5,false);
+			game.hitHeartSound.play('', 0, 0.5, false);
+			spawnFlash(2);
 		}
 		else if (this.plus) {
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
 			game.currentScore += 10;
-			game.hitPlusSound.play('',0,.5,false);
+			game.hitPlusSound.play('', 0, 0.5, false);
+			spawnFlash(1);
 		}
 		else if (this.star) {
 			console.log("collision with star");
 
-let storedStars = parseInt(localStorage.getItem('starsColl'));
+			let storedStars = parseInt(localStorage.getItem('starsColl'));
 
-			game.storedStars ++;
+			game.storedStars++;
 
 			localStorage.setItem('starsColl', game.starsColl.toString());
-
 			game.starsColl++;
 			game.currentScore += 50;
-			game.hitPlusSound.play('',0,.5,false);
+			game.hitPlusSound.play('', 0, 0.5, false);
+			spawnFlash(3);
 		}
 		else {
 			console.log("collision with skull");
 			game.hasHitPlayer = true;
 			game.currentHearts--;
-			game.hitEnemySound.play('',0,.3,false);
+			game.hitEnemySound.play('', 0, 0.3, false);
+			spawnFlash(0);
 		}
 	}
 }

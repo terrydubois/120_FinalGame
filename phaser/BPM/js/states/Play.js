@@ -23,9 +23,11 @@ Play.prototype = {
 
 
 		emitter = game.add.emitter(game.world.width/2,game.world.height/2+175, 250);
-		emitter.makeParticles('particle');
+		emitter.makeParticles('player');
 
-		emitter.setAlpha(1, 0.0, 500);
+		emitter.minParticleScale = 0.3;
+		emitter.maxParticleScale = 0.5;
+		emitter.setAlpha(1, 0.0, 250);
     	emitter.start(false, 5000, 50);
 
 
@@ -82,6 +84,9 @@ Play.prototype = {
 			game.heartSprite[i] = -1;
 		}
 
+
+		game.HUDgroup = game.add.group();
+		game.add.existing(game.HUDgroup);
 		// bar for speedup
 		game.barFill = game.add.sprite(game.world.width / 2, 20, 'barFill');		
 		game.barOutline = game.add.sprite(game.world.width / 2, 20, 'barOutline');
@@ -89,17 +94,40 @@ Play.prototype = {
 		game.barOutline.anchor.setTo(0);
 		game.barFillWidthDest = 0;
 		game.barFill.width = 0;
+		game.HUDgroup.add(game.barFill);
+		game.HUDgroup.add(game.barOutline);
 
 		// text for leveling up
 		game.speedupText = game.add.text(game.world.width / 2, 55, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#fff', align: 'center'});
 		game.speedupText2 = game.add.text(game.world.width / 2 - 2, 55 - 2, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
+		game.HUDgroup.add(game.speedupText);
+		game.HUDgroup.add(game.speedupText2);
+
+		// text for score
+		game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
+		game.scoreText.anchor.setTo(1);
+	    game.scoreText.stroke = '#299F2D';
+    	game.scoreText.strokeThickness = 2;
+		game.scoreTextDisplay = 0;
+		game.HUDgroup.add(game.scoreText);
+
+		// text for stars
+		game.starCountMenuSprite = game.add.sprite(game.world.width - 90, 80, 'star');
+		game.starCountMenuSprite.scale.setTo(0.25);
+		game.starCountMenuSprite.anchor.setTo(0.5);
+		game.starCountMenuText = game.add.text(game.world.width - 110, 95, '0  ', {font: 'Impact', fontStyle: 'italic', fontSize: '20px', fill: '#333', align: 'center'});
+		game.starCountMenuText.anchor.setTo(1);
+		game.HUDgroup.add(game.starCountMenuSprite);
+		game.HUDgroup.add(game.starCountMenuText);
 
 
-
+		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
+		game.HUDgroup.add(game.fpsText);
+
 
 
 		game.plussesToLevelUp = 4;
@@ -126,10 +154,11 @@ Play.prototype = {
 
 		game.currentScore = 0;
 
-		// start BG animation
-		//game.time.events.repeat(Phaser.Timer.SECOND * 0.25, 1, spawnBGCircle, this);
+		// add group for BG sprites
 		game.bgGroup = game.add.group();
 		game.add.existing(game.bgGroup);
+		game.bgFlashGroup = game.add.group();
+		game.add.existing(game.bgFlashGroup);
 
 	},
 	update: function() {
@@ -498,6 +527,11 @@ function approachSmooth(value, valueDest, divisor) {
 
 
 function gameplayHUD() {
+	
+	game.world.sendToBack(game.bgGroup);
+	game.world.sendToBack(game.bgFlashGroup);
+	game.world.sendToBack(game.bgFill);
+	game.world.bringToTop(game.HUDgroup);
 
 	// debug controls
 	if (game.debugControls) {
@@ -512,6 +546,18 @@ function gameplayHUD() {
 	// update level text
 	game.speedupText.text = 'LEVEL ' + game.level;
 	game.speedupText2.text = 'LEVEL ' + game.level;
+
+	// update score text
+	if (game.scoreTextDisplay < game.currentScore) {
+		game.scoreTextDisplay++;
+	}
+	else if (game.scoreTextDisplay > game.currentScore) {
+		game.scoreTextDisplay = game.currentScore;
+	}
+	game.scoreText.text = game.scoreTextDisplay + '  ';
+
+	// update stars text
+	game.starCountMenuText.text = game.starsColl + '  ';
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 
@@ -540,8 +586,6 @@ function spawnBGCircle() {
 
 	game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
 	game.bgGroup.add(game.bgCircle);
-	game.world.sendToBack(game.bgGroup);
-	game.world.sendToBack(game.bgFill);
 
 
 
@@ -550,4 +594,22 @@ function spawnBGCircle() {
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnBGCircle, this);
+}
+
+function spawnFlash(type) {
+
+	if (type == 0) {
+		game.flashSprite = new Flash(game, 'flashBlack', 'flashBlack', 1, 0);
+	}
+	else if (type == 1) {
+		game.flashSprite = new Flash(game, 'flashGreen', 'flashGreen', 1, 0);
+	}
+	else if (type == 2) {
+		game.flashSprite = new Flash(game, 'flashHeart', 'flashHeart', 1, 0);
+	}
+	else if (type == 3) {
+		game.flashSprite = new Flash(game, 'flashYellow', 'flashYellow', 1, 0);
+	}
+	game.bgFlashGroup.add(game.flashSprite);
+	
 }

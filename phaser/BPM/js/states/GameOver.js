@@ -11,13 +11,20 @@ GameOver.prototype = {
 
 		game.highScore = 0;
 
+		//player scaling variables
+		game.minScale = 0.6;
+		game.maxScale = 0.8;
+		game.scaleFactor = .01;
+		game.isBig = false;
+
 		game.player = game.add.sprite(game.world.width/2,game.world.height/2+180,'player');
 		game.player.anchor.setTo(.5);
-		game.player.scale.setTo(1);
+		game.player.scale.setTo(game.maxScale, game.maxScale)
 
 		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
 		game.player.animations.play('squiggle');
 
+	
 
 
 		// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
@@ -57,12 +64,13 @@ GameOver.prototype = {
 
 
 		if (newHS) {
-			game.newHSText = game.add.text(game.world.width / 2 - 300 ,(game.world.height / 2) - 40, "NEW", { fontSize: '40px',fill:'#FFCC33',fontStyle: 'italic'});
+			game.newHSText = game.add.text(game.world.width / 2 - 300 ,(game.world.height / 2) - 10, "NEW  ", { fontSize: '40px',fill:'#FFCC33',fontStyle: 'italic'});
+
 		}
 	},
 	update: function(){
 		
-
+		buldge();
 
 		//esc key also goes back to play state
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
@@ -82,3 +90,23 @@ GameOver.prototype = {
 	
 	}
 }
+
+
+function buldge(){
+
+	if(game.player.scale.x < game.maxScale && game.isBig == false){
+		game.player.scale.setTo(game.player.scale.x += game.scaleFactor, game.player.scale.y += game.scaleFactor);
+	}
+	if(game.player.scale.x >= game.maxScale){
+		game.isBig = true;
+	}
+
+
+	if(game.player.scale.x > game.minScale && game.isBig == true){
+		game.player.scale.setTo(game.player.scale.x -= game.scaleFactor,game.player.scale.y -= game.scaleFactor);
+	}
+	if(game.player.scale.x <= game.minScale){
+		game.isBig = false;
+	}
+}
+
