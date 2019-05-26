@@ -126,7 +126,7 @@ let storedStars = parseInt(localStorage.getItem('starsColl'));
 			game.storedStars ++;
 
 			localStorage.setItem('starsColl', game.starsColl.toString());
-
+			//game.currentPlussesToLevelUp =0;
 			game.starsColl++;
 			game.currentScore += 50;
 			game.hitPlusSound.play('',0,.5,false);

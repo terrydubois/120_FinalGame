@@ -28,6 +28,7 @@ game.state.add('LogoScreen', LogoScreen);
 game.state.add('MainMenu', MainMenu);
 game.state.add('Play', Play);
 game.state.add('GameOver', GameOver);
+game.state.add('Credits', Credits);
 
 // start on Logo
 game.state.start('Boot');

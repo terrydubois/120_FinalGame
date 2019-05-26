@@ -196,6 +196,7 @@ MainMenu.prototype = {
 			}
 			else if (game.menuOptionCurrent == 2) {
 				// show credits
+				game.state.start('Credits');
 			}
 		}
 
