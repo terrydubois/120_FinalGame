@@ -84,6 +84,9 @@ Play.prototype = {
 			game.heartSprite[i] = -1;
 		}
 
+
+		game.HUDgroup = game.add.group();
+		game.add.existing(game.HUDgroup);
 		// bar for speedup
 		game.barFill = game.add.sprite(game.world.width / 2, 20, 'barFill');		
 		game.barOutline = game.add.sprite(game.world.width / 2, 20, 'barOutline');
@@ -91,12 +94,16 @@ Play.prototype = {
 		game.barOutline.anchor.setTo(0);
 		game.barFillWidthDest = 0;
 		game.barFill.width = 0;
+		game.HUDgroup.add(game.barFill);
+		game.HUDgroup.add(game.barOutline);
 
 		// text for leveling up
 		game.speedupText = game.add.text(game.world.width / 2, 55, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#fff', align: 'center'});
 		game.speedupText2 = game.add.text(game.world.width / 2 - 2, 55 - 2, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
+		game.HUDgroup.add(game.speedupText);
+		game.HUDgroup.add(game.speedupText2);
 
 		// text for score
 		game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
@@ -104,11 +111,23 @@ Play.prototype = {
 	    game.scoreText.stroke = '#299F2D';
     	game.scoreText.strokeThickness = 2;
 		game.scoreTextDisplay = 0;
+		game.HUDgroup.add(game.scoreText);
+
+		// text for stars
+		game.starCountMenuSprite = game.add.sprite(game.world.width - 90, 80, 'star');
+		game.starCountMenuSprite.scale.setTo(0.25);
+		game.starCountMenuSprite.anchor.setTo(0.5);
+		game.starCountMenuText = game.add.text(game.world.width - 110, 95, '0  ', {font: 'Impact', fontStyle: 'italic', fontSize: '20px', fill: '#333', align: 'center'});
+		game.starCountMenuText.anchor.setTo(1);
+		game.HUDgroup.add(game.starCountMenuSprite);
+		game.HUDgroup.add(game.starCountMenuText);
 
 
 		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
+		game.HUDgroup.add(game.fpsText);
+
 
 
 		game.plussesToLevelUp = 4;
@@ -512,6 +531,7 @@ function gameplayHUD() {
 	game.world.sendToBack(game.bgGroup);
 	game.world.sendToBack(game.bgFlashGroup);
 	game.world.sendToBack(game.bgFill);
+	game.world.bringToTop(game.HUDgroup);
 
 	// debug controls
 	if (game.debugControls) {
@@ -535,6 +555,9 @@ function gameplayHUD() {
 		game.scoreTextDisplay = game.currentScore;
 	}
 	game.scoreText.text = game.scoreTextDisplay + '  ';
+
+	// update stars text
+	game.starCountMenuText.text = game.starsColl + '  ';
 
 	game.currentHearts = Phaser.Math.clamp(game.currentHearts, 0, game.maxHearts);
 
