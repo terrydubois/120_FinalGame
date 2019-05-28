@@ -121,7 +121,11 @@ Practice.prototype = {
 			game.scoreTextArr[i].anchor.setTo(1);
 			game.HUDgroup.add(game.scoreTextArr[i]);
 		}
-		
+		//text to exit
+		game.escapeText = game.add.text(170, 30, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#000', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText);
+
 
 		// text for stars
 		game.starCountMenuSprite = game.add.sprite(game.world.width - 90, 80, 'star');
