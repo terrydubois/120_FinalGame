@@ -31,8 +31,6 @@ Practice.prototype = {
     	game.playerEmitter.start(false, 5000, 50);
 
 
-
-
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
 
@@ -121,7 +119,11 @@ Practice.prototype = {
 			game.scoreTextArr[i].anchor.setTo(1);
 			game.HUDgroup.add(game.scoreTextArr[i]);
 		}
-		
+		//text to exit
+		game.escapeText = game.add.text(170, 30, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#000', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText);
+
 
 		// text for stars
 		game.starCountMenuSprite = game.add.sprite(game.world.width - 90, 80, 'star');
@@ -284,6 +286,8 @@ Practice.prototype = {
 		|| game.input.keyboard.isDown(Phaser.Keyboard.S)) {
 			game.player.y += game.playerYSpeed;
 		}
+
+
 
 		//player bounds checking
 		game.player.y = Phaser.Math.clamp(game.player.y,0,game.world.height);
