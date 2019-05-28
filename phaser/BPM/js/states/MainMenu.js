@@ -118,6 +118,7 @@ MainMenu.prototype = {
 		}
 		game.menuGraphics.x = approachSmooth(game.menuGraphics.x, currentGraphicsPlusX, 4);
 		game.menuGraphicsPlusX = approach(game.menuGraphicsPlusX, 0, 0.5);
+		game.menuOptionsText[0].x = game.menuGraphics.x + (game.world.width / 2);
 
 		game.menuGraphics.y = approachSmooth(game.menuGraphics.y, game.menuGraphicsYDest, 6);
 		if (Math.abs(game.menuTitlePlusY - 0) > 10) {
