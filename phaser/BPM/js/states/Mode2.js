@@ -181,8 +181,8 @@ Mode2.prototype = {
 		game.add.existing(game.bgFlashGroup);
 
 		game.bgAngle = 0;
-		game.bgAngleIncr = 1;
-		game.bgAngleIncrDest = 1;
+		game.bgAngleIncr = 0.75;
+		game.bgAngleIncrDest = 0.75;
 
 	},
 	update: function() {
