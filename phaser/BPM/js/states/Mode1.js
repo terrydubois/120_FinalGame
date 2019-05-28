@@ -22,13 +22,13 @@ Mode1.prototype = {
 		this.beat.volume = 0.1;
 
 
-		emitter = game.add.emitter(game.world.width/2,game.world.height/2+175, 250);
-		emitter.makeParticles('player');
+		game.playerEmitter = game.add.emitter(game.world.width/2,game.world.height/2+175, 250);
+		game.playerEmitter.makeParticles('player');
 
-		emitter.minParticleScale = 0.3;
-		emitter.maxParticleScale = 0.5;
-		emitter.setAlpha(1, 0.0, 250);
-    	emitter.start(false, 5000, 50);
+		game.playerEmitter.minParticleScale = 0.3;
+		game.playerEmitter.maxParticleScale = 0.5;
+		game.playerEmitter.setAlpha(1, 0.0, 250);
+    	game.playerEmitter.start(false, 5000, 50);
 
 
 
@@ -187,8 +187,8 @@ Mode1.prototype = {
 		buldge();
 		buldgeWaves();
 
-		emitter.emitX = game.player.x;
-		emitter.emitY = game.player.y;
+		game.playerEmitter.emitX = game.player.x;
+		game.playerEmitter.emitY = game.player.y;
 		
 		// Game Over checking
 		if(game.currentHearts == 0) {
@@ -300,6 +300,9 @@ Mode1.prototype = {
 		}
 		else{
 		}
+
+		blinkPlayer(game.player);
+		game.playerEmitter.alpha = game.player.alpha;
 
 
 

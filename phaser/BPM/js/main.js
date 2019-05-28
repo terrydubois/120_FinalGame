@@ -411,3 +411,18 @@ function buldgeWaves() {
 	}
 	leftside.scale.x = rightside.scale.x;
 }
+
+function blinkPlayer(playerObj) {
+
+	if (game.hasHitPlayer) {
+		if (playerObj.alpha < 1) {
+			playerObj.alpha += 0.075;
+		}
+		else {
+			playerObj.alpha = 0;
+		}
+	}
+	else {
+		playerObj.alpha = 1;
+	}	
+}
