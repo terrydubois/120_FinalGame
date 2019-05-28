@@ -180,9 +180,15 @@ Mode2.prototype = {
 		game.bgFlashGroup = game.add.group();
 		game.add.existing(game.bgFlashGroup);
 
+		game.bgAngle = 0;
+		game.bgAngleIncr = 1;
+		game.bgAngleIncrDest = 1;
+
 	},
 	update: function() {
 
+		game.bgAngle += game.bgAngleIncr;
+		game.bgAngleIncr = approach(game.bgAngleIncr, game.bgAngleIncrDest, 0.04);
 		
 
 		game.fpsText.text = "fps: " + (game.time.fps);
@@ -347,6 +353,7 @@ Mode2.prototype = {
 			if(game.level <8){
 				game.posLeftDest += 50;
 			}
+			game.bgAngleIncrDest *= -1;
 			//game.posLeft += 20;
 			//leftside.x += 20;
 			//rightside.x -= 20;

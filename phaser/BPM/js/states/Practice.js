@@ -179,6 +179,8 @@ Practice.prototype = {
 		game.bgFlashGroup = game.add.group();
 		game.add.existing(game.bgFlashGroup);
 
+		game.bgAngle = 0;
+
 	},
 	update: function() {
 
