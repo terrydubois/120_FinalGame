@@ -48,7 +48,7 @@ MainMenu.prototype = {
 		game.menuTriangleAlphaDest = 0;
 
 		game.currentModeUnlocked = false;
-		game.modeStarsToUnlock = [0, 1, 5, 10];
+		game.modeStarsToUnlock = [0, 1, 10, 30];
 		game.starCountMenuSprite = game.add.sprite(40, 40, 'star');
 		game.starCountMenuSprite.scale.setTo(0.4);
 		game.starCountMenuSprite.anchor.setTo(0.5);
@@ -58,6 +58,21 @@ MainMenu.prototype = {
 		game.flavorTextPlusYDest = 0;
 		game.flavorText = game.add.text(game.world.width / 2, game.world.height + game.flavorTextPlusY, "FLAVOR TEXT", {font: 'Impact', fontStyle: 'italic', fontSize: '20px', fill: '#333', align: 'center'});
 		game.flavorText.anchor.setTo(0.5);
+		game.flavorTextStar = game.add.sprite(game.flavorText.x, game.flavorText.y, 'star');
+		game.flavorTextStar.scale.setTo(0.3);
+		game.flavorTextStar.anchor.setTo(0.5);
+
+		game.menuLock = game.add.sprite(0, 0, 'menuLock');
+		game.menuLock.alpha = 0;
+		game.menuLockAlphaDest = 0;
+		game.menuLockScaleDest = 0.5;
+		game.menuLockScaleCurrent = 0.5;
+		game.menuLock.scale.setTo(game.menuLockScaleCurrent);
+		game.menuLock.anchor.setTo(0.5);
+
+		// add menu audio
+		game.menuBlipSound = game.add.audio('menuBlip');
+		game.menuBlipSound.volume = 0.5;
 	},
 	update: function() {
 
@@ -71,13 +86,12 @@ MainMenu.prototype = {
 		if (game.debugControls) {
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.L)) {
 				game.starsColl++;
-
+				saveStarsColl();
 			}
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.K)) {
-				game.starsColl--;
+				game.starsColl = 0;
+				localStorage.setItem('starsColl', '0');
 			}
-
-			localStorage.setItem('starsColl', game.starsColl.toString());
 		}
 
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
@@ -111,7 +125,9 @@ MainMenu.prototype = {
 			game.menuTriangleAlphaDest = 1;
 
 			// change modes if player presses LEFT while on option 1
-			if (game.input.keyboard.justPressed(Phaser.Keyboard.LEFT)) {
+			if (game.input.keyboard.justPressed(Phaser.Keyboard.LEFT)
+			|| game.input.keyboard.justPressed(Phaser.Keyboard.A)) {
+				game.menuBlipSound.play();
 				if (game.currentMode > 0) {
 					game.currentMode--;
 				}
@@ -119,10 +135,15 @@ MainMenu.prototype = {
 					game.currentMode = game.menuModes.length - 1;
 				}
 				game.menuTriangleLeftPlusX += 20;
+				game.menuLockScaleDest = 1;
+				game.menuLockScaleCurrent = 1;
+				game.menuLock.alpha = 0;
 			}
 
 			// change modes if player presses RIGHT while on option 1
-			if (game.input.keyboard.justPressed(Phaser.Keyboard.RIGHT)) {
+			if (game.input.keyboard.justPressed(Phaser.Keyboard.RIGHT)
+			|| game.input.keyboard.justPressed(Phaser.Keyboard.D)) {
+				game.menuBlipSound.play();
 				if (game.currentMode < game.menuModes.length - 1) {
 					game.currentMode++;
 				}
@@ -130,6 +151,9 @@ MainMenu.prototype = {
 					game.currentMode = 0;
 				}
 				game.menuTriangleRightPlusX += 20;
+				game.menuLockScaleDest = 1;
+				game.menuLockScaleCurrent = 1;
+				game.menuLock.alpha = 0;
 			}
 
 			game.flavorTextPlusYDest = 0;
@@ -159,18 +183,30 @@ MainMenu.prototype = {
 		game.menuTriangleRight.x = (game.world.width / 2) + 100 + game.menuTriangleRightPlusX;
 		game.menuTriangleRight.y = game.menuGraphics.y + (game.menuGraphics.height / 2);
 
-
-		if (game.modeStarsToUnlock[game.currentMode] > game.starsColl) {
-			game.flavorText.text = "COLLECT " + game.modeStarsToUnlock[game.currentMode] + " TO UNLOCK! ";
+		game.currentModeLocked = (game.modeStarsToUnlock[game.currentMode] > game.starsColl);
+		if (game.currentModeLocked) {
+			game.flavorText.text = "COLLECT " + game.modeStarsToUnlock[game.currentMode] + "              TO UNLOCK! ";
+			game.menuLockAlphaDest = 1;
+			game.menuLockScaleDest = 0.5;
 		}
 		else {
+			game.menuLockAlphaDest = 0;
+			game.menuLockScaleDest = 1;
+			game.menuLockScaleCurrent = 1;
+			game.menuLock.alpha = 0;
 			game.flavorTextPlusYDest = 100;
 		}
 
-		game.currentModeLocked = (game.modeStarsToUnlock[game.currentMode] > game.starsColl);
+		game.menuLock.alpha = approach(game.menuLock.alpha, game.menuLockAlphaDest, 0.05);
+		game.menuLockScaleCurrent = approachSmooth(game.menuLockScaleCurrent, game.menuLockScaleDest, 12);
+		game.menuLock.scale.setTo(game.menuLockScaleCurrent);
+		game.menuLock.x = game.menuOptionsText[1].x;
+		game.menuLock.y = game.menuOptionsText[1].y;
 
 		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest, 8);
 		game.flavorText.y = (game.world.height - 30) + game.flavorTextPlusY;
+		game.flavorTextStar.x = game.flavorText.x;
+		game.flavorTextStar.y = game.flavorText.y;
 
 
 
@@ -179,6 +215,7 @@ MainMenu.prototype = {
 		// player cycles through options using UP and DOWN
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.S)) {
+			game.menuBlipSound.play();
 			if (game.menuOptionCurrent < game.menuOptions.length - 1) {
 				game.menuOptionCurrent++;
 			}
@@ -188,6 +225,7 @@ MainMenu.prototype = {
 		}
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.W)) {
+			game.menuBlipSound.play();
 			if (game.menuOptionCurrent > 0) {
 				game.menuOptionCurrent--;
 			}
