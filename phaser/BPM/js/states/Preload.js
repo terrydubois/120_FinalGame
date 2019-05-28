@@ -47,25 +47,7 @@ Preload.prototype = {
 	create: function() {
 		console.log('Preload: create');
 
-		// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
-		if (localStorage.getItem('starsColl') == null) {
-			
-			// in this case, we don't have a saved browser highscore yet, so we set this score as the new highscore
-			game.starsColl = 0;
-			localStorage.setItem('starsColl', game.starsColl.toString());
-			
-			console.log("first time playing game, setting starsColl to 0");
-		}
-		else {
-			
-
-			game.starsColl = parseInt(localStorage.getItem('starsColl'));
-			
-			game.starsColl = 0;
-			console.log("loading in previous stars");
-			
-		}
-
+		saveStarsColl();
 
 		game.state.start("LogoScreen");
 	},

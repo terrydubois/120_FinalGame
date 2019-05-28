@@ -32,3 +32,28 @@ game.state.add('Credits', Credits);
 
 // start on Logo
 game.state.start('Boot');
+
+function saveStarsColl() {
+
+	// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
+	if (localStorage.getItem('starsColl') == null) {
+		// in this case, we don't have a saved browser highscore yet, so we set this score as the new highscore
+		game.starsColl = 0;
+		localStorage.setItem('starsColl', game.starsColl.toString());
+		console.log("first time playing game, setting starsColl to 0");
+	}
+	else {
+		// in this case, we have a variable saved to the browser "starsColl"
+		// so we get that and compare it to the player's current stars
+
+		game.starsCollFromBrowser = parseInt(localStorage.getItem('starsColl'));
+
+		if (game.starsColl > game.starsCollFromBrowser) {
+			localStorage.setItem('starsColl', game.starsColl.toString());
+		}
+		else {
+			game.starsColl = game.starsCollFromBrowser;
+		}
+		console.log("loading in previous stars");
+	}
+}
