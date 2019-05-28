@@ -85,7 +85,7 @@ Avoid.prototype.update = function() {
 	// make this move forward
 	this.body.velocity.y = this.yVelocity;
 
-this.colliderEmitter.y = this.y;
+	this.colliderEmitter.y = this.y;
 
 
 	// destroy this obstacle if it is out of bounds

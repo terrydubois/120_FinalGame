@@ -98,20 +98,31 @@ Play.prototype = {
 		game.HUDgroup.add(game.barOutline);
 
 		// text for leveling up
-		game.speedupText = game.add.text(game.world.width / 2, 55, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#fff', align: 'center'});
-		game.speedupText2 = game.add.text(game.world.width / 2 - 2, 55 - 2, 'LEVEL ' + game.level, {fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+		game.speedupText = game.add.text(game.world.width / 2, 55, 'LEVEL ' + game.level, {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#fff', align: 'center'});
+		game.speedupText2 = game.add.text(game.world.width / 2 - 2, 55 - 2, 'LEVEL ' + game.level, {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 		game.speedupText.anchor.setTo(0.5);
 		game.speedupText2.anchor.setTo(0.5);
 		game.HUDgroup.add(game.speedupText);
 		game.HUDgroup.add(game.speedupText2);
 
 		// text for score
-		game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
-		game.scoreText.anchor.setTo(1);
-	    game.scoreText.stroke = '#299F2D';
-    	game.scoreText.strokeThickness = 2;
+		game.scoreTextArrLength = 5;
+		game.scoreTextArr = [game.scoreTextArrLength];
+		//game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {font: 'Impact', fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
+		//game.scoreText.anchor.setTo(1);
+	    //game.scoreText.stroke = '#299F2D';
+    	//game.scoreText.strokeThickness = 2;
 		game.scoreTextDisplay = 0;
-		game.HUDgroup.add(game.scoreText);
+		for (var i = 0; i < game.scoreTextArrLength; i++) {
+			var currentFill = '#3FFC45';
+			if (i == game.scoreTextArrLength - 1) {
+				currentFill = '#0f7200';
+			}
+			game.scoreTextArr[i] = game.add.text(game.world.width - 60, 75, game.currentScore, {font: 'Impact', fontStyle: 'italic', fontSize: '50px', fill: currentFill, align: 'center'});
+			game.scoreTextArr[i].anchor.setTo(1);
+			game.HUDgroup.add(game.scoreTextArr[i]);
+		}
+		
 
 		// text for stars
 		game.starCountMenuSprite = game.add.sprite(game.world.width - 90, 80, 'star');
@@ -233,11 +244,12 @@ Play.prototype = {
 
 
 
-		//player input control to start game
-		if ((game.input.keyboard.isDown(Phaser.Keyboard.UP) && !game.hasStarted)
-		|| (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.hasStarted)
-		|| (game.input.keyboard.isDown(Phaser.Keyboard.W) && !game.hasStarted)
-		|| (game.input.keyboard.isDown(Phaser.Keyboard.S) && !game.hasStarted)) {
+		// player input control to start game
+		if ((game.input.keyboard.isDown(Phaser.Keyboard.UP)
+		|| game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
+		|| game.input.keyboard.isDown(Phaser.Keyboard.W)
+		|| game.input.keyboard.isDown(Phaser.Keyboard.S))
+		&& !game.hasStarted) {
 
 			//timer to switch sides
 			game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
@@ -261,7 +273,7 @@ Play.prototype = {
 		}
 
 
-		//player input control
+		//player input control for movement
 		if (game.input.keyboard.isDown(Phaser.Keyboard.UP)
 		|| game.input.keyboard.isDown(Phaser.Keyboard.W)) {
 			game.player.y -= game.playerYSpeed;
@@ -476,7 +488,7 @@ function buldge(){
 	}
 }
 
-function buldgeWaves(){
+function buldgeWaves() {
 	if (game.playerPosChanged){
 		game.playerPosChanged = 0;
 
@@ -547,8 +559,8 @@ function gameplayHUD() {
 	}
 
 	// update level text
-	game.speedupText.text = 'LEVEL ' + game.level;
-	game.speedupText2.text = 'LEVEL ' + game.level;
+	game.speedupText.text = 'LEVEL ' + game.level + '  ';
+	game.speedupText2.text = game.speedupText.text;
 
 	// update score text
 	if (game.scoreTextDisplay < game.currentScore) {
@@ -557,7 +569,14 @@ function gameplayHUD() {
 	else if (game.scoreTextDisplay > game.currentScore) {
 		game.scoreTextDisplay = game.currentScore;
 	}
-	game.scoreText.text = game.scoreTextDisplay + '  ';
+	
+	
+	for (var i = 0; i < game.scoreTextArrLength; i++) {
+		game.scoreTextArr[i].x = game.world.width - 60 - i;
+		game.scoreTextArr[i].y = 75 - i;
+		game.scoreTextArr[i].text = game.scoreTextDisplay + '  ';
+	}
+	
 
 	// update stars text
 	game.starCountMenuText.text = game.starsColl + '  ';
