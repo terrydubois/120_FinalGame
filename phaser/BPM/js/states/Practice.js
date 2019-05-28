@@ -31,8 +31,6 @@ Practice.prototype = {
     	emitter.start(false, 5000, 50);
 
 
-
-
 		game.posLeft = 50;
 		game.posRight = game.world.width - game.posLeft;
 
@@ -288,6 +286,8 @@ Practice.prototype = {
 		|| game.input.keyboard.isDown(Phaser.Keyboard.S)) {
 			game.player.y += game.playerYSpeed;
 		}
+
+
 
 		//player bounds checking
 		game.player.y = Phaser.Math.clamp(game.player.y,0,game.world.height);
