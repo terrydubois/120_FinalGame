@@ -31,6 +31,7 @@ game.state.add('LogoScreen', LogoScreen);
 game.state.add('MainMenu', MainMenu);
 game.state.add('Practice', Practice);
 game.state.add('Mode1', Mode1);
+game.state.add('Mode2', Mode2);
 game.state.add('GameOver', GameOver);
 game.state.add('Credits', Credits);
 
@@ -372,6 +373,21 @@ function switchSides() {
 
 	// repeat this function
 	game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
+	
+}
+
+function moveWaves() {
+	
+	// switch which side player will slide to
+	if (game.wavePos == 0) {
+		game.wavePos = 1;
+	}
+	else {
+		game.wavePos = 0;
+	}
+console.log("moveWaves function was called");
+	// repeat this function
+	game.time.events.repeat(Phaser.Timer.SECOND*8, 1, moveWaves, this);
 	
 }
 

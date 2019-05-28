@@ -84,7 +84,7 @@ GameOver.prototype = {
 				game.state.start('Mode1');
 			}
 			else if (game.currentMode == 2) {
-				//game.state.start('Mode2');
+				game.state.start('Mode2');
 			}
 			else if (game.currentMode == 3) {
 				//game.state.start('Mode3');
