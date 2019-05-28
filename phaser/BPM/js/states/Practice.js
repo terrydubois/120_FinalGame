@@ -136,9 +136,11 @@ Practice.prototype = {
 
 
 		// text for FPS
-		game.fpsText = game.add.text(game.world.width / 2, 90, 'PRACTICE     ', {font: 'Impact',fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'center'});
-		game.fpsText.anchor.setTo(0.5);
-		game.HUDgroup.add(game.fpsText);
+		game.practiceText = game.add.text(game.world.width / 2, 90, 'PRACTICE     ', {font: 'Impact',fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'center'});
+		game.practiceText.anchor.setTo(0.5);
+		game.practiceTextFadeOut = true;
+
+		game.HUDgroup.add(game.practiceText);
 
 
 
@@ -182,7 +184,23 @@ Practice.prototype = {
 
 		
 
-		//game.fpsText.text = "fps: " + (game.time.fps);
+		if (game.practiceTextFadeOut) {
+			if (game.practiceText.alpha > 0) {
+				game.practiceText.alpha -= 0.015;
+			}
+			else {
+				game.practiceTextFadeOut = false;
+			}
+		}
+		else {
+			if (game.practiceText.alpha < 1) {
+				game.practiceText.alpha += 0.03;
+			}
+			else {
+				game.practiceTextFadeOut = true;
+			}
+		}
+		game.practiceText.alpha = Phaser.Math.clamp(game.practiceText.alpha, 0, 1);
 		
 
 		buldge();
