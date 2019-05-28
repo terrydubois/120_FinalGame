@@ -243,6 +243,9 @@ Mode2.prototype = {
 			if(game.input.keyboard.justPressed(Phaser.Keyboard.T)){
 				game.currentHearts--;
 			}
+			if(game.input.keyboard.justPressed(Phaser.Keyboard.P)){
+				game.currentPlussesToLevelUp--;
+			}
 			
 		}
 		game.posRight = game.world.width - game.posLeft;
@@ -306,7 +309,7 @@ Mode2.prototype = {
 		}
 		else{
 		}
-
+/*
 		//waveform move speed determination
 		if (game.wavePos == 1 && game.hasStarted) {
 				game.posLeftDest = game.originalPos;
@@ -316,7 +319,7 @@ Mode2.prototype = {
 		}
 		else{
 		}
-
+*/
 		game.posLeft = approachSmooth(game.posLeft,game.posLeftDest,20);
 		game.posRight = game.world.width - game.posLeft;
 
@@ -341,7 +344,9 @@ Mode2.prototype = {
 			game.switchRate -=.03;
 			game.song1._sound.playbackRate.value += .1;
 			game.levelUpSound.play();
-
+			if(game.level <8){
+				game.posLeftDest += 50;
+			}
 			//game.posLeft += 20;
 			//leftside.x += 20;
 			//rightside.x -= 20;
