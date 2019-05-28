@@ -223,16 +223,16 @@ function spawnBGCircle() {
 function spawnFlash(type) {
 
 	if (type == 0) {
-		game.flashSprite = new Flash(game, 'flashBlack', 'flashBlack', 1, 0);
+		game.flashSprite = new Flash(game, 'flashSkull', 'flashSkull', 1, 0);
 	}
 	else if (type == 1) {
-		game.flashSprite = new Flash(game, 'flashGreen', 'flashGreen', 1, 0);
+		game.flashSprite = new Flash(game, 'flashPlus', 'flashPlus', 1, 0);
 	}
 	else if (type == 2) {
 		game.flashSprite = new Flash(game, 'flashHeart', 'flashHeart', 1, 0);
 	}
 	else if (type == 3) {
-		game.flashSprite = new Flash(game, 'flashYellow', 'flashYellow', 1, 0);
+		game.flashSprite = new Flash(game, 'flashStar', 'flashStar', 1, 0);
 	}
 	game.bgFlashGroup.add(game.flashSprite);
 	

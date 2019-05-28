@@ -26,9 +26,10 @@ Preload.prototype = {
 		game.load.image('plusP','assets/img/plusCut.png');	
 		game.load.image('starP','assets/img/starCut.png');	
 		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
-		game.load.image('flashYellow', 'assets/img/flashYellow.png');
+		game.load.image('flashStar', 'assets/img/flashStar.png');
 		game.load.image('flashBlack', 'assets/img/flashBlack.png');
-		game.load.image('flashGreen', 'assets/img/flashGreen.png');
+		game.load.image('flashSkull', 'assets/img/flashSkull.png');
+		game.load.image('flashPlus', 'assets/img/flashPlus.png');
 		game.load.image('flashHeart', 'assets/img/flashHeart.png');
 		game.load.image('menuLock', 'assets/img/lock.png');
 
