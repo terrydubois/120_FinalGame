@@ -1,16 +1,16 @@
 // define gameplay state and methods
-var Play = function(game) {};
-Play.prototype = {
+var Mode1 = function(game) {};
+Mode1.prototype = {
 	init: function() {
-		console.log('Play: init');
+		console.log('Mode1: init');
 
 	},
 	preload: function() {
-		console.log('Play: preload');
+		console.log('Mode1: preload');
 
 	},
 	create: function() {
-		console.log('Play: create');
+		console.log('Mode1: create');
 
 		game.time.advancedTiming = true;
 
@@ -114,7 +114,7 @@ Play.prototype = {
     	//game.scoreText.strokeThickness = 2;
 		game.scoreTextDisplay = 0;
 		for (var i = 0; i < game.scoreTextArrLength; i++) {
-			var currentFill = '#3FFC45';
+			var currentFill = '#26D100';
 			if (i == game.scoreTextArrLength - 1) {
 				currentFill = '#0f7200';
 			}

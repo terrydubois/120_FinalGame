@@ -101,7 +101,7 @@ Avoid.prototype.update = function() {
 
 	if (Math.abs(game.player.x - this.x) < this.collisionRad + game.playerCollisionRad
 	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad
-	&& !game.hasHitPlayer&& !this.hasHitPlayer) {
+	&& !game.hasHitPlayer && !this.hasHitPlayer) {
 		
 		this.hasHitPlayer = true;
 		this.destroy();
@@ -122,10 +122,7 @@ Avoid.prototype.update = function() {
 		}
 		else if (this.star) {
 			console.log("collision with star");
-
-			//let storedStars = parseInt(localStorage.getItem('starsColl'));
-			//game.storedStars++;
-			//localStorage.setItem('starsColl', game.starsColl.toString());
+			
 			game.starsColl++;
 			saveStarsColl();
 			game.currentScore += 50;

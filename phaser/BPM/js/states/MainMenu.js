@@ -261,7 +261,19 @@ MainMenu.prototype = {
 				else {
 					// play game
 					game.modeStartSound.play();
-					game.state.start('Play');
+
+					if (game.currentMode == 0) {
+						//game.state.start('Practice');
+					}
+					else if (game.currentMode == 1) {
+						game.state.start('Mode1');
+					}
+					else if (game.currentMode == 2) {
+						//game.state.start('Mode2');
+					}
+					else if (game.currentMode == 3) {
+						//game.state.start('Mode3');
+					}
 				}
 			}
 			else if (game.menuOptionCurrent == 2) {
