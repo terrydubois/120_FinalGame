@@ -387,20 +387,6 @@ function switchSides() {
 	
 }
 
-function moveWaves() {
-	
-	// switch which side player will slide to
-	if (game.wavePos == 0) {
-		game.wavePos = 1;
-	}
-	else {
-		game.wavePos = 0;
-	}
-console.log("moveWaves function was called");
-	// repeat this function
-	game.time.events.repeat(Phaser.Timer.SECOND*8, 1, moveWaves, this);
-	
-}
 
 
 function buldge(){

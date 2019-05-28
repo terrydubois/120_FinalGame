@@ -264,7 +264,7 @@ Mode2.prototype = {
 
 			//timer to switch sides
 			game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
-			game.time.events.repeat(Phaser.Timer.SECOND *8, 1, moveWaves, this);
+			//game.time.events.repeat(Phaser.Timer.SECOND *8, 1, moveWaves, this);
 
 			//timers to spawn objects
 			game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
