@@ -78,6 +78,9 @@ MainMenu.prototype = {
 		game.menuBlipSound.volume = 0.5;
 		game.modeStartSound.volume = 0.5;
 		game.modeLockedSound.volume = 0.5;
+
+		// add white flash at beginning
+		game.menuFlashWhite = game.add.sprite(0, 0, 'sky');
 	},
 	update: function() {
 
@@ -103,6 +106,7 @@ MainMenu.prototype = {
 		
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
 		game.menuTitle.y = 150 + game.menuTitlePlusY;
+		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
 
 		for (var i = 0; i < game.menuOptionsText.length; i++) {
 			game.menuOptionsText[i].y = 400 + (i * 50) - game.menuTitlePlusY;
