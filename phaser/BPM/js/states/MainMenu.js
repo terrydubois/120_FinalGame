@@ -23,6 +23,7 @@ MainMenu.prototype = {
 		game.menuRectWidthOriginal = game.menuRect.width;
 		game.menuRectWidthDest = 1;
 		game.menuGraphics.endFill();
+		game.menuGraphicsAlphaDest = 0;
 		game.menuGraphics.alpha = 0.8;
 		game.menuGraphicsYDest = 0;
 		game.menuGraphics.anchor.setTo(0.5);
@@ -93,6 +94,13 @@ MainMenu.prototype = {
 		game.menuGraphics.anchor.setTo(0.5);
 		//game.menuGraphics.x = (game.world.width / 2);
 		game.menuGraphics.y = approachSmooth(game.menuGraphics.y, game.menuGraphicsYDest, 6);
+		if (Math.abs(game.menuTitlePlusY - 0) > 10) {
+			game.menuGraphics.alpha = 0;
+		}
+		else {
+			game.menuGraphics.alpha += 0.1;
+			game.menuGraphics.alpha = Math.min(game.menuGraphics.alpha, 0.8);
+		}
 
 
 		// show arrows if on option 1 (mode select)
@@ -140,6 +148,10 @@ MainMenu.prototype = {
 		game.menuTriangleLeftPlusX = approachSmooth(game.menuTriangleLeftPlusX, 0, 8);
 		game.menuTriangleRightPlusX = approachSmooth(game.menuTriangleRightPlusX, 0, 8);
 		game.menuTriangleLeft.alpha = Phaser.Math.clamp(approach(game.menuTriangleLeft.alpha, game.menuTriangleAlphaDest, 0.25), 0, 1);
+		if (Math.abs(game.menuTitlePlusY - 0) > 2) {
+			game.menuTriangleLeft.alpha = 0;
+			game.menuTriangleAlphaDest = 0;
+		}
 		game.menuTriangleRight.alpha = game.menuTriangleLeft.alpha;
 
 		game.menuTriangleLeft.x = (game.world.width / 2) - 100 - game.menuTriangleLeftPlusX;
@@ -159,7 +171,6 @@ MainMenu.prototype = {
 
 		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest, 8);
 		game.flavorText.y = (game.world.height - 30) + game.flavorTextPlusY;
-
 
 
 
