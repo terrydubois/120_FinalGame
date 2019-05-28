@@ -19,6 +19,9 @@ var highscore;
 game.starsColl = 0;
 game.debugControls = false;
 
+game.scoreColor1 = '#0f7200';
+game.scoreColor2 = '#26D100';
+
 var emitter;
 
 // add states to StateManager
