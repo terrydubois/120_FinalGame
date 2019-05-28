@@ -270,6 +270,13 @@ MainMenu.prototype = {
 			}
 		}
 
+		if (game.currentModeLocked && game.menuOptionCurrent < 2) {
+			game.menuGraphics.tint = 0xff3e21;
+		}
+		else {
+			game.menuGraphics.tint = 0xffffff;
+		}
+
 
 	}
 }
