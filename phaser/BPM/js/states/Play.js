@@ -564,7 +564,7 @@ function gameplayHUD() {
 
 	// update score text
 	if (game.scoreTextDisplay < game.currentScore) {
-		game.scoreTextDisplay++;
+		game.scoreTextDisplay += 0.5;
 	}
 	else if (game.scoreTextDisplay > game.currentScore) {
 		game.scoreTextDisplay = game.currentScore;
@@ -574,7 +574,7 @@ function gameplayHUD() {
 	for (var i = 0; i < game.scoreTextArrLength; i++) {
 		game.scoreTextArr[i].x = game.world.width - 60 - i;
 		game.scoreTextArr[i].y = 75 - i;
-		game.scoreTextArr[i].text = game.scoreTextDisplay + '  ';
+		game.scoreTextArr[i].text = Math.floor(game.scoreTextDisplay) + '  ';
 	}
 	
 
