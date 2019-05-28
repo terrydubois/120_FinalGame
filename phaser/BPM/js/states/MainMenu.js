@@ -27,6 +27,7 @@ MainMenu.prototype = {
 		game.menuGraphics.alpha = 0.8;
 		game.menuGraphicsYDest = 0;
 		game.menuGraphics.anchor.setTo(0.5);
+		game.menuGraphicsPlusX = 0;
 		window.graphics = game.menuGraphics;
 
 		game.menuModes = ['PRACTICE  ', 'MODE 1  ', 'MODE 2  ', 'MODE 3  '];
@@ -71,8 +72,12 @@ MainMenu.prototype = {
 		game.menuLock.anchor.setTo(0.5);
 
 		// add menu audio
-		game.menuBlipSound = game.add.audio('menuBlip');
+		game.menuBlipSound = game.add.audio('menuBlipSound');
+		game.modeStartSound = game.add.audio('modeStartSound');
+		game.modeLockedSound = game.add.audio('modeLockedSound');
 		game.menuBlipSound.volume = 0.5;
+		game.modeStartSound.volume = 0.5;
+		game.modeLockedSound.volume = 0.5;
 	},
 	update: function() {
 
@@ -106,7 +111,14 @@ MainMenu.prototype = {
 			}
 		}
 		game.menuGraphics.anchor.setTo(0.5);
-		//game.menuGraphics.x = (game.world.width / 2);
+		// make menu rectangle shake if you select a locked mode
+		var currentGraphicsPlusX = game.menuGraphicsPlusX;
+		if (game.menuGraphicsPlusX > 0 && Math.random() > 0.5) {
+			currentGraphicsPlusX = -currentGraphicsPlusX;
+		}
+		game.menuGraphics.x = approachSmooth(game.menuGraphics.x, currentGraphicsPlusX, 4);
+		game.menuGraphicsPlusX = approach(game.menuGraphicsPlusX, 0, 0.5);
+
 		game.menuGraphics.y = approachSmooth(game.menuGraphics.y, game.menuGraphicsYDest, 6);
 		if (Math.abs(game.menuTitlePlusY - 0) > 10) {
 			game.menuGraphics.alpha = 0;
@@ -236,12 +248,20 @@ MainMenu.prototype = {
 
 		// player selects option with SPACE
 		if ((game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
-		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER))
-		&& !game.currentModeLocked) {
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER))) {
 			console.log("menuOptionCurrent: " + game.menuOptionCurrent);
 			if (game.menuOptionCurrent == 0) {
-				// play game
-				game.state.start('Play');
+
+				if (game.currentModeLocked) {
+					// shake blue menu rectangle
+					game.modeLockedSound.play();
+					game.menuGraphicsPlusX = 20;
+				}
+				else {
+					// play game
+					game.modeStartSound.play();
+					game.state.start('Play');
+				}
 			}
 			else if (game.menuOptionCurrent == 2) {
 				// show credits

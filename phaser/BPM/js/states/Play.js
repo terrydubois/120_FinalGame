@@ -139,6 +139,8 @@ Play.prototype = {
 		game.hitEnemySound = game.add.audio('hitEnemySound');
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
+		game.dieSound = game.add.audio('dieSound');
+		game.dieSound.volume = 0.5;
 
 		//sprite scaling variables for player
 		game.minScale = 0.6;
@@ -176,6 +178,7 @@ Play.prototype = {
 		
 		// Game Over checking
 		if(game.currentHearts == 0) {
+			game.dieSound.play();
 			game.state.start("GameOver");
 		}
 
