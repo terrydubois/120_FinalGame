@@ -25,5 +25,6 @@ BGCircle.prototype.update = function() {
 		this.destroy();
 	}
 	
+
 	this.angle = game.bgAngle;
 }
