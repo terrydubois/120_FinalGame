@@ -205,10 +205,21 @@ function gameplayHUDPractice() {
 
 
 
-//heart spawner
+// background animation spawner
 function spawnBGCircle() {
 
-	game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+	if (game.currentMode == 0) {
+		game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+	}
+	else if (game.currentMode == 1) {
+		game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+	}
+	else if (game.currentMode == 2) {
+		game.bgCircle = new BGCircle(game, 'bgAnimatedTriangle', 'bgAnimatedTriangle', 0, 0);
+	}
+	else if (game.currentMode == 3) {
+		game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+	}
 	game.bgGroup.add(game.bgCircle);
 
 
