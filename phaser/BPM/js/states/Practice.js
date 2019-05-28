@@ -111,9 +111,9 @@ Practice.prototype = {
     	//game.scoreText.strokeThickness = 2;
 		game.scoreTextDisplay = 0;
 		for (var i = 0; i < game.scoreTextArrLength; i++) {
-			var currentFill = '#26D100';
+			var currentFill = game.scoreColor2;
 			if (i == game.scoreTextArrLength - 1) {
-				currentFill = '#0f7200';
+				currentFill = game.scoreColor1;
 			}
 			game.scoreTextArr[i] = game.add.text(game.world.width - 60, 75, game.currentScore, {font: 'Impact', fontStyle: 'italic', fontSize: '50px', fill: currentFill, align: 'center'});
 			game.scoreTextArr[i].anchor.setTo(1);

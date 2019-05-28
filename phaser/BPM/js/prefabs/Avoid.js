@@ -121,6 +121,9 @@ Avoid.prototype.update = function() {
 				game.hitPlusSound.play('', 0, 0.5, false);
 			}
 			spawnFlash(1);
+
+			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+10  ');
+			game.add.existing(game.scoreAddText);
 		}
 		else if (this.star) {
 			console.log("collision with star");
