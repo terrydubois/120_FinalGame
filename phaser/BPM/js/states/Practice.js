@@ -134,7 +134,7 @@ Practice.prototype = {
 
 
 		// text for FPS
-		game.fpsText = game.add.text(game.world.width / 2, 90, 'PRACTICE ', {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
+		game.fpsText = game.add.text(game.world.width / 2, 90, 'PRACTICE     ', {font: 'Impact',fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
 		game.HUDgroup.add(game.fpsText);
 
