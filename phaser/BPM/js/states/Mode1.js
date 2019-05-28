@@ -150,8 +150,11 @@ Mode1.prototype = {
 		game.hitEnemySound = game.add.audio('hitEnemySound');
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
+		game.hitStarSound = game.add.audio('hitStarSound');
 		game.dieSound = game.add.audio('dieSound');
+		game.levelUpSound = game.add.audio('levelUpSound');
 		game.dieSound.volume = 0.5;
+		game.levelUpSound.volume = 0.5;
 
 		//sprite scaling variables for player
 		game.minScale = 0.6;
@@ -310,6 +313,7 @@ Mode1.prototype = {
 			game.playerYSpeed += 1.5;
 			game.switchRate -=.03;
 			game.song1._sound.playbackRate.value += .1;
+			game.levelUpSound.play();
 
 			//game.posLeft += 20;
 			//leftside.x += 20;

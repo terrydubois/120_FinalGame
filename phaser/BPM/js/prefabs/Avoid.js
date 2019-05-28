@@ -122,11 +122,11 @@ Avoid.prototype.update = function() {
 		}
 		else if (this.star) {
 			console.log("collision with star");
-			
+
 			game.starsColl++;
 			saveStarsColl();
 			game.currentScore += 50;
-			game.hitPlusSound.play('', 0, 0.5, false);
+			game.hitStarSound.play('', 0, 0.5, false);
 			spawnFlash(3);
 		}
 		else {

@@ -43,9 +43,11 @@ Preload.prototype = {
 		game.load.audio('hitEnemySound', 'hitEnemy.mp3');
 		game.load.audio('hitPlusSound', 'hitPlus.mp3');
 		game.load.audio('hitHeartSound', 'hitHeart.mp3');
+		game.load.audio('hitPlusSound', 'hitPlus.mp3');
 		game.load.audio('menuBlipSound', 'menuBlip.mp3');
 		game.load.audio('modeStartSound', 'modeStart.mp3');
 		game.load.audio('modeLockedSound', 'modeLocked.mp3');
+		game.load.audio('levelUpSound', 'levelUp.mp3');
 		game.load.audio('dieSound', 'die.mp3');
 	},
 	create: function() {
