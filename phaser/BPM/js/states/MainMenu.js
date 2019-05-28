@@ -261,7 +261,6 @@ MainMenu.prototype = {
 				else {
 					// play game
 					game.modeStartSound.play();
-
 					if (game.currentMode == 0) {
 						//game.state.start('Practice');
 					}

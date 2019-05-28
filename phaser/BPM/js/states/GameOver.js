@@ -75,7 +75,20 @@ GameOver.prototype = {
 		//esc key also goes back to play state
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
 			game.sound.stopAll();
-			game.state.start("Play");
+			// play game
+			game.modeStartSound.play();
+			if (game.currentMode == 0) {
+				//game.state.start('Practice');
+			}
+			else if (game.currentMode == 1) {
+				game.state.start('Mode1');
+			}
+			else if (game.currentMode == 2) {
+				//game.state.start('Mode2');
+			}
+			else if (game.currentMode == 3) {
+				//game.state.start('Mode3');
+			}
 		}
 
 
@@ -83,7 +96,7 @@ GameOver.prototype = {
 		//esc key also goes back to main menu
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.ESC)){
 			game.sound.stopAll();
-			game.state.start("LogoScreen");
+			game.state.start("MainMenu");
 		}
 
 

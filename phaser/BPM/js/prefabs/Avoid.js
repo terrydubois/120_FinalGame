@@ -117,7 +117,9 @@ Avoid.prototype.update = function() {
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
 			game.currentScore += 10;
-			game.hitPlusSound.play('', 0, 0.5, false);
+			if (game.currentPlussesToLevelUp > 0) {
+				game.hitPlusSound.play('', 0, 0.5, false);
+			}
 			spawnFlash(1);
 		}
 		else if (this.star) {
