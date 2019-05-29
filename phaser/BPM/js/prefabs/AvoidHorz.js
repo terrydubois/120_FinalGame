@@ -4,7 +4,7 @@ function AvoidHorz(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	this.goingUp = goingUp;
 
 	yPos = Math.random() * game.world.height;
-	yPos = Phaser.Math.clamp(yPos, game.posTop + 200, game.posBottom - 200);
+	yPos = Phaser.Math.clamp(yPos, game.posTop + 300, game.posBottom - 300);
 
 	var yPosTries = 0;
 	while (Math.abs(yPos - game.lastSpawnY) < 60 && yPosTries < 10) {
