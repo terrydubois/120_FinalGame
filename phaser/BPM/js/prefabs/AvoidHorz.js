@@ -109,6 +109,11 @@ AvoidHorz.prototype.update = function() {
 
 		if (this.heart) {
 			console.log("collision with heart");
+			if(game.currentHearts == 7 ){
+			game.currentScore += 10;
+			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+10  ');
+			game.add.existing(game.scoreAddText);
+			}
 			game.currentHearts++;
 			game.hitHeartSound.play('', 0, 0.5, false);
 			spawnFlash(2);
