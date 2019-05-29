@@ -85,7 +85,7 @@ Avoid.prototype.update = function() {
 	// make this move forward
 	this.body.velocity.y = this.yVelocity;
 
-this.colliderEmitter.y = this.y;
+	this.colliderEmitter.y = this.y;
 
 
 	// destroy this obstacle if it is out of bounds
@@ -101,7 +101,7 @@ this.colliderEmitter.y = this.y;
 
 	if (Math.abs(game.player.x - this.x) < this.collisionRad + game.playerCollisionRad
 	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad
-	&& !game.hasHitPlayer&& !this.hasHitPlayer) {
+	&& !game.hasHitPlayer && !this.hasHitPlayer) {
 		
 		this.hasHitPlayer = true;
 		this.destroy();
@@ -117,20 +117,23 @@ this.colliderEmitter.y = this.y;
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
 			game.currentScore += 10;
-			game.hitPlusSound.play('', 0, 0.5, false);
+			if (game.currentPlussesToLevelUp > 0) {
+				game.hitPlusSound.play('', 0, 0.5, false);
+			}
 			spawnFlash(1);
+			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+10  ');
+			game.add.existing(game.scoreAddText);
 		}
 		else if (this.star) {
 			console.log("collision with star");
 
-			//let storedStars = parseInt(localStorage.getItem('starsColl'));
-			//game.storedStars++;
-			//localStorage.setItem('starsColl', game.starsColl.toString());
 			game.starsColl++;
 			saveStarsColl();
 			game.currentScore += 50;
-			game.hitPlusSound.play('', 0, 0.5, false);
+			game.hitStarSound.play('', 0, 0.5, false);
 			spawnFlash(3);
+			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+50  ');
+			game.add.existing(game.scoreAddText);
 		}
 		else {
 			console.log("collision with skull");

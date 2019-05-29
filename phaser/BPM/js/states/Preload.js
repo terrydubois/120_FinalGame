@@ -25,10 +25,12 @@ Preload.prototype = {
 		game.load.image('heartP','assets/img/heart1Cut.png');
 		game.load.image('plusP','assets/img/plusCut.png');	
 		game.load.image('starP','assets/img/starCut.png');	
-		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
-		game.load.image('flashYellow', 'assets/img/flashYellow.png');
+		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircleBig.png');
+		game.load.image('bgAnimatedTriangle', 'assets/img/bgAnimatedTriangle.png');
+		game.load.image('flashStar', 'assets/img/flashStar.png');
 		game.load.image('flashBlack', 'assets/img/flashBlack.png');
-		game.load.image('flashGreen', 'assets/img/flashGreen.png');
+		game.load.image('flashSkull', 'assets/img/flashSkull.png');
+		game.load.image('flashPlus', 'assets/img/flashPlus.png');
 		game.load.image('flashHeart', 'assets/img/flashHeart.png');
 		game.load.image('menuLock', 'assets/img/lock.png');
 
@@ -43,9 +45,11 @@ Preload.prototype = {
 		game.load.audio('hitEnemySound', 'hitEnemy.mp3');
 		game.load.audio('hitPlusSound', 'hitPlus.mp3');
 		game.load.audio('hitHeartSound', 'hitHeart.mp3');
+		game.load.audio('hitStarSound', 'hitStar.mp3');
 		game.load.audio('menuBlipSound', 'menuBlip.mp3');
 		game.load.audio('modeStartSound', 'modeStart.mp3');
 		game.load.audio('modeLockedSound', 'modeLocked.mp3');
+		game.load.audio('levelUpSound', 'levelUp.mp3');
 		game.load.audio('dieSound', 'die.mp3');
 	},
 	create: function() {

@@ -78,6 +78,9 @@ MainMenu.prototype = {
 		game.menuBlipSound.volume = 0.5;
 		game.modeStartSound.volume = 0.5;
 		game.modeLockedSound.volume = 0.5;
+
+		// add white flash at beginning
+		game.menuFlashWhite = game.add.sprite(0, 0, 'sky');
 	},
 	update: function() {
 
@@ -103,6 +106,7 @@ MainMenu.prototype = {
 		
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
 		game.menuTitle.y = 150 + game.menuTitlePlusY;
+		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
 
 		for (var i = 0; i < game.menuOptionsText.length; i++) {
 			game.menuOptionsText[i].y = 400 + (i * 50) - game.menuTitlePlusY;
@@ -118,6 +122,7 @@ MainMenu.prototype = {
 		}
 		game.menuGraphics.x = approachSmooth(game.menuGraphics.x, currentGraphicsPlusX, 4);
 		game.menuGraphicsPlusX = approach(game.menuGraphicsPlusX, 0, 0.5);
+		game.menuOptionsText[0].x = game.menuGraphics.x + (game.world.width / 2);
 
 		game.menuGraphics.y = approachSmooth(game.menuGraphics.y, game.menuGraphicsYDest, 6);
 		if (Math.abs(game.menuTitlePlusY - 0) > 10) {
@@ -260,13 +265,32 @@ MainMenu.prototype = {
 				else {
 					// play game
 					game.modeStartSound.play();
-					game.state.start('Play');
+
+					if (game.currentMode == 0) {
+						game.state.start('Practice');
+					}
+					else if (game.currentMode == 1) {
+						game.state.start('Mode1');
+					}
+					else if (game.currentMode == 2) {
+						game.state.start('Mode2');
+					}
+					else if (game.currentMode == 3) {
+						//game.state.start('Mode3');
+					}
 				}
 			}
 			else if (game.menuOptionCurrent == 2) {
 				// show credits
 				game.state.start('Credits');
 			}
+		}
+
+		if (game.currentModeLocked && game.menuOptionCurrent < 2) {
+			game.menuGraphics.tint = 0xff6075;
+		}
+		else {
+			game.menuGraphics.tint = 0xffffff;
 		}
 
 

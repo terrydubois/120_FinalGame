@@ -24,39 +24,115 @@ GameOver.prototype = {
 		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
 		game.player.animations.play('squiggle');
 
-	
 
+		if(game.currentMode == 1){
 
-		// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
-		var newHS = false;
-		if (localStorage.getItem('highscore') == null) {
-			
-			// in this case, we don't have a saved browser highscore yet, so we set this score as the new highscore
-			game.highScore = game.currentScore;
-			localStorage.setItem('highscore', game.highScore.toString());
-			newHS = true;
-			
-			console.log("brand new hs: " + game.highScore);
-		}
-		else {
-
-			// in this case, we have a saved browser highscore, so we compare it to this score
-			let storedScore = parseInt(localStorage.getItem('highscore'));
-
-			if (game.currentScore > storedScore) {
-				// player beat the highscore, so we overwrite the browser's highscore
+			// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
+			var newHS = false;
+			if (localStorage.getItem('highscore1') == null) {
+				
+				// in this case, we don't have a saved browser highscore yet, so we set this score as the new highscore
 				game.highScore = game.currentScore;
-				localStorage.setItem('highscore', game.highScore.toString());
+				localStorage.setItem('highscore1', game.highScore.toString());
 				newHS = true;
-
-				console.log("player set new hs: " + game.highScore);
+				
+				console.log("brand new hs: " + game.highScore);
 			}
 			else {
-				// player didn't beat highscore, so the highscore remains the browser's highscore
-				game.highScore = parseInt(localStorage.getItem('highscore'));
-				newHS = false;
+
+				// in this case, we have a saved browser highscore, so we compare it to this score
+				let storedScore = parseInt(localStorage.getItem('highscore'));
+
+				if (game.currentScore > storedScore) {
+					// player beat the highscore, so we overwrite the browser's highscore
+					game.highScore = game.currentScore;
+					localStorage.setItem('highscore', game.highScore.toString());
+					newHS = true;
+
+					console.log("player set new hs: " + game.highScore);
+				}
+				else {
+					// player didn't beat highscore, so the highscore remains the browser's highscore
+					game.highScore = parseInt(localStorage.getItem('highscore'));
+					newHS = false;
+				}
+			}
+
+
+		}
+		else if(game.currentMode == 2){
+			// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
+			var newHS = false;
+			if (localStorage.getItem('highscore2') == null) {
+				
+				// in this case, we don't have a saved browser highscore yet, so we set this score as the new highscore
+				game.highScore = game.currentScore;
+				localStorage.setItem('highscore2', game.highScore.toString());
+				newHS = true;
+				
+				console.log("brand new hs: " + game.highScore);
+			}
+			else {
+
+				// in this case, we have a saved browser highscore, so we compare it to this score
+				let storedScore = parseInt(localStorage.getItem('highscore2'));
+
+				if (game.currentScore > storedScore) {
+					// player beat the highscore, so we overwrite the browser's highscore
+					game.highScore = game.currentScore;
+					localStorage.setItem('highscore2', game.highScore.toString());
+					newHS = true;
+
+					console.log("player set new hs: " + game.highScore);
+				}
+				else {
+					// player didn't beat highscore, so the highscore remains the browser's highscore
+					game.highScore = parseInt(localStorage.getItem('highscore2'));
+					newHS = false;
+				}
 			}
 		}
+		else{
+			// save highscore to browser (credit to Nathan Altice's Paddle Parkour)
+			var newHS = false;
+			if (localStorage.getItem('highscore3') == null) {
+				
+				// in this case, we don't have a saved browser highscore yet, so we set this score as the new highscore
+				game.highScore = game.currentScore;
+				localStorage.setItem('highscore3', game.highScore.toString());
+				newHS = true;
+				
+				console.log("brand new hs: " + game.highScore);
+			}
+			else {
+
+				// in this case, we have a saved browser highscore, so we compare it to this score
+				let storedScore = parseInt(localStorage.getItem('highscore3'));
+
+				if (game.currentScore > storedScore) {
+					// player beat the highscore, so we overwrite the browser's highscore
+					game.highScore = game.currentScore;
+					localStorage.setItem('highscore3', game.highScore.toString());
+					newHS = true;
+
+					console.log("player set new hs: " + game.highScore);
+				}
+				else {
+					// player didn't beat highscore, so the highscore remains the browser's highscore
+					game.highScore = parseInt(localStorage.getItem('highscore3'));
+					newHS = false;
+				}
+			}
+		}
+		
+
+
+
+
+
+
+
+
 
 		// game over text
 		game.scoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 115, game.currentScore+"  ", { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
@@ -75,7 +151,20 @@ GameOver.prototype = {
 		//esc key also goes back to play state
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
 			game.sound.stopAll();
-			game.state.start("Play");
+			// play game
+			game.modeStartSound.play();
+			if (game.currentMode == 0) {
+				//game.state.start('Practice');
+			}
+			else if (game.currentMode == 1) {
+				game.state.start('Mode1');
+			}
+			else if (game.currentMode == 2) {
+				game.state.start('Mode2');
+			}
+			else if (game.currentMode == 3) {
+				//game.state.start('Mode3');
+			}
 		}
 
 
@@ -83,7 +172,7 @@ GameOver.prototype = {
 		//esc key also goes back to main menu
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.ESC)){
 			game.sound.stopAll();
-			game.state.start("LogoScreen");
+			game.state.start("MainMenu");
 		}
 
 
