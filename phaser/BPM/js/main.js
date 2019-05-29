@@ -32,6 +32,7 @@ game.state.add('MainMenu', MainMenu);
 game.state.add('Practice', Practice);
 game.state.add('Mode1', Mode1);
 game.state.add('Mode2', Mode2);
+game.state.add('Mode3', Mode3);
 game.state.add('GameOver', GameOver);
 game.state.add('Credits', Credits);
 
@@ -253,14 +254,17 @@ function spawnFlash(type) {
 
 //skull spawner
 function spawnEnemy() {
+	if(game.currentMode == 3){}
 
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 250, 350);
+	if(game.currentMode == 3){
+	game.enemy = new AvoidHorz(game, 'skull', 'skull', .5, 0, game.playerPos, newEnemySpeed);
+	}
+	else{
 	game.enemy = new Avoid(game, 'skull', 'skull', .5, 0, game.playerPos, newEnemySpeed);
+	}
 	game.add.existing(game.enemy);
-
-
-
 
 
 	// decrease time until next spawn as levels progress
@@ -292,11 +296,18 @@ function spawnEnemy() {
 }
 
 
+
+
 // plus spawner
 function spawnCollect() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 350);
+	if(game.currentMode == 3){
+	game.Heart = new AvoidHorz(game, 'plus', 'plus', .5, 0, game.playerPos, newEnemySpeed);
+	}
+	else{
 	game.Heart = new Avoid(game, 'plus', 'plus', .5, 0, game.playerPos, newEnemySpeed);
+	}
 	game.add.existing(game.Heart);
 
 	// set up how long to wait until next plus spawn
@@ -333,7 +344,12 @@ function spawnCollect() {
 function spawnStar() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 350);
+	if(game.currentMode == 3){
+	game.Star = new AvoidHorz(game, 'star', 'star', .5, 0, game.playerPos, newEnemySpeed);
+	}
+	else{
 	game.Star = new Avoid(game, 'star', 'star', .5, 0, game.playerPos, newEnemySpeed);
+	}
 	game.add.existing(game.Star);
 
 	// set up how long to wait until next plus spawn
@@ -353,7 +369,12 @@ function spawnStar() {
 function spawnHealth() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 250);
-	game.Heart = new Avoid(game, 'heart', 'heart', 0.5, 0, game.playerPos, newEnemySpeed);
+	if(game.currentMode == 3){
+		game.Heart = new AvoidHorz(game, 'heart', 'heart', 0.5, 0, game.playerPos, newEnemySpeed);
+	}
+	else{
+		game.Heart = new Avoid(game, 'heart', 'heart', 0.5, 0, game.playerPos, newEnemySpeed);
+	}
 	game.add.existing(game.Heart);
 
 	// set up how long to wait until next heart spawn

@@ -276,7 +276,7 @@ MainMenu.prototype = {
 						game.state.start('Mode2');
 					}
 					else if (game.currentMode == 3) {
-						//game.state.start('Mode3');
+						game.state.start('Mode3');
 					}
 				}
 			}
