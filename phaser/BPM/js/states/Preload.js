@@ -39,7 +39,7 @@ Preload.prototype = {
 		//LOAD AUDIO
 		game.load.path = 'assets/audio/';
 		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
-		game.load.audio('BETA', ['BETA TRACK 3.mp3']);
+		game.load.audio('BETA', ['BETA TRACK 2.mp3']);
 		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
 		game.load.audio('hitEnemySound', 'hitEnemy.mp3');
