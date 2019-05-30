@@ -25,7 +25,7 @@ Preload.prototype = {
 		game.load.image('heartP','assets/img/heart1Cut.png');
 		game.load.image('plusP','assets/img/plusCut.png');	
 		game.load.image('starP','assets/img/starCut.png');	
-		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircleBig.png');
+		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
 		game.load.image('bgAnimatedTriangle', 'assets/img/bgAnimatedTriangle.png');
 		game.load.image('flashStar', 'assets/img/flashStar.png');
 		game.load.image('flashBlack', 'assets/img/flashBlack.png');
@@ -39,7 +39,7 @@ Preload.prototype = {
 		//LOAD AUDIO
 		game.load.path = 'assets/audio/';
 		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
-		game.load.audio('BETA', ['BETA TRACK.mp3']);
+		game.load.audio('BETA', ['BETA TRACK 3.mp3']);
 		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
 		game.load.audio('hitEnemySound', 'hitEnemy.mp3');
