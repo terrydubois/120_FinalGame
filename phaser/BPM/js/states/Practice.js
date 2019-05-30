@@ -301,7 +301,7 @@ Practice.prototype = {
 
 
 			game.song1.play('',0,1,true);
-			game.song1._sound.playbackRate.value = 1;
+			game.song1._sound.playbackRate.value = .7
 			this.beat.play('',0,.5,false);
 			game.hasStarted = true;
 		}
