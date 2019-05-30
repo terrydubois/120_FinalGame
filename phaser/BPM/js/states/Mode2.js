@@ -185,7 +185,7 @@ Mode2.prototype = {
 		game.bgAngleIncrDest = 0.75;
 
 		game.bgCircleTimer = 0;
-		game.bgCircleTimerFull = 60 / 4;
+		game.bgCircleTimerFull = 60 / 2;
 
 	},
 	update: function() {
