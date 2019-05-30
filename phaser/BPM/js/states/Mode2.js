@@ -184,22 +184,9 @@ Mode2.prototype = {
 		game.bgAngleIncr = 0.75;
 		game.bgAngleIncrDest = 0.75;
 
-		game.bgCircleTimer = 0;
-		game.bgCircleTimerFull = 60 / 4;
-
 	},
 	update: function() {
 
-		// spawn background animation every 0.25 seconds
-		if (game.hasStarted) {
-			game.bgCircleTimer++;
-			if (game.bgCircleTimer >= game.bgCircleTimerFull) {
-				spawnBGCircle();
-				game.bgCircleTimer = 0;
-			}
-		}
-
-		// rotate background animations
 		game.bgAngle += game.bgAngleIncr;
 		game.bgAngleIncr = approach(game.bgAngleIncr, game.bgAngleIncrDest, 0.04);
 		
@@ -290,6 +277,8 @@ Mode2.prototype = {
 			game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
 			game.time.events.repeat(Phaser.Timer.SECOND * 30, 1, spawnStar, this);
+
+			spawnBGCircle();
 						
 
 			game.waveScaleDest = game.maxScale;	
@@ -378,7 +367,7 @@ Mode2.prototype = {
 		}
 
 
-		// control HUD elements
+
 		gameplayHUD();
 
 		
