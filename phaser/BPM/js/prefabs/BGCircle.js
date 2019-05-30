@@ -8,7 +8,7 @@ function BGCircle(game, key, frame, scale, rotation) {
 	this.scale.x = scale;
 	this.scale.y = scale;
 	this.rotation = rotation;
-	this.alpha = 1;
+	this.alpha = 0.35;
 }
 
 BGCircle.prototype = Object.create(Phaser.Sprite.prototype);
@@ -23,6 +23,13 @@ BGCircle.prototype.update = function() {
 	}
 	else {
 		this.destroy();
+	}
+
+	if (this.alpha < 1) {
+		this.alpha += 0.001;
+	}
+	else {
+		this.alpha = 1;
 	}
 
 	this.angle = game.bgAngle;
