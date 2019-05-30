@@ -209,27 +209,25 @@ function gameplayHUDPractice() {
 // background animation spawner
 function spawnBGCircle() {
 
+	// determine which sprite we will spawn into the background
+	var bgAnimationImage = 'bgAnimatedCircle';
+
 	if (game.currentMode == 0) {
-		game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+		bgAnimationImage = 'bgAnimatedCircle';
 	}
 	else if (game.currentMode == 1) {
-		game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+		bgAnimationImage = 'bgAnimatedCircle';
 	}
 	else if (game.currentMode == 2) {
-		game.bgCircle = new BGCircle(game, 'bgAnimatedTriangle', 'bgAnimatedTriangle', 0, 0);
+		bgAnimationImage = 'bgAnimatedTriangle';
 	}
 	else if (game.currentMode == 3) {
-		game.bgCircle = new BGCircle(game, 'bgAnimatedCircle', 'bgAnimatedCircle', 0, 0);
+		bgAnimationImage = 'bgAnimatedCircle';
 	}
-	game.bgGroup.add(game.bgCircle);
 
-
-
-	// set up how long to wait until next heart spawn
-	var timeTilNextSpawn = 0.25;
-
-	// call this function again in "timeTilNextSpawn" seconds
-	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnBGCircle, this);
+	// spawn new background animation sprite
+	game.bgAnimation = new BGCircle(game, bgAnimationImage, bgAnimationImage, 0, 0);
+	game.bgGroup.add(game.bgAnimation);
 }
 
 function spawnFlash(type) {

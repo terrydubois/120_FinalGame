@@ -181,11 +181,23 @@ Practice.prototype = {
 
 		game.bgAngle = 0;
 
+		game.bgCircleTimer = 0;
+		game.bgCircleTimerFull = 60 / 4;
+
 	},
 	update: function() {
 
-		
+		// spawn background animation every 0.25 seconds
+		if (game.hasStarted) {
+			game.bgCircleTimer++;
+			if (game.bgCircleTimer >= game.bgCircleTimerFull) {
+				spawnBGCircle();
+				game.bgCircleTimer = 0;
+			}
+		}
 
+
+		// fade "PRACTICE" text in and out
 		if (game.practiceTextFadeOut) {
 			if (game.practiceText.alpha > 0) {
 				game.practiceText.alpha -= 0.015;
@@ -283,8 +295,6 @@ Practice.prototype = {
 			game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
 			//game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
 			//game.time.events.repeat(Phaser.Timer.SECOND * 30, 1, spawnStar, this);
-
-			spawnBGCircle();
 						
 
 			game.waveScaleDest = game.maxScale;	
@@ -354,7 +364,7 @@ Practice.prototype = {
 		}
 
 
-
+		// control HUD elements (for practice mode specifically)
 		gameplayHUDPractice();
 
 		
