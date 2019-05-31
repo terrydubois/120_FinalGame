@@ -138,6 +138,7 @@ Mode2.prototype = {
 		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
+		game.fpsText.alpha = 0;
 		game.HUDgroup.add(game.fpsText);
 
 
