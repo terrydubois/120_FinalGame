@@ -184,6 +184,10 @@ MainMenu.prototype = {
 
 			game.flavorTextPlusYDest = 100;
 		}
+		if (game.menuOptionCurrent == 0 && game.currentModeLocked) {
+			game.flavorTextPlusYDest = 0;
+		}
+
 		
 		game.menuOptionsText[1].text = game.menuModes[game.currentMode];
 
@@ -222,7 +226,7 @@ MainMenu.prototype = {
 		game.menuLock.x = game.menuOptionsText[1].x;
 		game.menuLock.y = game.menuOptionsText[1].y;
 
-		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest, 8);
+		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest + currentGraphicsPlusX, 8);
 		game.flavorText.y = (game.world.height - 30) + game.flavorTextPlusY;
 		game.flavorTextStar.x = game.flavorText.x;
 		game.flavorTextStar.y = game.flavorText.y;
