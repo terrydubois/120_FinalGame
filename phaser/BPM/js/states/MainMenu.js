@@ -49,7 +49,7 @@ MainMenu.prototype = {
 		game.menuTriangleAlphaDest = 0;
 
 		game.currentModeUnlocked = false;
-		game.modeStarsToUnlock = [0, 1, 10, 30];
+		game.modeStarsToUnlock = [0, 0, 10, 30];
 		game.starCountMenuSprite = game.add.sprite(40, 40, 'star');
 		game.starCountMenuSprite.scale.setTo(0.4);
 		game.starCountMenuSprite.anchor.setTo(0.5);
