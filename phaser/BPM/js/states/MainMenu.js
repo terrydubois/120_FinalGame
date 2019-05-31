@@ -49,7 +49,7 @@ MainMenu.prototype = {
 		game.menuTriangleAlphaDest = 0;
 
 		game.currentModeUnlocked = false;
-		game.modeStarsToUnlock = [0, 1, 10, 30];
+		game.modeStarsToUnlock = [0, 0, 10, 30];
 		game.starCountMenuSprite = game.add.sprite(40, 40, 'star');
 		game.starCountMenuSprite.scale.setTo(0.4);
 		game.starCountMenuSprite.anchor.setTo(0.5);
@@ -70,6 +70,8 @@ MainMenu.prototype = {
 		game.menuLockScaleCurrent = 0.5;
 		game.menuLock.scale.setTo(game.menuLockScaleCurrent);
 		game.menuLock.anchor.setTo(0.5);
+		game.menuLockMaxScale = 0.75;
+		game.menuLockMinScale = 0.25;
 
 		// add menu audio
 		game.menuBlipSound = game.add.audio('menuBlipSound');
@@ -152,7 +154,7 @@ MainMenu.prototype = {
 					game.currentMode = game.menuModes.length - 1;
 				}
 				game.menuTriangleLeftPlusX += 20;
-				game.menuLockScaleDest = 1;
+				game.menuLockScaleDest = game.menuLockMaxScale;
 				game.menuLockScaleCurrent = 1;
 				game.menuLock.alpha = 0;
 			}
@@ -168,7 +170,7 @@ MainMenu.prototype = {
 					game.currentMode = 0;
 				}
 				game.menuTriangleRightPlusX += 20;
-				game.menuLockScaleDest = 1;
+				game.menuLockScaleDest = game.menuLockMaxScale;
 				game.menuLockScaleCurrent = 1;
 				game.menuLock.alpha = 0;
 			}
@@ -182,6 +184,10 @@ MainMenu.prototype = {
 
 			game.flavorTextPlusYDest = 100;
 		}
+		if (game.menuOptionCurrent == 0 && game.currentModeLocked) {
+			game.flavorTextPlusYDest = 0;
+		}
+
 		
 		game.menuOptionsText[1].text = game.menuModes[game.currentMode];
 
@@ -204,11 +210,11 @@ MainMenu.prototype = {
 		if (game.currentModeLocked) {
 			game.flavorText.text = "COLLECT " + game.modeStarsToUnlock[game.currentMode] + "              TO UNLOCK! ";
 			game.menuLockAlphaDest = 1;
-			game.menuLockScaleDest = 0.5;
+			game.menuLockScaleDest = game.menuLockMinScale;
 		}
 		else {
 			game.menuLockAlphaDest = 0;
-			game.menuLockScaleDest = 1;
+			game.menuLockScaleDest = game.menuLockMaxScale;
 			game.menuLockScaleCurrent = 1;
 			game.menuLock.alpha = 0;
 			game.flavorTextPlusYDest = 100;
@@ -220,7 +226,7 @@ MainMenu.prototype = {
 		game.menuLock.x = game.menuOptionsText[1].x;
 		game.menuLock.y = game.menuOptionsText[1].y;
 
-		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest, 8);
+		game.flavorTextPlusY = approachSmooth(game.flavorTextPlusY, game.flavorTextPlusYDest + currentGraphicsPlusX, 8);
 		game.flavorText.y = (game.world.height - 30) + game.flavorTextPlusY;
 		game.flavorTextStar.x = game.flavorText.x;
 		game.flavorTextStar.y = game.flavorText.y;

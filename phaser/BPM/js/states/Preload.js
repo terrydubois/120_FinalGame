@@ -7,6 +7,7 @@ Preload.prototype = {
 		//LOAD IMAGES
 		game.load.image('sky', 'assets/img/background.png');
 		game.load.image('goscreen', 'assets/img/gameOver.png');
+		game.load.image('WBLogo', 'assets/img/logo.png');
 		game.load.image('heart', 'assets/img/heart.png');
 		game.load.image('skull', 'assets/img/skull.png');
 		game.load.image('plus', 'assets/img/plus.png');
@@ -27,7 +28,8 @@ Preload.prototype = {
 		game.load.image('plusP','assets/img/plusCut.png');	
 		game.load.image('starP','assets/img/starCut.png');	
 		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
-		game.load.image('bgAnimatedTriangle', 'assets/img/bgAnimatedTriangle.png');
+		game.load.image('bgAnimatedTriangle', 'assets/img/bgAnimatedTriangleSmall.png');
+		game.load.image('bgAnimatedStar', 'assets/img/bgAnimatedStar.png');
 		game.load.image('flashStar', 'assets/img/flashStar.png');
 		game.load.image('flashBlack', 'assets/img/flashBlack.png');
 		game.load.image('flashSkull', 'assets/img/flashSkull.png');
@@ -40,7 +42,7 @@ Preload.prototype = {
 		//LOAD AUDIO
 		game.load.path = 'assets/audio/';
 		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
-		game.load.audio('BETA', ['BETA TRACK 2.mp3']);
+		game.load.audio('BETA', ['BETA TRACK 3.mp3']);
 		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
 		game.load.audio('hitEnemySound', 'hitEnemy.mp3');

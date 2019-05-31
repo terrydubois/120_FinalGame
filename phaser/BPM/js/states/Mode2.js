@@ -112,10 +112,7 @@ Mode2.prototype = {
 		// text for score
 		game.scoreTextArrLength = 5;
 		game.scoreTextArr = [game.scoreTextArrLength];
-		//game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {font: 'Impact', fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
-		//game.scoreText.anchor.setTo(1);
-	    //game.scoreText.stroke = '#299F2D';
-    	//game.scoreText.strokeThickness = 2;
+
 		game.scoreTextDisplay = 0;
 		for (var i = 0; i < game.scoreTextArrLength; i++) {
 			var currentFill = '#26D100';
@@ -141,6 +138,10 @@ Mode2.prototype = {
 		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
+		game.fpsText.alpha = 0;
+		if (game.debugControls) {
+			game.fpsText.alpha = 1;
+		}
 		game.HUDgroup.add(game.fpsText);
 
 
@@ -155,9 +156,7 @@ Mode2.prototype = {
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
 		game.hitStarSound = game.add.audio('hitStarSound');
-		game.dieSound = game.add.audio('dieSound');
 		game.levelUpSound = game.add.audio('levelUpSound');
-		game.dieSound.volume = 0.5;
 		game.levelUpSound.volume = 0.75;
 
 		//sprite scaling variables for player
@@ -185,7 +184,7 @@ Mode2.prototype = {
 		game.bgAngleIncrDest = 0.75;
 
 		game.bgCircleTimer = 0;
-		game.bgCircleTimerFull = 60 / 4;
+		game.bgCircleTimerFull = 60 / 2;
 
 	},
 	update: function() {
@@ -216,7 +215,6 @@ Mode2.prototype = {
 		
 		// Game Over checking
 		if(game.currentHearts == 0) {
-			game.dieSound.play();
 			game.state.start("GameOver");
 		}
 

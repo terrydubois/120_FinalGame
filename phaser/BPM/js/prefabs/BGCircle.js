@@ -9,6 +9,14 @@ function BGCircle(game, key, frame, scale, rotation) {
 	this.scale.y = scale;
 	this.rotation = rotation;
 	this.alpha = 0.35;
+	this.maxScale = 1;
+	this.scaleIncr = 0.005;
+
+	if (key == 'bgAnimatedTriangle'
+	|| key == 'bgAnimatedStar') {
+		this.maxScale = 2;
+		this.scaleIncr = 0.0075;
+	}
 }
 
 BGCircle.prototype = Object.create(Phaser.Sprite.prototype);
@@ -17,8 +25,8 @@ BGCircle.prototype.constructor = Avoid;
 // override update function
 BGCircle.prototype.update = function() {
 
-	if (this.scale.x < 1) {
-		this.scale.x += 0.005;
+	if (this.scale.x < this.maxScale) {
+		this.scale.x += this.scaleIncr;
 		this.scale.y = this.scale.x;
 	}
 	else {

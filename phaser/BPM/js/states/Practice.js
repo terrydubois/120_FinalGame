@@ -105,10 +105,7 @@ Practice.prototype = {
 		// text for score
 		game.scoreTextArrLength = 5;
 		game.scoreTextArr = [game.scoreTextArrLength];
-		//game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {font: 'Impact', fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
-		//game.scoreText.anchor.setTo(1);
-	    //game.scoreText.stroke = '#299F2D';
-    	//game.scoreText.strokeThickness = 2;
+
 		game.scoreTextDisplay = 0;
 		for (var i = 0; i < game.scoreTextArrLength; i++) {
 			var currentFill = game.scoreColor2;
@@ -135,7 +132,7 @@ Practice.prototype = {
 		game.HUDgroup.add(game.starCountMenuText);
 
 
-		// text for FPS
+		// text for PRACTICE
 		game.practiceText = game.add.text(game.world.width / 2, 90, 'PRACTICE     ', {font: 'Impact',fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'center'});
 		game.practiceText.anchor.setTo(0.5);
 		game.practiceTextFadeOut = true;
@@ -154,9 +151,7 @@ Practice.prototype = {
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
 		game.hitStarSound = game.add.audio('hitStarSound');
-		game.dieSound = game.add.audio('dieSound');
 		game.levelUpSound = game.add.audio('levelUpSound');
-		game.dieSound.volume = 0.5;
 		game.levelUpSound.volume = 0.5;
 
 		//sprite scaling variables for player
@@ -222,13 +217,8 @@ Practice.prototype = {
 
 		game.playerEmitter.emitX = game.player.x;
 		game.playerEmitter.emitY = game.player.y;
-/*		
-		// Game Over checking
-		if(game.currentHearts == 0) {
-			game.dieSound.play();
-			game.state.start("GameOver");
-		}
-*/
+
+
 		// resize speedup bar
 		game.barOutline.x = (game.world.width / 2) - (game.barOutline.width / 2);
 		game.barFill.x = game.barOutline.x;
