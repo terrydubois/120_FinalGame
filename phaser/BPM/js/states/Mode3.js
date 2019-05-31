@@ -153,9 +153,7 @@ Mode3.prototype = {
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
 		game.hitStarSound = game.add.audio('hitStarSound');
-		game.dieSound = game.add.audio('dieSound');
 		game.levelUpSound = game.add.audio('levelUpSound');
-		game.dieSound.volume = 0.5;
 		game.levelUpSound.volume = 0.75;
 
 		//sprite scaling variables for player
@@ -208,7 +206,6 @@ Mode3.prototype = {
 		
 		// Game Over checking
 		if(game.currentHearts == 0) {
-			game.dieSound.play();
 			game.state.start("GameOver");
 		}
 

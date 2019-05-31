@@ -154,9 +154,7 @@ Practice.prototype = {
 		game.hitPlusSound = game.add.audio('hitPlusSound');
 		game.hitHeartSound = game.add.audio('hitHeartSound');
 		game.hitStarSound = game.add.audio('hitStarSound');
-		game.dieSound = game.add.audio('dieSound');
 		game.levelUpSound = game.add.audio('levelUpSound');
-		game.dieSound.volume = 0.5;
 		game.levelUpSound.volume = 0.5;
 
 		//sprite scaling variables for player
@@ -222,13 +220,8 @@ Practice.prototype = {
 
 		game.playerEmitter.emitX = game.player.x;
 		game.playerEmitter.emitY = game.player.y;
-/*		
-		// Game Over checking
-		if(game.currentHearts == 0) {
-			game.dieSound.play();
-			game.state.start("GameOver");
-		}
-*/
+
+
 		// resize speedup bar
 		game.barOutline.x = (game.world.width / 2) - (game.barOutline.width / 2);
 		game.barFill.x = game.barOutline.x;

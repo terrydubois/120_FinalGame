@@ -166,8 +166,12 @@ GameOver.prototype = {
 		game.bgFlashGroup = game.add.group();
 		game.add.existing(game.bgFlashGroup);
 		spawnFlash(0);
+
+		game.dieSound = game.add.audio('dieSound');
+		game.dieSound.volume = 0.5;
+		game.dieSound.play();
 	},
-	update: function(){
+	update: function() {
 		
 		buldge();
 
