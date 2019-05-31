@@ -70,6 +70,8 @@ MainMenu.prototype = {
 		game.menuLockScaleCurrent = 0.5;
 		game.menuLock.scale.setTo(game.menuLockScaleCurrent);
 		game.menuLock.anchor.setTo(0.5);
+		game.menuLockMaxScale = 0.75;
+		game.menuLockMinScale = 0.25;
 
 		// add menu audio
 		game.menuBlipSound = game.add.audio('menuBlipSound');
@@ -152,7 +154,7 @@ MainMenu.prototype = {
 					game.currentMode = game.menuModes.length - 1;
 				}
 				game.menuTriangleLeftPlusX += 20;
-				game.menuLockScaleDest = 1;
+				game.menuLockScaleDest = game.menuLockMaxScale;
 				game.menuLockScaleCurrent = 1;
 				game.menuLock.alpha = 0;
 			}
@@ -168,7 +170,7 @@ MainMenu.prototype = {
 					game.currentMode = 0;
 				}
 				game.menuTriangleRightPlusX += 20;
-				game.menuLockScaleDest = 1;
+				game.menuLockScaleDest = game.menuLockMaxScale;
 				game.menuLockScaleCurrent = 1;
 				game.menuLock.alpha = 0;
 			}
@@ -204,11 +206,11 @@ MainMenu.prototype = {
 		if (game.currentModeLocked) {
 			game.flavorText.text = "COLLECT " + game.modeStarsToUnlock[game.currentMode] + "              TO UNLOCK! ";
 			game.menuLockAlphaDest = 1;
-			game.menuLockScaleDest = 0.5;
+			game.menuLockScaleDest = game.menuLockMinScale;
 		}
 		else {
 			game.menuLockAlphaDest = 0;
-			game.menuLockScaleDest = 1;
+			game.menuLockScaleDest = game.menuLockMaxScale;
 			game.menuLockScaleCurrent = 1;
 			game.menuLock.alpha = 0;
 			game.flavorTextPlusYDest = 100;
