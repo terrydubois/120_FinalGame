@@ -7,31 +7,30 @@ LogoScreen.prototype = {
 	},
 	create: function() {
 		console.log('LogoScreen: create');
-		game.add.sprite(0,0,'sky');
-		game.menu = game.add.sprite(0,0,'title');
-		game.modes = game.add.sprite (0,0,'title');
-		game.modes.frameName = 'titlep';
-		game.arrows = game.add.sprite(0,0,'title');
+		// background
+		game.logoBG = game.add.sprite(0, 0, 'sky');
+
+		// add logo
+		game.logoSprite = game.add.sprite(game.world.width / 2, game.world.height / 2, 'WBLogo');
+		game.logoSprite.anchor.setTo(0.5);
+		game.logoSprite.alpha = 0;
+		game.logoSpriteScale = 1;
+
+		// foreground for fade-out effect
+		game.logoFG = game.add.sprite(0, 0, 'sky');
+		game.logoFG.alpha = 0;
 
 
-		game.choice = 0;
-		game.playingr = false;
-		game.playingl = false;
-		game.mode = 0;
+		//game.choice = 0;
+		//game.playingr = false;
+		//game.playingl = false;
+		//game.mode = 0;
 		game.currentMode = 0;
-
-
-		//game.arrows.animations.add('left', ['titlel1','titlel2','titlel3','titlel4','titlel5','titlel6','titlel5','titlel4','titlel3','titlel2','titlel1'],30,false);
-		//game.arrows.animations.add('right', ['titler1','titler2','titler3','titler4','titler5','titler6','titler5','titler4','titler3','titler2','titler1'],30,false);
-
-		//game.arrows.animations.play('left');
-
-		//game.instructionText = game.add.text(game.world.width / 2, game.world.height - 25, "UP and DOWN arrows to move!", { fontSize: '24px',fill:'#4669FE',fontStyle: 'italic'});
-		//game.instructionText.anchor.setTo(0.5);
+		game.logoTimer = 140;
 
 		game.song1 = game.add.audio('BETA');
 
-		game.state.start('MainMenu');
+		
 		
 
 	},
@@ -39,7 +38,23 @@ LogoScreen.prototype = {
 
 
 	update: function() {
+		
+		// shrink and fade logo
+		game.logoSprite.alpha += 0.02;
+		game.logoSprite.alpha = Math.min(game.logoSprite.alpha, 1);
+		game.logoSpriteScale -= 0.001;
+		game.logoSprite.scale.setTo(game.logoSpriteScale);
 
+		// fade into Main Menu after logo is seen
+		game.logoTimer--;
+		if (game.logoTimer <= 0) {
+			if (game.logoFG.alpha < 1) {
+				game.logoFG.alpha += 0.05;
+			}
+			else {
+				game.state.start('MainMenu');
+			}
+		}
 	}
 }
 	

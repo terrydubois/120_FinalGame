@@ -33,8 +33,8 @@ Mode3.prototype = {
 
 
 
-		game.posTop = 50;
-		game.posBottom = game.world.height - game.posTop;
+		game.posTop = 100;
+		game.posBottom = game.world.height - (game.posTop / 2);
 
 
 
@@ -178,6 +178,8 @@ Mode3.prototype = {
 		game.add.existing(game.bgFlashGroup);
 
 		game.bgAngle = 0;
+		game.bgAngleIncr = 0.75;
+		game.bgAngleIncrDest = 0.75;
 
 		game.bgCircleTimer = 0;
 		game.bgCircleTimerFull = 60 / 2;
@@ -193,6 +195,10 @@ Mode3.prototype = {
 				game.bgCircleTimer = 0;
 			}
 		}
+
+		// rotate background animations
+		game.bgAngle += game.bgAngleIncr;
+		game.bgAngleIncr = approach(game.bgAngleIncr, game.bgAngleIncrDest, 0.04);
 
 		
 
@@ -254,7 +260,7 @@ Mode3.prototype = {
 			}
 			
 		}
-		game.posBottom = game.world.height - game.posTop;
+		game.posBottom = game.world.height - (game.posTop / 2);
 
 
 
@@ -328,6 +334,7 @@ Mode3.prototype = {
 			game.switchRate -=.03;
 			game.song1._sound.playbackRate.value += .1;
 			game.levelUpSound.play();
+			game.bgAngleIncrDest *= -1;
 
 			//game.posTop += 20;
 			//leftside.x += 20;
