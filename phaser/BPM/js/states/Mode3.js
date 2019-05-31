@@ -176,7 +176,7 @@ Mode3.prototype = {
 		game.bgAngle = 0;
 
 		game.bgCircleTimer = 0;
-		game.bgCircleTimerFull = 60 / 4;
+		game.bgCircleTimerFull = 60 / 2;
 
 	},
 	update: function() {

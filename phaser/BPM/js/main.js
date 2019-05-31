@@ -223,7 +223,7 @@ function spawnBGCircle() {
 		bgAnimationImage = 'bgAnimatedTriangle';
 	}
 	else if (game.currentMode == 3) {
-		bgAnimationImage = 'bgAnimatedCircle';
+		bgAnimationImage = 'bgAnimatedStar';
 	}
 
 	// spawn new background animation sprite

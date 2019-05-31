@@ -27,6 +27,7 @@ Preload.prototype = {
 		game.load.image('starP','assets/img/starCut.png');	
 		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
 		game.load.image('bgAnimatedTriangle', 'assets/img/bgAnimatedTriangleSmall.png');
+		game.load.image('bgAnimatedStar', 'assets/img/bgAnimatedStar.png');
 		game.load.image('flashStar', 'assets/img/flashStar.png');
 		game.load.image('flashBlack', 'assets/img/flashBlack.png');
 		game.load.image('flashSkull', 'assets/img/flashSkull.png');
