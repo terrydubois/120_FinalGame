@@ -462,3 +462,36 @@ function blinkPlayer(playerObj) {
 		playerObj.alpha = 1;
 	}	
 }
+
+// set up arrow key instructions
+function arrowKeyInstructionsCreate() {
+
+	game.arrowKeyInstructions = game.add.sprite(game.world.width / 2, game.world.height / 2, 'arrowKeys');
+	game.arrowKeyInstructions.anchor.setTo(0.5);
+	game.arrowKeyInstructions.alpha = 0;
+	game.arrowKeyInstructionsScale = 1.5;
+	game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+
+	game.arrowKeyInstructionsTimer = 0;
+
+	game.arrowKeyInstructionsScalePlus = 0;
+}
+
+// show arrow key instructions if need be
+function arrowKeyInstructionsUpdate() {
+
+	game.arrowKeyInstructionsTimer++;
+	if (game.arrowKeyInstructionsTimer >= 160 && !game.hasStarted) {
+
+		// fade in arrow key controls
+		game.arrowKeyInstructions.alpha += 0.02;
+		game.arrowKeyInstructions.alpha = Phaser.Math.clamp(game.arrowKeyInstructions.alpha, 0, 1);
+		game.arrowKeyInstructionsScale = approachSmooth(game.arrowKeyInstructionsScale, 1, 20);
+		game.arrowKeyInstructionsScale = Phaser.Math.clamp(game.arrowKeyInstructionsScale, 1, 1.5);
+
+		game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+	}
+	else {
+		game.arrowKeyInstructions.alpha = 0;
+	}
+}

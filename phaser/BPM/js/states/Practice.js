@@ -179,6 +179,8 @@ Practice.prototype = {
 		game.bgCircleTimer = 0;
 		game.bgCircleTimerFull = 60 / 4;
 
+		arrowKeyInstructionsCreate();
+
 	},
 	update: function() {
 
@@ -356,6 +358,9 @@ Practice.prototype = {
 
 		// control HUD elements (for practice mode specifically)
 		gameplayHUDPractice();
+
+		// show arrow key controls if necessary
+		arrowKeyInstructionsUpdate();
 
 		
 	}

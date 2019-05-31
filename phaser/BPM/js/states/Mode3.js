@@ -184,6 +184,8 @@ Mode3.prototype = {
 		game.bgCircleTimer = 0;
 		game.bgCircleTimerFull = 60 / 2;
 
+		arrowKeyInstructionsCreate();
+
 	},
 	update: function() {
 
@@ -351,6 +353,9 @@ Mode3.prototype = {
 
 		// control HUD elements
 		gameplayHUD();
+
+		// show arrow key controls if necessary
+		arrowKeyInstructionsUpdate();
 
 		
 	}

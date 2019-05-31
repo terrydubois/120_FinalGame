@@ -35,6 +35,7 @@ Preload.prototype = {
 		game.load.image('flashPlus', 'assets/img/flashPlus.png');
 		game.load.image('flashHeart', 'assets/img/flashHeart.png');
 		game.load.image('menuLock', 'assets/img/lock.png');
+		game.load.image('arrowKeys', 'assets/img/arrowKeys.png');
 
 
 
