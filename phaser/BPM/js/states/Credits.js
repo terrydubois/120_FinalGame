@@ -8,6 +8,8 @@ Credits.prototype = {
 	},
 	create: function() {
 		console.log('credits: create');
+		game.add.sprite(0,0,'sky');
+		credits = game.add.sprite(0,0,'credits');
 
 	},
 	update: function() {

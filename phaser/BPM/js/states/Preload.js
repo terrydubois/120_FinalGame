@@ -16,6 +16,7 @@ Preload.prototype = {
 		game.load.image('waveformL', 'assets/img/waveformB.png');
 		//game.load.image('title','assets/img/title.png');
 		game.load.image('title', 'assets/img/bpmTitle.png');
+		game.load.image('credits', 'assets/img/credits.png');
 		game.load.image('menuTriangle', 'assets/img/menuTriangle.png');
 		game.load.image('heartHUD','assets/img/heartHUD.png');
 		game.load.image('barFill','assets/img/barFill.png');
