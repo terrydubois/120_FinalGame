@@ -108,10 +108,6 @@ Mode1.prototype = {
 		// text for score
 		game.scoreTextArrLength = 5;
 		game.scoreTextArr = [game.scoreTextArrLength];
-		//game.scoreText = game.add.text(game.world.width - 60, 75, game.currentScore, {font: 'Impact', fontStyle: 'italic', fontSize: '50px', fill: '#3FFC45', align: 'center'});
-		//game.scoreText.anchor.setTo(1);
-	    //game.scoreText.stroke = '#299F2D';
-    	//game.scoreText.strokeThickness = 2;
 		game.scoreTextDisplay = 0;
 		for (var i = 0; i < game.scoreTextArrLength; i++) {
 			var currentFill = game.scoreColor2;

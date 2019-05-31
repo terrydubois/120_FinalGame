@@ -135,14 +135,37 @@ GameOver.prototype = {
 
 
 		// game over text
-		game.scoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 115, game.currentScore+"  ", { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
-		game.highScoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 30, game.highScore+"  ", { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
+		//game.scoreText = game.add.text(game.world.width / 2 + 80 ,(game.world.height / 2) - 115, game.currentScore+"  ", { fontSize: '80px',fill:'#FFCC33',fontStyle: 'italic'});
 
+		// show most recent player score
+		game.scoreTextArrLength = 5;
+		game.scoreTextArr = [game.scoreTextArrLength];
+		for (var i = 0; i < game.scoreTextArrLength; i++) {
+			var currentFill = game.scoreColor2;
+			if (i == game.scoreTextArrLength - 1) {
+				currentFill = game.scoreColor1;
+			}
+			game.scoreTextArr[i] = game.add.text((game.world.width / 2) + 80 - i, (game.world.height / 2) - 110 - i, game.currentScore + "  ", {font: 'Impact', fontStyle: 'italic', fontSize: '60px', fill: currentFill, align: 'left'});
+		}
 
+		// show browser's high score
+		game.highScoreTextArr = [game.scoreTextArrLength];
+		for (var i = 0; i < game.scoreTextArrLength; i++) {
+			var currentFill = '#E3B21F';
+			if (i == game.scoreTextArrLength - 1) {
+				currentFill = '#FFCC33';
+			}
+			game.highScoreTextArr[i] = game.add.text((game.world.width / 2) + 80 - i, (game.world.height / 2) - 15 - i, game.highScore + "  ", {font: 'Impact', fontStyle: 'italic', fontSize: '60px', fill: currentFill, align: 'left'});
+		}
+
+		// if the player just set a new highscore, say so
 		if (newHS) {
 			game.newHSText = game.add.text(game.world.width / 2 - 300 ,(game.world.height / 2) - 10, "NEW  ", { fontSize: '40px',fill:'#FFCC33',fontStyle: 'italic'});
-
 		}
+
+		game.bgFlashGroup = game.add.group();
+		game.add.existing(game.bgFlashGroup);
+		spawnFlash(0);
 	},
 	update: function(){
 		

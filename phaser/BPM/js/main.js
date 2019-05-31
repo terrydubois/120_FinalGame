@@ -94,9 +94,10 @@ function approachSmooth(value, valueDest, divisor) {
 
 
 
-
+// handle UI elements in HUD (hearts, score, levelup)
 function gameplayHUD() {
-	
+
+	// send background animations to back layer, send HUD elements to front layer
 	game.world.sendToBack(game.bgGroup);
 	game.world.sendToBack(game.bgFlashGroup);
 	game.world.sendToBack(game.bgFill);
@@ -124,7 +125,7 @@ function gameplayHUD() {
 		game.scoreTextDisplay = game.currentScore;
 	}
 	
-	
+	// update score text for score's drop shadow
 	for (var i = 0; i < game.scoreTextArrLength; i++) {
 		game.scoreTextArr[i].x = game.world.width - 60 - i;
 		game.scoreTextArr[i].y = 75 - i;
