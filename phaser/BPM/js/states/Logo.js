@@ -55,6 +55,10 @@ LogoScreen.prototype = {
 				game.state.start('MainMenu');
 			}
 		}
+
+		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+			game.logoTimer = 0;
+		}
 	}
 }
 	
