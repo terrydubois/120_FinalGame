@@ -72,8 +72,13 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 
 
 
-
 	game.physics.enable(this);
+
+
+	this.destroyMe = false;
+	if (game.pause && game.state.getCurrentState().key == 'Intro') {
+		this.destroyMe = true;
+	}
 }
 
 Avoid.prototype = Object.create(Phaser.Sprite.prototype);
@@ -84,6 +89,10 @@ Avoid.prototype.update = function() {
 
 	// make this move forward
 	this.body.velocity.y = this.yVelocity;
+	if (game.pause && game.state.getCurrentState().key == 'Intro') {
+		this.body.velocity.y = 0;
+		console.log("here in avoid")
+	}
 
 	this.colliderEmitter.y = this.y;
 
@@ -147,5 +156,9 @@ Avoid.prototype.update = function() {
 			game.hitEnemySound.play('', 0, 0.3, false);
 			spawnFlash(0);
 		}
+	}
+
+	if (this.destroyMe) {
+		this.destroy();
 	}
 }

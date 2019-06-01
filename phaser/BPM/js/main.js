@@ -20,6 +20,7 @@ var highscore;
 game.starsColl = 0;
 game.debugControls = false;
 game.modeUnlockedTextPosCounter = 0;
+game.pause = false;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
@@ -361,7 +362,7 @@ function spawnStar() {
 	var maxTimeTilNextSpawn = 45;
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next plus: " + timeTilNextSpawn);
-		if(game.state.getCurrentState().key =='Intro'){
+		if (game.state.getCurrentState().key =='Intro') {
 			timeTilNextSpawn *= 0.5;
 		}
 
