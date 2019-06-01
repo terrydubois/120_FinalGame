@@ -7,6 +7,7 @@ Preload.prototype = {
 		//LOAD IMAGES
 		game.load.image('sky', 'assets/img/background.png');
 		game.load.image('goscreen', 'assets/img/gameOver.png');
+		game.load.image('WBLogo', 'assets/img/logo.png');
 		game.load.image('heart', 'assets/img/heart.png');
 		game.load.image('skull', 'assets/img/skull.png');
 		game.load.image('plus', 'assets/img/plus.png');
@@ -16,6 +17,7 @@ Preload.prototype = {
 		game.load.image('waveformL', 'assets/img/waveformB.png');
 		//game.load.image('title','assets/img/title.png');
 		game.load.image('title', 'assets/img/bpmTitle.png');
+		game.load.image('credits', 'assets/img/credits.png');
 		game.load.image('menuTriangle', 'assets/img/menuTriangle.png');
 		game.load.image('heartHUD','assets/img/heartHUD.png');
 		game.load.image('barFill','assets/img/barFill.png');
@@ -27,19 +29,21 @@ Preload.prototype = {
 		game.load.image('starP','assets/img/starCut.png');	
 		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
 		game.load.image('bgAnimatedTriangle', 'assets/img/bgAnimatedTriangleSmall.png');
+		game.load.image('bgAnimatedStar', 'assets/img/bgAnimatedStar.png');
 		game.load.image('flashStar', 'assets/img/flashStar.png');
 		game.load.image('flashBlack', 'assets/img/flashBlack.png');
 		game.load.image('flashSkull', 'assets/img/flashSkull.png');
 		game.load.image('flashPlus', 'assets/img/flashPlus.png');
 		game.load.image('flashHeart', 'assets/img/flashHeart.png');
 		game.load.image('menuLock', 'assets/img/lock.png');
+		game.load.image('arrowKeys', 'assets/img/arrowKeys.png');
 
 
 
 		//LOAD AUDIO
 		game.load.path = 'assets/audio/';
 		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
-		game.load.audio('BETA', ['BETA TRACK 2.mp3']);
+		game.load.audio('BETA', ['BETA TRACK 3.mp3']);
 		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
 		game.load.audio('hitEnemySound', 'hitEnemy.mp3');
@@ -56,6 +60,9 @@ Preload.prototype = {
 		console.log('Preload: create');
 
 		saveStarsColl();
+		game.modeStarsToUnlock = [0, 0, 10, 30];
+		game.mode2UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[2];
+		game.mode3UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[3];
 
 		game.state.start("LogoScreen");
 	},

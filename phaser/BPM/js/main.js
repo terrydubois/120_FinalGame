@@ -18,6 +18,7 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO);
 var highscore;
 game.starsColl = 0;
 game.debugControls = false;
+game.modeUnlockedTextPosCounter = 0;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
@@ -223,7 +224,7 @@ function spawnBGCircle() {
 		bgAnimationImage = 'bgAnimatedTriangle';
 	}
 	else if (game.currentMode == 3) {
-		bgAnimationImage = 'bgAnimatedCircle';
+		bgAnimationImage = 'bgAnimatedStar';
 	}
 
 	// spawn new background animation sprite
@@ -461,4 +462,83 @@ function blinkPlayer(playerObj) {
 	else {
 		playerObj.alpha = 1;
 	}	
+}
+
+// set up arrow key instructions
+function arrowKeyInstructionsCreate() {
+
+	game.arrowKeyInstructions = game.add.sprite(game.world.width / 2, game.world.height / 2, 'arrowKeys');
+	game.arrowKeyInstructions.anchor.setTo(0.5);
+	game.arrowKeyInstructions.alpha = 0;
+	game.arrowKeyInstructionsScale = 1.5;
+	game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+
+	game.arrowKeyInstructionsTimer = 0;
+
+	game.arrowKeyInstructionsScalePlus = 0;
+}
+
+// show arrow key instructions if need be
+function arrowKeyInstructionsUpdate() {
+
+	game.arrowKeyInstructionsTimer++;
+	if (game.arrowKeyInstructionsTimer >= 160 && !game.hasStarted) {
+
+		// fade in arrow key controls
+		game.arrowKeyInstructions.alpha += 0.02;
+		game.arrowKeyInstructions.alpha = Phaser.Math.clamp(game.arrowKeyInstructions.alpha, 0, 1);
+		game.arrowKeyInstructionsScale = approachSmooth(game.arrowKeyInstructionsScale, 1, 20);
+		game.arrowKeyInstructionsScale = Phaser.Math.clamp(game.arrowKeyInstructionsScale, 1, 1.5);
+
+		game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+	}
+	else {
+		game.arrowKeyInstructions.alpha = 0;
+	}
+}
+
+// setup the text for saying "YOUVE UNLOCKED A NEW MODE"
+function modeUnlockedTextCreate() {
+	game.modeUnlockedText = game.add.text(game.world.width * 1.5, game.world.height * 0.8, "YOU'VE UNLOCKED A NEW MODE!  ", {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+	game.HUDgroup.add(game.modeUnlockedText);
+	game.modeUnlockedText.anchor.setTo(0.5);
+	game.modeUnlockedTextPos = 0;
+	game.modeUnlockedTextXDest = game.world.width * 1.5;
+}
+
+// control the text saying "YOUVE UNLOCKED A NEW MODE"
+function modeUnlockedTextUpdate() {
+
+	// wait a number of frames before the alert flies away
+	game.modeUnlockedTextPosCounter--;
+	game.modeUnlockedTextPosCounter = Math.max(game.modeUnlockedTextPosCounter, 0);
+
+	// if we have not displayed the alert yet, do so
+	if (game.starsColl >= game.modeStarsToUnlock[2] && !game.mode2UnlockedAlert) {
+		game.mode2UnlockedAlert = true;
+		game.modeUnlockedTextPos = 1;
+		game.modeUnlockedTextPosCounter = 200;
+	}
+	if (game.starsColl >= game.modeStarsToUnlock[3] && !game.mode3UnlockedAlert) {
+		game.mode3UnlockedAlert = true;
+		game.modeUnlockedTextPos = 1;
+		game.modeUnlockedTextPosCounter = 200;
+	}
+
+
+	// the three X-positions the alert should be at
+	if (game.modeUnlockedTextPos == 0) {
+		game.modeUnlockedTextXDest = game.world.width * 1.5;
+	}
+	else if (game.modeUnlockedTextPos == 1) {
+		game.modeUnlockedTextXDest = game.world.width * 0.5;
+
+		if (game.modeUnlockedTextPosCounter < 1) {
+			game.modeUnlockedTextPos = 2;
+		}
+	}
+	else if (game.modeUnlockedTextPos == 2) {
+		game.modeUnlockedTextXDest = game.world.width * -0.5;
+	}
+	game.modeUnlockedText.x = approachSmooth(game.modeUnlockedText.x, game.modeUnlockedTextXDest, 12);
 }

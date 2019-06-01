@@ -12,7 +12,8 @@ function BGCircle(game, key, frame, scale, rotation) {
 	this.maxScale = 1;
 	this.scaleIncr = 0.005;
 
-	if (key == 'bgAnimatedTriangle') {
+	if (key == 'bgAnimatedTriangle'
+	|| key == 'bgAnimatedStar') {
 		this.maxScale = 2;
 		this.scaleIncr = 0.0075;
 	}

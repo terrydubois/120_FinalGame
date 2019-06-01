@@ -138,6 +138,10 @@ Mode2.prototype = {
 		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
 		game.fpsText.anchor.setTo(0.5);
+		game.fpsText.alpha = 0;
+		if (game.debugControls) {
+			game.fpsText.alpha = 1;
+		}
 		game.HUDgroup.add(game.fpsText);
 
 
@@ -181,6 +185,9 @@ Mode2.prototype = {
 
 		game.bgCircleTimer = 0;
 		game.bgCircleTimerFull = 60 / 2;
+
+		arrowKeyInstructionsCreate();
+		modeUnlockedTextCreate();
 
 	},
 	update: function() {
@@ -375,7 +382,9 @@ Mode2.prototype = {
 		// control HUD elements
 		gameplayHUD();
 
-		
+		// show arrow key controls if necessary
+		arrowKeyInstructionsUpdate();
+		modeUnlockedTextUpdate();
 	}
 	
 }

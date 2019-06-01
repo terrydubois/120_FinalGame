@@ -132,7 +132,7 @@ Practice.prototype = {
 		game.HUDgroup.add(game.starCountMenuText);
 
 
-		// text for FPS
+		// text for PRACTICE
 		game.practiceText = game.add.text(game.world.width / 2, 90, 'PRACTICE     ', {font: 'Impact',fontStyle: 'italic', fontSize: '20px', fill: '#000', align: 'center'});
 		game.practiceText.anchor.setTo(0.5);
 		game.practiceTextFadeOut = true;
@@ -178,6 +178,8 @@ Practice.prototype = {
 
 		game.bgCircleTimer = 0;
 		game.bgCircleTimerFull = 60 / 4;
+
+		arrowKeyInstructionsCreate();
 
 	},
 	update: function() {
@@ -356,6 +358,9 @@ Practice.prototype = {
 
 		// control HUD elements (for practice mode specifically)
 		gameplayHUDPractice();
+
+		// show arrow key controls if necessary
+		arrowKeyInstructionsUpdate();
 
 		
 	}
