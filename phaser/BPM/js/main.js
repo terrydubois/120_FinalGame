@@ -361,6 +361,9 @@ function spawnStar() {
 	var maxTimeTilNextSpawn = 45;
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next plus: " + timeTilNextSpawn);
+		if(game.state.getCurrentState().key =='Intro'){
+			timeTilNextSpawn *= 0.5;
+		}
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnStar, this);
