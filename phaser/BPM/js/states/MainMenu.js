@@ -82,6 +82,15 @@ MainMenu.prototype = {
 
 		// add white flash at beginning
 		game.menuFlashWhite = game.add.sprite(0, 0, 'sky');
+		if(game.introPlayed){
+			game.bgFlashGroup = game.add.group();
+			game.add.existing(game.bgFlashGroup);
+			spawnFlash(3);
+
+			game.dieSound = game.add.audio('levelUpSound');
+			game.dieSound.volume = 0.5;
+			game.dieSound.play();
+		}
 	},
 	update: function() {
 

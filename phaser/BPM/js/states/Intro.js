@@ -171,6 +171,7 @@ Intro.prototype = {
 
 		game.hasStarted = false;
 		game.allowMovement = false;
+		game.introPlayed = true;
 
 		game.currentScore = 0;
 
