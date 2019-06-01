@@ -322,10 +322,12 @@ Mode1.prototype = {
 			game.level++;
 			game.plussesToLevelUp++;
 			game.currentPlussesToLevelUp = game.plussesToLevelUp;
-			game.playerXSpeedTarget += 1;
-			game.playerYSpeed += 1.5;
-			game.switchRate -=.03;
-			game.song1._sound.playbackRate.value += .1;
+			if(game.level <= 20){
+				game.playerXSpeedTarget += 1;
+				game.playerYSpeed += 1.5;
+				game.switchRate -=.03;
+				game.song1._sound.playbackRate.value += .1;
+			}
 			game.levelUpSound.play();
 
 			//game.posLeft += 20;
