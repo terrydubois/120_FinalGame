@@ -185,6 +185,8 @@ Intro.prototype = {
 		game.bgCircleTimer = 0;
 		game.bgCircleTimerFull = 60 / 4;
 
+		game.pause = false;
+
 		arrowKeyInstructionsCreate();
 
 			//timer to allow movement
@@ -284,11 +286,9 @@ Intro.prototype = {
 		game.posRight = game.world.width - game.posLeft;
 
 
-		if(game.allowMovement == true){
-
-		//player bounds checking
-		game.player.y = Phaser.Math.clamp(game.player.y,0,game.world.height);
-
+		if(game.allowMovement) {
+			//player bounds checking
+			game.player.y = Phaser.Math.clamp(game.player.y,0,game.world.height);
 		}
 
 
@@ -323,13 +323,15 @@ Intro.prototype = {
 
 
 		//player input control for movement
-		if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.allowMovement
-		|| game.input.keyboard.isDown(Phaser.Keyboard.W) && game.allowMovement) {
-			game.player.y -= game.playerYSpeed;
-		}
-		if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && game.allowMovement
-		|| game.input.keyboard.isDown(Phaser.Keyboard.S) &&game.allowMovement) {
-			game.player.y += game.playerYSpeed;
+		if (!game.pause) {
+			if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.allowMovement
+			|| game.input.keyboard.isDown(Phaser.Keyboard.W) && game.allowMovement) {
+				game.player.y -= game.playerYSpeed;
+			}
+			if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && game.allowMovement
+			|| game.input.keyboard.isDown(Phaser.Keyboard.S) &&game.allowMovement) {
+				game.player.y += game.playerYSpeed;
+			}
 		}
 
 
@@ -337,17 +339,23 @@ Intro.prototype = {
 		//player bounds checking
 		//game.player.y = Phaser.Math.clamp(game.player.y,0,game.world.height);
 
-
+		var currentPlayerXSpeed = game.playerXSpeed;
+		game.pause = (game.input.keyboard.isDown(Phaser.Keyboard.Q));
+		if (game.pause) {
+			currentPlayerXSpeed = 0;
+		}
 
 		//player move speed determination
 		if (game.playerPos == 1 && game.hasStarted) {
-			game.player.x = approach(game.player.x, game.posLeft, game.playerXSpeed);
+			game.player.x = approach(game.player.x, game.posLeft, currentPlayerXSpeed);
 		}
 		else if (game.playerPos == 0 && game.hasStarted) {
-			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
+			game.player.x = approach(game.player.x, game.posRight, currentPlayerXSpeed);	
 		}
 		else{
 		}
+
+		
 
 		blinkPlayer(game.player);
 		game.playerEmitter.alpha = game.player.alpha;
