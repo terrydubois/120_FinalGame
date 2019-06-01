@@ -25,7 +25,7 @@ LogoScreen.prototype = {
 		//game.playingr = false;
 		//game.playingl = false;
 		//game.mode = 0;
-		game.currentMode = 0;
+		game.currentMode = 1;
 		game.logoTimer = 140;
 
 		game.song1 = game.add.audio('BETA');
