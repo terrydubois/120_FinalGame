@@ -256,9 +256,9 @@ MainMenu.prototype = {
 			}
 		}
 
-		// player selects option with SPACE
-		if ((game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
-		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER))) {
+		// player selects option with SPACE or ENTER
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
 			console.log("menuOptionCurrent: " + game.menuOptionCurrent);
 			if (game.menuOptionCurrent == 0) {
 
