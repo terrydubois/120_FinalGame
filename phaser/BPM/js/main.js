@@ -12,6 +12,7 @@
  	Github: https://github.com/terrydubois/120_FinalGame
 */
 
+// create game with 1000x600 canvas
 var game = new Phaser.Game(1000, 600, Phaser.AUTO);
 
 
@@ -37,7 +38,7 @@ game.state.add('Mode3', Mode3);
 game.state.add('GameOver', GameOver);
 game.state.add('Credits', Credits);
 
-// start on Logo
+// start on Boot
 game.state.start('Boot');
 
 function saveStarsColl() {
@@ -158,6 +159,7 @@ function gameplayHUD() {
 	}
 }
 
+// handle UI elements in HUD specifically for practice mode
 function gameplayHUDPractice() {
 	
 	game.world.sendToBack(game.bgGroup);
@@ -411,15 +413,13 @@ function switchSides() {
 
 
 function buldge(){
-
+	// scale player up and down for a buldge animation
 	if(game.player.scale.x < game.maxScale && game.isBig == false){
 		game.player.scale.setTo(game.player.scale.x += game.scaleFactor, game.player.scale.y += game.scaleFactor);
 	}
 	if(game.player.scale.x >= game.maxScale){
 		game.isBig = true;
 	}
-
-
 	if(game.player.scale.x > game.minScale && game.isBig == true){
 		game.player.scale.setTo(game.player.scale.x -= game.scaleFactor,game.player.scale.y -= game.scaleFactor);
 	}
@@ -429,6 +429,7 @@ function buldge(){
 }
 
 function buldgeWaves() {
+	// make waves pulsate whenever player launches off of them
 	if (game.playerPosChanged){
 		game.playerPosChanged = 0;
 
@@ -438,8 +439,8 @@ function buldgeWaves() {
 	if (Math.abs(rightside.scale.x - game.maxScale) < 0.1) {
 		game.waveScaleDest = 0.2;
 	}
-	
 
+	// smoothly bring wave scale to its desired value
 	if (rightside.scale.x < game.waveScaleDest) {
 		rightside.scale.x += Math.abs(rightside.scale.x - game.waveScaleDest) / 4;
 	}
@@ -450,7 +451,7 @@ function buldgeWaves() {
 }
 
 function blinkPlayer(playerObj) {
-
+	// blink the player in and out, for invincibility frames
 	if (game.hasHitPlayer) {
 		if (playerObj.alpha < 1) {
 			playerObj.alpha += 0.075;
@@ -472,6 +473,7 @@ function arrowKeyInstructionsCreate() {
 	game.arrowKeyInstructions.alpha = 0;
 	game.arrowKeyInstructionsScale = 1.5;
 	game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+	// if this is Mode 3, the arrow keys should be rotated on their side
 	if (game.state.getCurrentState().key == 'Mode3') {
 		game.arrowKeyInstructions.angle = 90;
 	}
