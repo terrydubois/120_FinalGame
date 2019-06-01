@@ -9,7 +9,7 @@
 	|	 Final Project: B.P.M.    |
  	| (Bouncing Particle Madness) |
  	¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- 	chaning github version
+ 	Github: https://github.com/terrydubois/120_FinalGame
 */
 
 var game = new Phaser.Game(1000, 600, Phaser.AUTO);
