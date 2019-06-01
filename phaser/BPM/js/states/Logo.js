@@ -52,7 +52,12 @@ LogoScreen.prototype = {
 				game.logoFG.alpha += 0.05;
 			}
 			else {
-				game.state.start('MainMenu');
+				if(game.starsColl == 0){
+					game.state.start('Intro');
+				}
+				else{
+					game.state.start('MainMenu');
+				}
 			}
 		}
 

@@ -30,6 +30,7 @@ var emitter;
 game.state.add('Boot', Boot);
 game.state.add('Preload', Preload);
 game.state.add('LogoScreen', LogoScreen);
+game.state.add('Intro', Intro);
 game.state.add('MainMenu', MainMenu);
 game.state.add('Practice', Practice);
 game.state.add('Mode1', Mode1);
@@ -411,6 +412,15 @@ function switchSides() {
 }
 
 
+function unlockPlayer() {
+
+game.allowMovement = true;
+
+		// show arrow key controls if necessary
+		arrowKeyInstructionsUpdate();
+}
+
+
 
 function buldge(){
 	// scale player up and down for a buldge animation
@@ -488,8 +498,14 @@ function arrowKeyInstructionsCreate() {
 
 // show arrow key instructions if need be
 function arrowKeyInstructionsUpdate() {
-
-	game.arrowKeyInstructionsTimer++;
+	if(game.state.getCurrentState().key =="Intro"){
+		if(game.allowMovement){
+			game.arrowKeyInstructionsTimer++;		
+		}
+	}
+	else{
+		game.arrowKeyInstructionsTimer++;
+	}
 	if (game.arrowKeyInstructionsTimer >= 160 && !game.hasStarted) {
 
 		// fade in arrow key controls
