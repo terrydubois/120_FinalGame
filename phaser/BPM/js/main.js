@@ -472,6 +472,12 @@ function arrowKeyInstructionsCreate() {
 	game.arrowKeyInstructions.alpha = 0;
 	game.arrowKeyInstructionsScale = 1.5;
 	game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+	if (game.state.getCurrentState().key == 'Mode3') {
+		game.arrowKeyInstructions.angle = 90;
+	}
+	else {
+		game.arrowKeyInstructions.angle = 0;
+	}
 
 	game.arrowKeyInstructionsTimer = 0;
 
