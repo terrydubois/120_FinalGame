@@ -60,6 +60,9 @@ Preload.prototype = {
 		console.log('Preload: create');
 
 		saveStarsColl();
+		game.modeStarsToUnlock = [0, 0, 10, 30];
+		game.mode2UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[2];
+		game.mode3UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[3];
 
 		game.state.start("LogoScreen");
 	},

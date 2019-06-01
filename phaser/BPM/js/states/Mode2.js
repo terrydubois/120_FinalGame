@@ -187,6 +187,7 @@ Mode2.prototype = {
 		game.bgCircleTimerFull = 60 / 2;
 
 		arrowKeyInstructionsCreate();
+		modeUnlockedTextCreate();
 
 	},
 	update: function() {
@@ -383,7 +384,7 @@ Mode2.prototype = {
 
 		// show arrow key controls if necessary
 		arrowKeyInstructionsUpdate();
-		
+		modeUnlockedTextUpdate();
 	}
 	
 }
