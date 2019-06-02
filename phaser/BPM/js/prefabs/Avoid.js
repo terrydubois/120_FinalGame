@@ -119,9 +119,10 @@ Avoid.prototype.update = function() {
 		if (this.heart) {
 			console.log("collision with heart");
 			if(game.currentHearts == 7 ){
-			game.currentScore += 10;
-			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+10  ');
-			game.add.existing(game.scoreAddText);
+				game.currentScore += 10 * game.heartMulti;
+				game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 10*game.heartMulti +'  ');
+				game.add.existing(game.scoreAddText);
+				game.heartMulti += 1 ;
 			}
 			game.currentHearts++;
 			game.hitHeartSound.play('', 0, 0.5, false);
@@ -151,6 +152,7 @@ Avoid.prototype.update = function() {
 		}
 		else {
 			console.log("collision with skull");
+			game.heartMulti = 1;
 			game.hasHitPlayer = true;
 			game.currentHearts--;
 			game.hitEnemySound.play('', 0, 0.3, false);
