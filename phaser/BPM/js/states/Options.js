@@ -69,7 +69,9 @@ Options.prototype = {
 		// player cycles through options using UP and DOWN
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.S)) {
-			game.menuBlipSound.play();
+			if(game.sfxOn){
+				game.menuBlipSound.play();
+			}
 			if (game.optionsOptionCurrent < game.optionsOptions.length - 1) {
 				game.optionsOptionCurrent++;
 			}
@@ -79,7 +81,9 @@ Options.prototype = {
 		}
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.W)) {
-			game.menuBlipSound.play();
+			if(game.sfxOn){
+				game.menuBlipSound.play();
+			}
 			if (game.optionsOptionCurrent > 0) {
 				game.optionsOptionCurrent--;
 			}
