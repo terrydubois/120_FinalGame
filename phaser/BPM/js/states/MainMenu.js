@@ -118,7 +118,7 @@ MainMenu.prototype = {
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
 		
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
-		game.menuTitle.y = 155 + game.menuTitlePlusY;
+		game.menuTitle.y = 165 + game.menuTitlePlusY;
 		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
 
 		for (var i = 0; i < game.menuOptionsText.length; i++) {
