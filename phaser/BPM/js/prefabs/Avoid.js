@@ -130,7 +130,9 @@ Avoid.prototype.update = function() {
 				game.heartMulti += 1 ;
 			}
 			game.currentHearts++;
-			game.hitHeartSound.play('', 0, 0.5, false);
+			if(game.sfxOn){
+				game.hitHeartSound.play('', 0, 0.5, false);
+			}
 			spawnFlash(2);
 		}
 		else if (this.plus) {
@@ -138,7 +140,9 @@ Avoid.prototype.update = function() {
 			game.currentPlussesToLevelUp--;
 			game.currentScore += 10;
 			if (game.currentPlussesToLevelUp > 0) {
-				game.hitPlusSound.play('', 0, 0.5, false);
+				if(game.sfxOn){
+					game.hitPlusSound.play('', 0, 0.5, false);
+				}
 			}
 			spawnFlash(1);
 			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+10  ');
@@ -150,7 +154,9 @@ Avoid.prototype.update = function() {
 			game.starsColl++;
 			saveStarsColl();
 			game.currentScore += 50;
+			if(game.sfxOn){
 			game.hitStarSound.play('', 0, 0.5, false);
+			}
 			spawnFlash(3);
 			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+50  ');
 			game.add.existing(game.scoreAddText);
@@ -160,7 +166,9 @@ Avoid.prototype.update = function() {
 			game.heartMulti = 1;
 			game.hasHitPlayer = true;
 			game.currentHearts--;
+			if(game.sfxOn){
 			game.hitEnemySound.play('', 0, 0.3, false);
+			}
 			spawnFlash(0);
 		}
 	}

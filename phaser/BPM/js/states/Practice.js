@@ -288,10 +288,13 @@ Practice.prototype = {
 
 			game.waveScaleDest = game.maxScale;	
 
-
-			game.song1.play('',0,1,true);
-			game.song1._sound.playbackRate.value = 1;
-			this.beat.play('',0,.5,false);
+			if(game.musicOn){
+				game.song1.play('',0,1,true);
+				game.song1._sound.playbackRate.value = 1;
+			}
+			if(game.sfxOn){
+				this.beat.play('',0,.5,false);
+			}
 			game.hasStarted = true;
 		}
 
@@ -338,10 +341,13 @@ Practice.prototype = {
 				game.playerXSpeedTarget += 1;
 				game.playerYSpeed += 1.5;
 				game.switchRate -=.03;
-				game.song1._sound.playbackRate.value +=  .05;
+				if(game.musicOn){
+					game.song1._sound.playbackRate.value +=  .05;
+				}				
 			}
-			game.levelUpSound.play();
-
+			if(game.sfxOn){
+				game.levelUpSound.play();
+			}
 			//game.posLeft += 20;
 			//leftside.x += 20;
 			//rightside.x -= 20;
