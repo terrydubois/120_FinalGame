@@ -52,7 +52,7 @@ Mode2.prototype = {
 		game.player.anchor.setTo(.5);
 		game.player.scale.setTo(0.7);
 
-		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
+		game.player.animations.add('squiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
 		game.player.animations.play('squiggle');
 
 		game.switchRate = 1;
@@ -65,18 +65,6 @@ Mode2.prototype = {
 
 		game.lastSpawnX = -1;
 		game.hasHitPlayer = false;
-
-/*
-		//timer to switch sides
-		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
-
-		//timers to spawn objects
-		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
-		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
-		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
-
-*/
-
 		
 
 		// setup hearts
@@ -91,6 +79,7 @@ Mode2.prototype = {
 
 		game.HUDgroup = game.add.group();
 		game.add.existing(game.HUDgroup);
+
 		// bar for speedup
 		game.barFill = game.add.sprite(game.world.width / 2, 20, 'barFill');		
 		game.barOutline = game.add.sprite(game.world.width / 2, 20, 'barOutline');
@@ -179,6 +168,7 @@ Mode2.prototype = {
 		game.bgFlashGroup = game.add.group();
 		game.add.existing(game.bgFlashGroup);
 
+		// background angle starts at 0 but will rotate
 		game.bgAngle = 0;
 		game.bgAngleIncr = 0.75;
 		game.bgAngleIncrDest = 0.75;
@@ -205,7 +195,7 @@ Mode2.prototype = {
 		game.bgAngle += game.bgAngleIncr;
 		game.bgAngleIncr = approach(game.bgAngleIncr, game.bgAngleIncrDest, 0.04);
 		
-
+		// track FPS if we are in debug mode
 		game.fpsText.text = "fps: " + (game.time.fps);
 		
 
@@ -243,8 +233,8 @@ Mode2.prototype = {
 
 
 		//waveform scrolling
- 		rightside.tilePosition.y -= .33;
- 		leftside.tilePosition.y -= .33;
+ 		rightside.tilePosition.y -= 0.33;
+ 		leftside.tilePosition.y -= 0.33;
 
 
 		 //screen size changing
@@ -325,19 +315,9 @@ Mode2.prototype = {
 		else if (game.playerPos == 0 && game.hasStarted) {
 			game.player.x = approach(game.player.x, game.posRight, game.playerXSpeed);	
 		}
-		else{
+		else {
 		}
-/*
-		//waveform move speed determination
-		if (game.wavePos == 1 && game.hasStarted) {
-				game.posLeftDest = game.originalPos;
-		}
-		else if (game.wavePos == 0 && game.hasStarted) {
-				game.posLeftDest = game.newPos;
-		}
-		else{
-		}
-*/
+
 		game.posLeft = approachSmooth(game.posLeft,game.posLeftDest,20);
 		game.posRight = game.world.width - game.posLeft;
 
@@ -364,18 +344,15 @@ Mode2.prototype = {
 				game.song1._sound.playbackRate.value += .05;
 			}
 			game.levelUpSound.play();
-			if(game.level <8){
+			if (game.level < 8) {
 				game.posLeftDest += 50;
 			}
 			game.bgAngleIncrDest *= -1;
-			//game.posLeft += 20;
-			//leftside.x += 20;
-			//rightside.x -= 20;
 		}
 
 
 		//esc key also goes back to main menu
-		if(game.input.keyboard.justPressed(Phaser.Keyboard.ESC)){
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.ESC)) {
 			game.sound.stopAll();
 			game.state.start("GameOver");
 		}

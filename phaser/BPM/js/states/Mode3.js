@@ -45,13 +45,13 @@ Mode3.prototype = {
         leftside = game.add.tileSprite(200, game.posTop, 127, 1800, 'waveformL');
         leftside.anchor.setTo(.5);
         leftside.angle = 90;
-        leftside.scale.x  = .2;
+        leftside.scale.x  = 0.2;
 
-		game.player = game.add.sprite(game.world.width/2,game.world.height/2+175,'player');
-		game.player.anchor.setTo(.5);
+		game.player = game.add.sprite(game.world.width / 2, (game.world.height / 2) +175, 'player');
+		game.player.anchor.setTo(0.5);
 		game.player.scale.setTo(0.7);
 
-		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
+		game.player.animations.add('squiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
 		game.player.animations.play('squiggle');
 
 		game.switchRate = 1;
@@ -63,17 +63,6 @@ Mode3.prototype = {
 
 		game.lastSpawnX = -1;
 		game.hasHitPlayer = false;
-
-/*
-		//timer to switch sides
-		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
-
-		//timers to spawn objects
-		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
-		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
-		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
-
-*/
 
 		
 
@@ -177,6 +166,7 @@ Mode3.prototype = {
 		game.bgFlashGroup = game.add.group();
 		game.add.existing(game.bgFlashGroup);
 
+		// background angle starts at 0 but will rotate
 		game.bgAngle = 0;
 		game.bgAngleIncr = 0.75;
 		game.bgAngleIncrDest = 0.75;
@@ -204,7 +194,7 @@ Mode3.prototype = {
 		game.bgAngleIncr = approach(game.bgAngleIncr, game.bgAngleIncrDest, 0.04);
 
 		
-
+		// track FPS if we are in debug mode
 		game.fpsText.text = "fps: " + (game.time.fps);
 		
 
@@ -340,10 +330,6 @@ Mode3.prototype = {
 			}
 			game.levelUpSound.play();
 			game.bgAngleIncrDest *= -1;
-
-			//game.posTop += 20;
-			//leftside.x += 20;
-			//rightside.x -= 20;
 		}
 
 
