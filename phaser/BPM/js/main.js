@@ -40,6 +40,7 @@ game.state.add('Mode2', Mode2);
 game.state.add('Mode3', Mode3);
 game.state.add('GameOver', GameOver);
 game.state.add('Credits', Credits);
+game.state.add('Options', Options);
 
 // start on Boot
 game.state.start('Boot');
