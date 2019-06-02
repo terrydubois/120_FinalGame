@@ -92,6 +92,8 @@ MainMenu.prototype = {
 			game.dieSound.play();
 			game.introPlayed = false;
 		}
+
+		resetColliderCounts();
 	},
 	update: function() {
 
@@ -116,7 +118,7 @@ MainMenu.prototype = {
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
 		
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
-		game.menuTitle.y = 150 + game.menuTitlePlusY;
+		game.menuTitle.y = 180 + game.menuTitlePlusY;
 		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
 
 		for (var i = 0; i < game.menuOptionsText.length; i++) {

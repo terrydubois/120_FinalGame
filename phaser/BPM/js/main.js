@@ -220,7 +220,7 @@ function spawnBGCircle() {
 	var bgAnimationImage = 'bgAnimatedCircle';
 
 	if (game.currentMode == 0) {
-		bgAnimationImage = 'bgAnimatedCircle';
+		bgAnimationImage = 'bgAnimatedSquare';
 	}
 	else if (game.currentMode == 1) {
 		bgAnimationImage = 'bgAnimatedCircle';
@@ -237,6 +237,7 @@ function spawnBGCircle() {
 	game.bgGroup.add(game.bgAnimation);
 }
 
+// create flash in background when player hits collider
 function spawnFlash(type) {
 
 	if (type == 0) {
@@ -251,8 +252,9 @@ function spawnFlash(type) {
 	else if (type == 3) {
 		game.flashSprite = new Flash(game, 'flashStar', 'flashStar', 1, 0);
 	}
+
+	// add flash to background group so it is sent to the back layer
 	game.bgFlashGroup.add(game.flashSprite);
-	
 }
 
 
@@ -334,7 +336,7 @@ function spawnCollect() {
 		maxTimeTilNextSpawn = 3;
 	}
 
-		var timeTilNextSpawn = Math.random() * 10;
+	var timeTilNextSpawn = Math.random() * 10;
 
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next plus: " + timeTilNextSpawn);
@@ -349,11 +351,11 @@ function spawnCollect() {
 function spawnStar() {
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 150, 350);
-	if(game.currentMode == 3){
-	game.Star = new AvoidHorz(game, 'star', 'star', .5, 0, game.playerPos, newEnemySpeed);
+	if (game.currentMode == 3){
+		game.Star = new AvoidHorz(game, 'star', 'star', .5, 0, game.playerPos, newEnemySpeed);
 	}
 	else{
-	game.Star = new Avoid(game, 'star', 'star', .5, 0, game.playerPos, newEnemySpeed);
+		game.Star = new Avoid(game, 'star', 'star', .5, 0, game.playerPos, newEnemySpeed);
 	}
 	game.add.existing(game.Star);
 
@@ -363,9 +365,9 @@ function spawnStar() {
 	var maxTimeTilNextSpawn = 45;
 	timeTilNextSpawn = Phaser.Math.clamp(timeTilNextSpawn, minTimeTilNextSpawn, maxTimeTilNextSpawn);
 	console.log("time til next plus: " + timeTilNextSpawn);
-		if (game.state.getCurrentState().key =='Intro') {
-			timeTilNextSpawn *= 0.5;
-		}
+	if (game.state.getCurrentState().key =='Intro') {
+		timeTilNextSpawn *= 0.5;
+	}
 
 	// call this function again in "timeTilNextSpawn" seconds
 	game.time.events.repeat(Phaser.Timer.SECOND * timeTilNextSpawn, 1, spawnStar, this);
@@ -419,33 +421,33 @@ function switchSides() {
 
 function unlockPlayer() {
 
-game.allowMovement = true;
+	game.allowMovement = true;
 
-		// show arrow key controls if necessary
-		arrowKeyInstructionsUpdate();
+	// show arrow key controls if necessary
+	arrowKeyInstructionsUpdate();
 }
 
 
 
 function buldge(){
 	// scale player up and down for a buldge animation
-	if(game.player.scale.x < game.maxScale && game.isBig == false){
+	if (game.player.scale.x < game.maxScale && !game.isBig) {
 		game.player.scale.setTo(game.player.scale.x += game.scaleFactor, game.player.scale.y += game.scaleFactor);
 	}
-	if(game.player.scale.x >= game.maxScale){
+	if (game.player.scale.x >= game.maxScale){
 		game.isBig = true;
 	}
-	if(game.player.scale.x > game.minScale && game.isBig == true){
+	if (game.player.scale.x > game.minScale && game.isBig) {
 		game.player.scale.setTo(game.player.scale.x -= game.scaleFactor,game.player.scale.y -= game.scaleFactor);
 	}
-	if(game.player.scale.x <= game.minScale){
+	if (game.player.scale.x <= game.minScale){
 		game.isBig = false;
 	}
 }
 
 function buldgeWaves() {
 	// make waves pulsate whenever player launches off of them
-	if (game.playerPosChanged){
+	if (game.playerPosChanged) {
 		game.playerPosChanged = 0;
 
 		game.waveScaleDest = game.maxScale;
@@ -503,12 +505,12 @@ function arrowKeyInstructionsCreate() {
 
 // show arrow key instructions if need be
 function arrowKeyInstructionsUpdate() {
-	if(game.state.getCurrentState().key =="Intro"){
-		if(game.allowMovement){
+	if (game.state.getCurrentState().key =="Intro") {
+		if (game.allowMovement) {
 			game.arrowKeyInstructionsTimer++;		
 		}
 	}
-	else{
+	else {
 		game.arrowKeyInstructionsTimer++;
 	}
 	if (game.arrowKeyInstructionsTimer >= 160 && !game.hasStarted) {
@@ -570,4 +572,12 @@ function modeUnlockedTextUpdate() {
 		game.modeUnlockedTextXDest = game.world.width * -0.5;
 	}
 	game.modeUnlockedText.x = approachSmooth(game.modeUnlockedText.x, game.modeUnlockedTextXDest, 12);
+}
+
+function resetColliderCounts() {
+	// reset count of skulls, plusses, stars, and hearts back to 0
+	game.skullCount = 0;
+	game.plusCount = 0;
+	game.starCount = 0;
+	game.heartCount = 0;
 }

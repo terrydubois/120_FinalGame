@@ -29,9 +29,8 @@ LogoScreen.prototype = {
 		game.logoTimer = 140;
 
 		game.song1 = game.add.audio('BETA');
-
 		
-		
+		resetColliderCounts();
 
 	},
 
