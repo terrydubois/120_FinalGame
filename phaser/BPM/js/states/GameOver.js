@@ -172,8 +172,9 @@ GameOver.prototype = {
 
 		game.dieSound = game.add.audio('dieSound');
 		game.dieSound.volume = 0.5;
-		game.dieSound.play();
-
+		if(game.sfxOn){
+			game.dieSound.play();
+		}
 
 		resetColliderCounts();
 	},
@@ -185,7 +186,9 @@ GameOver.prototype = {
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
 			game.sound.stopAll();
 			// play game
-			game.modeStartSound.play();
+			if(game.sfxOn){
+				game.modeStartSound.play();
+			}
 			if (game.currentMode == 0) {
 				//game.state.start('Practice');
 			}

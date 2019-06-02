@@ -22,6 +22,8 @@ game.debugControls = false;
 game.modeUnlockedTextPosCounter = 0;
 game.pause = false;
 game.heartMulti = 1;
+game.sfxOn = true;
+game.musicOn =true;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
@@ -117,6 +119,7 @@ function gameplayHUD() {
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.A)) {
 			game.currentHearts--;
 		}
+
 	}
 
 	// update level text
@@ -404,12 +407,16 @@ function switchSides() {
 	// switch which side player will slide to
 	if (game.playerPos == 0) {
 		game.playerPos = 1;
-		this.beat.play('',0,.5,false);
+		if(game.sfxOn){
+			this.beat.play('',0,.5,false);
+		}
 		game.hasHitPlayer = false;
 	}
 	else {
 		game.playerPos = 0;
-		this.beat.play('',0,.5,false);
+		if(game.sfxOn){
+			this.beat.play('',0,.5,false);
+		}
 		game.hasHitPlayer = false;
 	}
 	game.playerPosChanged = 1;

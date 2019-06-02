@@ -69,11 +69,15 @@ Credits.prototype = {
 		// keyboard input for UP & DOWN
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)) {
 			game.creditsCurrentOption++;
-			game.menuBlipSound.play();
+			if(game.sfxOn){
+				game.menuBlipSound.play();
+			}
 		}
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)) {
 			game.creditsCurrentOption--;
-			game.menuBlipSound.play();
+			if(game.sfxOn){
+				game.menuBlipSound.play();
+			}
 		}
 		if (game.creditsCurrentOption > game.creditsOptionsTotal - 1) {
 			game.creditsCurrentOption = 0;
@@ -86,7 +90,9 @@ Credits.prototype = {
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.RIGHT)) {
 			game.creditsGraphicsLeftSide = !game.creditsGraphicsLeftSide;
 			if (game.creditsCurrentOption >= 2) {
-				game.menuBlipSound.play();
+				if(game.sfxOn){
+					game.menuBlipSound.play();
+				}
 			}
 		}
 

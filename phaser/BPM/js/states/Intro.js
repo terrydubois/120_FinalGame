@@ -364,10 +364,13 @@ Intro.prototype = {
 
 			game.waveScaleDest = game.maxScale;	
 
-
-			game.song1.play('',0,1,true);
-			game.song1._sound.playbackRate.value = 1;
-			this.beat.play('',0,.5,false);
+			if(game.musicOn == true){
+				game.song1.play('',0,1,true);
+				game.song1._sound.playbackRate.value = 1;
+			}
+			if(game.sfxOn ==true){
+				this.beat.play('',0,.5,false);
+			}
 			game.hasStarted = true;
 		}
 
@@ -424,7 +427,9 @@ Intro.prototype = {
 				game.switchRate -=.03;
 				game.song1._sound.playbackRate.value +=  .05;
 			}
-			game.levelUpSound.play();
+			if(game.sfxOn == true){
+				game.levelUpSound.play();
+			}
 			game.time.events.repeat(Phaser.Timer.SECOND *2, 1, spawnStar, this);
 
 			//game.posLeft += 20;

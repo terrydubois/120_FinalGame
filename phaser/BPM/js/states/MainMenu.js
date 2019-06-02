@@ -113,6 +113,14 @@ MainMenu.prototype = {
 				game.starsColl = 0;
 				localStorage.setItem('starsColl', '0');
 			}
+			if(game.input.keyboard.justPressed(Phaser.Keyboard.M)){
+				game.musicOn = !game.musicOn;
+				console.log(game.musicOn);
+			}
+			if(game.input.keyboard.justPressed(Phaser.Keyboard.N)){
+				game.sfxOn = !game.sfxOn;
+				console.log(game.sfxOn);
+			}
 		}
 
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
@@ -157,7 +165,9 @@ MainMenu.prototype = {
 			// change modes if player presses LEFT while on option 1
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.LEFT)
 			|| game.input.keyboard.justPressed(Phaser.Keyboard.A)) {
-				game.menuBlipSound.play();
+				if(game.sfxOn){
+					game.menuBlipSound.play();
+				}
 				if (game.currentMode > 0) {
 					game.currentMode--;
 				}
@@ -173,7 +183,9 @@ MainMenu.prototype = {
 			// change modes if player presses RIGHT while on option 1
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.RIGHT)
 			|| game.input.keyboard.justPressed(Phaser.Keyboard.D)) {
-				game.menuBlipSound.play();
+				if(game.sfxOn){
+					game.menuBlipSound.play();
+				}
 				if (game.currentMode < game.menuModes.length - 1) {
 					game.currentMode++;
 				}
@@ -249,7 +261,9 @@ MainMenu.prototype = {
 		// player cycles through options using UP and DOWN
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.S)) {
-			game.menuBlipSound.play();
+			if(game.sfxOn){
+				game.menuBlipSound.play();
+			}
 			if (game.menuOptionCurrent < game.menuOptions.length - 1) {
 				game.menuOptionCurrent++;
 			}
@@ -259,7 +273,9 @@ MainMenu.prototype = {
 		}
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.W)) {
-			game.menuBlipSound.play();
+			if(game.sfxOn){
+				game.menuBlipSound.play();
+			}
 			if (game.menuOptionCurrent > 0) {
 				game.menuOptionCurrent--;
 			}
@@ -276,13 +292,16 @@ MainMenu.prototype = {
 
 				if (game.currentModeLocked) {
 					// shake blue menu rectangle
-					game.modeLockedSound.play();
+					if(game.sfxOn){
+						game.modeLockedSound.play();
+					}
 					game.menuGraphicsPlusX = 20;
 				}
 				else {
 					// play game
-					game.modeStartSound.play();
-
+					if(game.sfxOn){
+						game.modeStartSound.play();
+					}
 					if (game.currentMode == 0) {
 						//game.state.start('Intro');
 						game.state.start('Practice');
