@@ -198,12 +198,20 @@ Intro.prototype = {
 		game.spawnedFirstSkull = false;
 		game.introInstructionsTimer = 0;
 
-		// add sprites for text intstructions
-		game.introInstructionsPlusX = [game.world.width + 300];
-		game.introInstructions1 = game.add.sprite(game.introInstructionsPlusX[0], game.world.height * 0.75, 'introInstructions1');
+		// add sprites for text instructions
+		game.introInstructionsXDest = [game.world.width * 1.5, game.world.width * 1.5, game.world.width * 1.5];
+		game.introInstructions1 = game.add.sprite(game.introInstructionsXDest[0], game.world.height * 0.75, 'introInstructions1');
 		game.introInstructions1.scale.setTo(0.5);
 		game.introInstructions1.anchor.setTo(0.5);
 		game.HUDgroup.add(game.introInstructions1);
+		game.introInstructions2 = game.add.sprite(game.introInstructionsXDest[1], game.world.height * 0.75, 'introInstructions2');
+		game.introInstructions2.scale.setTo(0.5);
+		game.introInstructions2.anchor.setTo(0.5);
+		game.HUDgroup.add(game.introInstructions2);
+		game.introInstructions3 = game.add.sprite(game.introInstructionsXDest[2], game.world.height * 0.75, 'introInstructions3');
+		game.introInstructions3.scale.setTo(0.5);
+		game.introInstructions3.anchor.setTo(0.5);
+		game.HUDgroup.add(game.introInstructions3);
 
 
 		resetColliderCounts();
@@ -211,14 +219,32 @@ Intro.prototype = {
 	},
 	update: function() {
 
-		// control intro instructions to slide them in smoothly
-		game.introInstructions1.x = approachSmooth(game.introInstructions1.x, game.introInstructionsPlusX, 12);
+		// slide instructions in smoothly
+		game.introInstructions1.x = approachSmooth(game.introInstructions1.x, game.introInstructionsXDest[0], 12);
+		game.introInstructions2.x = approachSmooth(game.introInstructions2.x, game.introInstructionsXDest[1], 12);
+		game.introInstructions3.x = approachSmooth(game.introInstructions3.x, game.introInstructionsXDest[2], 12);
+
+		// X-position destinations of instruction text
 		if (game.skullCount > 0) {
-			game.introInstructionsPlusX = game.world.width / 2;
+			game.introInstructionsXDest[0] = game.world.width * 0.5;
+			game.introInstructionsXDest[1] = game.world.width * 1.5;
+			game.introInstructionsXDest[2] = game.world.width * 1.5;
+		}
+		if (game.plusCount > 0) {
+			game.introInstructionsXDest[0] = game.world.width * -0.5;
+			game.introInstructionsXDest[1] = game.world.width * 0.5;
+			game.introInstructionsXDest[2] = game.world.width * 1.5;
+		}
+		if (game.level > 1) {
+			game.introInstructionsXDest[0] = game.world.width * -0.5;
+			game.introInstructionsXDest[1] = game.world.width * -0.5;
+			game.introInstructionsXDest[2] = game.world.width * 0.5;
 		}
 
 
-		if(!game.allowMovement){
+
+
+		if (!game.allowMovement) {
 			game.player.y -= 1.5;
  
 			game.HUDgroup.y = approach(game.HUDgroup.y,game.HUGgroupDest, 1);
