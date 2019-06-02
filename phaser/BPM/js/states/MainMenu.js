@@ -90,6 +90,7 @@ MainMenu.prototype = {
 			game.dieSound = game.add.audio('levelUpSound');
 			game.dieSound.volume = 0.5;
 			game.dieSound.play();
+			game.introPlayed = false;
 		}
 
 		resetColliderCounts();
