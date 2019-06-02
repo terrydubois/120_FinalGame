@@ -1,4 +1,4 @@
-// define logo state and methods
+// define Logo state and methods
 var LogoScreen = function(game) {};
 LogoScreen.prototype = {
 	preload: function() {
@@ -20,22 +20,13 @@ LogoScreen.prototype = {
 		game.logoFG = game.add.sprite(0, 0, 'sky');
 		game.logoFG.alpha = 0;
 
-
-		//game.choice = 0;
-		//game.playingr = false;
-		//game.playingl = false;
-		//game.mode = 0;
 		game.currentMode = 1;
 		game.logoTimer = 140;
 
 		game.song1 = game.add.audio('BETA');
 		
 		resetColliderCounts();
-
 	},
-
-
-
 	update: function() {
 		
 		// shrink and fade logo
@@ -60,6 +51,7 @@ LogoScreen.prototype = {
 			}
 		}
 
+		// press SPACEBAR to skip logo
 		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			game.logoTimer = 0;
 		}

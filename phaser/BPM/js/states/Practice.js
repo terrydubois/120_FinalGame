@@ -193,7 +193,6 @@ Practice.prototype = {
 			}
 		}
 
-
 		// fade "PRACTICE" text in and out
 		if (game.practiceTextFadeOut) {
 			if (game.practiceText.alpha > 0) {
@@ -266,8 +265,6 @@ Practice.prototype = {
 			
 		}
 		game.posRight = game.world.width - game.posLeft;
-
-
 
 
 

@@ -1,4 +1,4 @@
-// avoid constructor
+// Avoid constructor (used for all colliders, except when in Mode 3)
 function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 
 	this.goingUp = goingUp;
@@ -13,8 +13,6 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 		xPosTries++;
 	}
 	game.lastSpawnX = xPos;
-	//console.log("NEW LASTSPAWNX: " + game.lastSpawnX);
-
 
 	if (goingUp) {
 		yPos = game.world.height + 100;
@@ -25,35 +23,26 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 		this.yVelocity = ySpeed; 	
 	}
 
-		this.colliderEmitter = game.add.emitter(xPos,yPos, 50);
-		this.colliderEmitter.minParticleScale = 0.2;
-		this.colliderEmitter.maxParticleScale = 0.5;
-
-	if(key == 'heart'){
-
-			this.colliderEmitter.makeParticles('heartP');
+	// setup particle effcts from colliders
+	this.colliderEmitter = game.add.emitter(xPos,yPos, 50);
+	this.colliderEmitter.minParticleScale = 0.2;
+	this.colliderEmitter.maxParticleScale = 0.5;
+	if (key == 'heart') {
+		this.colliderEmitter.makeParticles('heartP');
 	}
-
-	else if(key == 'plus'){
-
-			this.colliderEmitter.makeParticles('plusP');
+	else if (key == 'plus') {
+		this.colliderEmitter.makeParticles('plusP');
 	}
-
-	else if(key == 'star'){
-
-			this.colliderEmitter.makeParticles('starP');
+	else if (key == 'star') {
+		this.colliderEmitter.makeParticles('starP');
 	}
-	else{
-			this.colliderEmitter.makeParticles('skullP');
-
+	else {
+		this.colliderEmitter.makeParticles('skullP');
 	}
-
+	this.colliderEmitter.setAlpha(1, 0, 500);
+	this.colliderEmitter.start(false, 5000, 250);
 	
-		this.colliderEmitter.setAlpha(1, 0, 500);
-    	this.colliderEmitter.start(false, 5000, 250);
-
-
-
+	// call Phaser constructor
 	Phaser.Sprite.call(this, game, xPos, yPos, key, frame);
 
 	// set other essential variables for this object
@@ -89,7 +78,7 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 
 	game.physics.enable(this);
 
-
+	// if game is "paused" then destroy immediately
 	this.destroyMe = false;
 	if (game.pause && game.state.getCurrentState().key == 'Intro') {
 		this.destroyMe = true;
@@ -109,8 +98,8 @@ Avoid.prototype.update = function() {
 		console.log("here in avoid")
 	}
 
+	// particle emitter should follow this object
 	this.colliderEmitter.y = this.y;
-
 
 	// destroy this obstacle if it is out of bounds
 	if (this.goingUp && this.y < -100) {
@@ -122,7 +111,8 @@ Avoid.prototype.update = function() {
 		this.colliderEmitter.destroy();
 	}
 
-
+	// collision with player
+	// all colliders will destroy on collision with player
 	if (Math.abs(game.player.x - this.x) < this.collisionRad + game.playerCollisionRad
 	&& Math.abs(game.player.y - this.y) < this.collisionRad + game.playerCollisionRad
 	&& !game.hasHitPlayer && !this.hasHitPlayer) {
