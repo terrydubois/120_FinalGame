@@ -15,7 +15,6 @@ Preload.prototype = {
 		game.load.atlas('player', 'assets/img/player.png', 'assets/img/player.json');
 		game.load.image('waveformR', 'assets/img/waveformO.png');
 		game.load.image('waveformL', 'assets/img/waveformB.png');
-		//game.load.image('title','assets/img/title.png');
 		game.load.image('title', 'assets/img/bpmTitle.png');
 		game.load.image('credits', 'assets/img/credits.png');
 		game.load.image('menuTriangle', 'assets/img/menuTriangle.png');
@@ -30,6 +29,7 @@ Preload.prototype = {
 		game.load.image('bgAnimatedCircle', 'assets/img/bgAnimatedCircle.png');
 		game.load.image('bgAnimatedTriangle', 'assets/img/bgAnimatedTriangleSmall.png');
 		game.load.image('bgAnimatedStar', 'assets/img/bgAnimatedStar.png');
+		game.load.image('bgAnimatedSquare', 'assets/img/bgAnimatedSquare.png');
 		game.load.image('flashStar', 'assets/img/flashStar.png');
 		game.load.image('flashBlack', 'assets/img/flashBlack.png');
 		game.load.image('flashSkull', 'assets/img/flashSkull.png');
@@ -43,12 +43,13 @@ Preload.prototype = {
 
 
 
-		//LOAD AUDIO
+		// LOAD AUDIO: Music
 		game.load.path = 'assets/audio/';
 		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
 		game.load.audio('BETA', ['BETA TRACK 3.mp3']);
 		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
+		// LOAD AUDIO: SFX
 		game.load.audio('hitEnemySound', 'hitEnemy.mp3');
 		game.load.audio('hitPlusSound', 'hitPlus.mp3');
 		game.load.audio('hitHeartSound', 'hitHeart.mp3');
@@ -62,11 +63,15 @@ Preload.prototype = {
 	create: function() {
 		console.log('Preload: create');
 
+		// get the stars for this broswer
 		saveStarsColl();
+
+		// set how many stars are needed to unlock each mode
 		game.modeStarsToUnlock = [0, 0, 10, 30];
 		game.mode2UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[2];
 		game.mode3UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[3];
 
+		// hop to logo!
 		game.state.start("LogoScreen");
 	},
 	update: function() {
