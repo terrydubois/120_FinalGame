@@ -2,120 +2,95 @@
 var Options = function(game) {};
 Options.prototype = {
 	preload: function() {
-		console.log('credits: preload');
+		console.log('options: preload');
 
 		
 	},
 	create: function() {
-		console.log('credits: create');
+		console.log('options: create');
 		game.add.sprite(0, 0, 'sky');
 
+		// add cutouts background
+		options = game.add.sprite(0, 0, 'cutoutBG');
+
+		// setup the options for the options menu
+		game.optionsOptions = ['MUSIC  ', 'SFX  ', 'RESET HIGHSCORES  ', 'RESET STARS  ', 'BACK  '];
+		game.optionsOptionsText = [game.optionsOptions.length];
+		game.optionsOptionCurrent = game.optionsOptions.length - 1;
+
+
 		// add blue rectangle for selection
-		game.creditsGraphics = game.add.graphics(0, 700);
-		game.creditsGraphics.beginFill(0x3361E2);
-		game.menuRect = game.creditsGraphics.drawRoundedRect((game.world.width / 2) - 150, 0, 300, 50, 10);
+		game.optionsGraphics = game.add.graphics(0, 400);
+		game.optionsGraphics.beginFill(0x3361E2);
+		game.menuRect = game.optionsGraphics.drawRoundedRect((game.world.width / 2) - 150, 0, 300, 50, 10);
 		game.menuRect.anchor.setTo(0.5);
-		game.creditsGraphics.endFill();
-		game.creditsGraphicsAlphaDest = 0;
-		game.creditsGraphics.alpha = 0.8;
-		game.creditsGraphicsXDest = 0;
-		game.creditsGraphicsYDest = 0;
-		game.creditsGraphics.anchor.setTo(0.5);
-		window.graphics = game.creditsGraphics;
+		game.menuRectWidthOriginal = game.menuRect.width;
+		game.menuRectWidthDest = 1;
+		game.optionsGraphics.endFill();
+		game.optionsGraphicsAlphaDest = 0;
+		game.optionsGraphics.alpha = 0.8;
+		game.optionsGraphicsYDest = 0;
+		game.optionsGraphics.anchor.setTo(0.5);
+		window.graphics = game.optionsGraphics;
+		
 
-		game.creditsGraphicsLeftSide = true;
+		// setup options text
+		for (var i = 0; i < game.optionsOptions.length; i++) {
+			game.optionsOptionsText[i] = game.add.text(game.world.width / 2, 350 + (i * 50), game.optionsOptions[i], {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+			game.optionsOptionsText[i].anchor.setTo(0.5);
+		}
+		game.optionsTextPlusY = 700;
 
-		// the different options and their respective Y-positions
-		game.creditsOptionsTotal = 4;
-		game.creditsOptionsYPositions = [500, 425, 225, 170];
-		game.creditsCurrentOption = 0;
 
-		// add text for back button
-		game.creditsBackText = game.add.text(game.world.width / 2, game.creditsOptionsYPositions[0] + 25, 'BACK  ', {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
-		game.creditsBackText.anchor.setTo(0.5);
-
-		// add credits sprite
-		credits = game.add.sprite(0, 0, 'credits');
 		
 		// add intro flash
-		game.creditsIntroFlash = game.add.sprite(0, 0, 'sky');
+		game.optionsIntroFlash = game.add.sprite(0, 0, 'sky');
 
 		game.menuBlipSound = game.add.audio('menuBlipSound');
 		game.menuBlipSound.volume = 0.5;
 	},
 	update: function() {
-		game.creditsIntroFlash.alpha -= 0.05;
-		game.creditsIntroFlash.alpha = Math.max(game.creditsIntroFlash.alpha, 0);
+		game.optionsIntroFlash.alpha -= 0.05;
+		game.optionsIntroFlash.alpha = Math.max(game.optionsIntroFlash.alpha, 0);
 
-		// have blue selection rectangle smoothly approach its destination position
-		game.creditsGraphicsYDest = game.creditsOptionsYPositions[game.creditsCurrentOption];
-		game.creditsGraphics.x = approachSmooth(game.creditsGraphics.x, game.creditsGraphicsXDest, 6);
-		game.creditsGraphics.y = approachSmooth(game.creditsGraphics.y, game.creditsGraphicsYDest, 6);
+		// slide options text into screen from bottom
+		game.optionsTextPlusY = approachSmooth(game.optionsTextPlusY, 0, 8);
+		game.optionsGraphics.y = approachSmooth(game.optionsGraphics.y, game.optionsGraphicsYDest, 6);
+
+		// set Y position for text in menu
+		for (var i = 0; i < game.optionsOptionsText.length; i++) {
+			game.optionsOptionsText[i].y = 180 + (i * 70) + game.optionsTextPlusY;
+			if (game.optionsOptionCurrent == i) {
+				game.optionsGraphicsYDest = game.optionsOptionsText[i].y - 30;
+			}
+		}
 
 
-		// if we are on the credits on the top, have blue rectangle slide to the side
-		if (game.creditsCurrentOption >= 2) {
-			if (game.creditsGraphicsLeftSide) {
-				game.creditsGraphicsXDest = -250;
+		// player cycles through options using UP and DOWN
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.S)) {
+			game.menuBlipSound.play();
+			if (game.optionsOptionCurrent < game.optionsOptions.length - 1) {
+				game.optionsOptionCurrent++;
 			}
 			else {
-				game.creditsGraphicsXDest = 250;
+				game.optionsOptionCurrent = 0;
 			}
 		}
-		else {
-			game.creditsGraphicsXDest = 0;
-		}
-
-		// keyboard input for UP & DOWN
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)) {
-			game.creditsCurrentOption++;
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.UP)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.W)) {
 			game.menuBlipSound.play();
-		}
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.DOWN)) {
-			game.creditsCurrentOption--;
-			game.menuBlipSound.play();
-		}
-		if (game.creditsCurrentOption > game.creditsOptionsTotal - 1) {
-			game.creditsCurrentOption = 0;
-		}
-		if (game.creditsCurrentOption < 0) {
-			game.creditsCurrentOption = game.creditsOptionsTotal - 1;
-		}
-		// keyboard input for LEFT & RIGHT
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.LEFT)
-		|| game.input.keyboard.justPressed(Phaser.Keyboard.RIGHT)) {
-			game.creditsGraphicsLeftSide = !game.creditsGraphicsLeftSide;
-			if (game.creditsCurrentOption >= 2) {
-				game.menuBlipSound.play();
+			if (game.optionsOptionCurrent > 0) {
+				game.optionsOptionCurrent--;
+			}
+			else {
+				game.optionsOptionCurrent = game.optionsOptions.length - 1;
 			}
 		}
 
-		// keyboard input for SPACE
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
-		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
-			if (game.creditsCurrentOption == 0) {
-				game.state.start("MainMenu");
-			}
-			else if (game.creditsCurrentOption == 1) {
-				window.open("https://www.instagram.com/meritaart/?hl=en");
-			}
-			else if (game.creditsCurrentOption == 2) {
-				if (game.creditsGraphicsLeftSide) {
-					window.open("https://terrydubois.io/");
-				}
-				else {
-					window.open("https://soundcloud.com/foxmod-1");
-				}
-			}
-			else if (game.creditsCurrentOption == 3) {
-				if (game.creditsGraphicsLeftSide) {
-					window.open("https://kittynugget.itch.io/");
-				}
-				else {
-					window.open("https://soundcloud.com/technicolormotionpicture");
-				}
-			}
-		}
+
+
+		
 
 		//esc key also goes back to main menu
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.ESC)) {

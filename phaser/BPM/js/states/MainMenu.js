@@ -11,7 +11,7 @@ MainMenu.prototype = {
 
 		game.menuTitlePlusY = -600;
 
-		game.menuTitle = game.add.sprite(game.world.width / 2, 200 + game.menuTitlePlusY, 'title');
+		game.menuTitle = game.add.sprite(game.world.width / 2, 150 + game.menuTitlePlusY, 'title');
 		game.menuTitle.anchor.setTo(0.5);
 
 		
@@ -31,11 +31,11 @@ MainMenu.prototype = {
 		window.graphics = game.menuGraphics;
 
 		game.menuModes = ['PRACTICE  ', 'MODE 1  ', 'MODE 2  ', 'MODE 3  '];
-		game.menuOptions = ['PLAY  ', 'MODE  ', 'CREDITS  '];
+		game.menuOptions = ['PLAY  ', 'MODE  ', 'OPTIONS  ', 'CREDITS  '];
 		game.menuOptionsText = [game.menuOptions.length];
 
 		for (var i = 0; i < game.menuOptions.length; i++) {
-			game.menuOptionsText[i] = game.add.text(game.world.width / 2, 400 + (i * 50), game.menuOptions[i], {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+			game.menuOptionsText[i] = game.add.text(game.world.width / 2, 350 + (i * 50), game.menuOptions[i], {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 			game.menuOptionsText[i].anchor.setTo(0.5);
 		}
 
@@ -126,11 +126,11 @@ MainMenu.prototype = {
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
 		
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
-		game.menuTitle.y = 180 + game.menuTitlePlusY;
+		game.menuTitle.y = 155 + game.menuTitlePlusY;
 		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
 
 		for (var i = 0; i < game.menuOptionsText.length; i++) {
-			game.menuOptionsText[i].y = 400 + (i * 50) - game.menuTitlePlusY;
+			game.menuOptionsText[i].y = 360 + (i * 50) - game.menuTitlePlusY;
 			if (game.menuOptionCurrent == i) {
 				game.menuGraphicsYDest = game.menuOptionsText[i].y - 30;
 			}
@@ -318,6 +318,10 @@ MainMenu.prototype = {
 				}
 			}
 			else if (game.menuOptionCurrent == 2) {
+				// show options
+				game.state.start('Options');
+			}
+			else if (game.menuOptionCurrent == 3) {
 				// show credits
 				game.state.start('Credits');
 			}
