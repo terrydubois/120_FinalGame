@@ -21,6 +21,7 @@ game.starsColl = 0;
 game.debugControls = false;
 game.modeUnlockedTextPosCounter = 0;
 game.pause = false;
+game.heartMulti = 1;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
