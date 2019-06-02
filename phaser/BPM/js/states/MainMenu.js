@@ -298,6 +298,10 @@ MainMenu.prototype = {
 					}
 				}
 			}
+			else if (game.menuOptionCurrent == 2) {
+				// show options
+				game.state.start('Options');
+			}
 			else if (game.menuOptionCurrent == 3) {
 				// show credits
 				game.state.start('Credits');

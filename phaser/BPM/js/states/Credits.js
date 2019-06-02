@@ -7,6 +7,8 @@ Credits.prototype = {
 	create: function() {
 		console.log('credits: create');
 		game.add.sprite(0, 0, 'sky');
+		// add cutouts background
+		game.add.sprite(0, 0, 'cutoutBG');
 
 		// add blue rectangle for selection
 		game.creditsGraphics = game.add.graphics(0, 700);
