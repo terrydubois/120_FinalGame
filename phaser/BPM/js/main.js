@@ -570,3 +570,11 @@ function modeUnlockedTextUpdate() {
 	}
 	game.modeUnlockedText.x = approachSmooth(game.modeUnlockedText.x, game.modeUnlockedTextXDest, 12);
 }
+
+function resetColliderCounts() {
+	// reset count of skulls, plusses, stars, and hearts back to 0
+	game.skullCount = 0;
+	game.plusCount = 0;
+	game.starCount = 0;
+	game.heartCount = 0;
+}

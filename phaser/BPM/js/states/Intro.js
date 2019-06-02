@@ -193,8 +193,31 @@ Intro.prototype = {
 			//timer to allow movement
 			game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, unlockPlayer, this);
 
+
+		// variables for bringing in text instructions
+		game.spawnedFirstSkull = false;
+		game.introInstructionsTimer = 0;
+
+		// add sprites for text intstructions
+		game.introInstructionsPlusX = [game.world.width + 300];
+		game.introInstructions1 = game.add.sprite(game.introInstructionsPlusX[0], game.world.height * 0.75, 'introInstructions1');
+		game.introInstructions1.scale.setTo(0.5);
+		game.introInstructions1.anchor.setTo(0.5);
+		game.HUDgroup.add(game.introInstructions1);
+
+
+		resetColliderCounts();
+
 	},
 	update: function() {
+
+		// control intro instructions to slide them in smoothly
+		game.introInstructions1.x = approachSmooth(game.introInstructions1.x, game.introInstructionsPlusX, 12);
+		if (game.skullCount > 0) {
+			game.introInstructionsPlusX = game.world.width / 2;
+		}
+
+
 		if(!game.allowMovement){
 			game.player.y -= 1.5;
  

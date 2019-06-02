@@ -173,6 +173,9 @@ GameOver.prototype = {
 		game.dieSound = game.add.audio('dieSound');
 		game.dieSound.volume = 0.5;
 		game.dieSound.play();
+
+
+		resetColliderCounts();
 	},
 	update: function() {
 		

@@ -71,6 +71,21 @@ function Avoid(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	this.star = (key =='star');
 
 
+	// increase count of collider
+	if (this.heart) {
+		game.heartCount++;
+	}
+	else if (this.plus) {
+		game.plusCount++;
+	}
+	else if (this.star) {
+		game.starCount++;
+	}
+	else {
+		game.skullCount++;
+	}
+
+
 
 	game.physics.enable(this);
 
