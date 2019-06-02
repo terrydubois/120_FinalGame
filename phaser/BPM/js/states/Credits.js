@@ -2,9 +2,7 @@
 var Credits = function(game) {};
 Credits.prototype = {
 	preload: function() {
-		console.log('credits: preload');
-
-		
+		console.log('credits: preload');	
 	},
 	create: function() {
 		console.log('credits: create');

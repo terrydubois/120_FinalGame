@@ -47,7 +47,7 @@ Practice.prototype = {
 		game.player.anchor.setTo(.5);
 		game.player.scale.setTo(0.7);
 
-		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
+		game.player.animations.add('squiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
 		game.player.animations.play('squiggle');
 
 		game.switchRate = 1;

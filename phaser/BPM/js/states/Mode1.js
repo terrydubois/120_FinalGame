@@ -49,7 +49,7 @@ Mode1.prototype = {
 		game.player.anchor.setTo(.5);
 		game.player.scale.setTo(0.7);
 
-		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
+		game.player.animations.add('squiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
 		game.player.animations.play('squiggle');
 
 		game.switchRate = 1;
@@ -193,8 +193,7 @@ Mode1.prototype = {
 			}
 		}
 
-		
-
+		// track FPS if we are in debug mode
 		game.fpsText.text = "fps: " + (game.time.fps);
 		
 
@@ -329,10 +328,6 @@ Mode1.prototype = {
 				game.song1._sound.playbackRate.value +=  .05;
 			}
 			game.levelUpSound.play();
-
-			//game.posLeft += 20;
-			//leftside.x += 20;
-			//rightside.x -= 20;
 		}
 
 
