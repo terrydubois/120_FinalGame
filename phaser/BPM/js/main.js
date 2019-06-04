@@ -624,11 +624,17 @@ function modeUnlockedTextUpdate() {
 		game.mode2UnlockedAlert = true;
 		game.modeUnlockedTextPos = 1;
 		game.modeUnlockedTextPosCounter = 200;
+		for (var i = 0; i < game.modeUnlockedTextArrLength; i++) {
+			game.modeUnlockedTextArr[i].text = "YOU'VE UNLOCKED MODE 2!  ";
+		}
 	}
 	if (game.starsColl >= game.modeStarsToUnlock[3] && !game.mode3UnlockedAlert) {
 		game.mode3UnlockedAlert = true;
 		game.modeUnlockedTextPos = 1;
 		game.modeUnlockedTextPosCounter = 200;
+		for (var i = 0; i < game.modeUnlockedTextArrLength; i++) {
+			game.modeUnlockedTextArr[i].text = "YOU'VE UNLOCKED MODE 3!  ";
+		}
 	}
 
 
