@@ -25,6 +25,7 @@ game.heartMulti = 1;
 game.sfxOn = true;
 game.musicOn =true;
 game.multiPos = -200;
+game.backSpawn = 0;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
@@ -256,24 +257,27 @@ function spawnBGCircle() {
 //main menu animation spawner
 function spawnBGIcons(){
 	var bgIcon = 'bigSkull';
-	var choice = Math.random()*5;
 	var topOrBot = Math.random()*2;
 	var top =true;
-	if(choice >= 1 &&choice <= 2){
+	if(game.backSpawn ==0){
 	var bgIcon = 'bigSkull';
+	game.backSpawn ++;
 	}
-	else if(choice >= 2 &&choice <=3){
+	else if(game.backSpawn == 1){
 	var bgIcon = 'bigPlus';
+	game.backSpawn ++;
 	}
-	else if(game.mode2UnlockedAlert == true && choice >= 3 &&choice <=4){
+	else if(game.mode2UnlockedAlert == true && game.backSpawn == 2){
 	var bgIcon = 'bigHeart';
+	game.backSpawn ++;
 	}
-	else if(game.mode3UnlockedAlert ==true && choice >= 4){
+	else if(game.mode3UnlockedAlert ==true && game.backSpawn == 3){
 	var bgIcon = 'bigHeart';
+	game.backSpawn = 0;
 	}
 	else{
-
-	}
+		game.backSpawn =0;
+	}	
 
 	if(topOrBot >1){
 		top = true;
