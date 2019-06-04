@@ -606,6 +606,7 @@ function modeUnlockedTextCreate() {
 		game.modeUnlockedTextArr[i].anchor.setTo(0.5);
 		game.HUDgroup.add(game.modeUnlockedTextArr[i]);
 	}
+	game.modeUnlockedTextPos = 0;
 	game.modeUnlockedTextXDest = game.world.width * 1.5;
 
 	newModeUnlockedColor();
