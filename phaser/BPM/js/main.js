@@ -253,6 +253,49 @@ function spawnBGCircle() {
 	game.bgGroup.add(game.bgAnimation);
 }
 
+//main menu animation spawner
+function spawnBGIcons(){
+	var bgIcon = 'bigSkull';
+	var choice = Math.random()*5;
+	var topOrBot = Math.random()*2;
+	var top =true;
+	if(choice >= 1 &&choice <= 2){
+	var bgIcon = 'bigSkull';
+	}
+	else if(choice >= 2 &&choice <=3){
+	var bgIcon = 'bigPlus';
+	}
+	else if(game.mode2UnlockedAlert == true && choice >= 3 &&choice <=4){
+	var bgIcon = 'bigHeart';
+	}
+	else if(game.mode3UnlockedAlert ==true && choice >= 4){
+	var bgIcon = 'bigHeart';
+	}
+	else{
+		
+	}
+
+	if(topOrBot >1){
+		top = true;
+	}
+	else{
+		top = false;
+	}
+	var newEnemySpeed = Math.random() * 4;
+	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 2.50, 3.50);
+
+
+
+	// spawn new background animation sprite
+	game.bgMenuAnimation = new BGIcons(game, bgIcon, bgIcon,.5,0, top, newEnemySpeed);
+	game.bgGroup.add(game.bgMenuAnimation);
+
+	game.world.sendToBack(game.bgGroup);
+	game.time.events.repeat(Phaser.Timer.SECOND * 2, 1, spawnBGIcons, this);
+}
+
+
+
 // create flash in background when player hits collider
 function spawnFlash(type) {
 
@@ -277,7 +320,6 @@ function spawnFlash(type) {
 
 //skull spawner
 function spawnEnemy() {
-	if(game.currentMode == 3){}
 
 	var newEnemySpeed = Math.random() * 350;
 	newEnemySpeed = Phaser.Math.clamp(newEnemySpeed, 250, 350);

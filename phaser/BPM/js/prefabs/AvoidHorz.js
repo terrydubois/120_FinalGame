@@ -124,14 +124,14 @@ AvoidHorz.prototype.update = function() {
 		else if (this.plus) {
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
-			game.currentScore += 10;
+			game.currentScore += 10 * game.heartMulti;
 			if (game.currentPlussesToLevelUp > 0) {
 				if(game.sfxOn){
 					game.hitPlusSound.play('', 0, 0.5, false);
 				}
 			}
 			spawnFlash(1);
-			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+10  ');
+			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 10*game.heartMulti +'  ');
 			game.add.existing(game.scoreAddText);
 		}
 		else if (this.star) {
@@ -139,12 +139,12 @@ AvoidHorz.prototype.update = function() {
 
 			game.starsColl++;
 			saveStarsColl();
-			game.currentScore += 50;
+			game.currentScore += 50*game.heartMulti;
 			if(game.sfxOn){
 				game.hitStarSound.play('', 0, 0.5, false);
 			}
 			spawnFlash(3);
-			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+50  ');
+			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+' + 50*game.heartMulti + '  ');
 			game.add.existing(game.scoreAddText);
 		}
 		else {

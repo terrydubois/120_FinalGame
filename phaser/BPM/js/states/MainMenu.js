@@ -7,7 +7,7 @@ MainMenu.prototype = {
 	create: function() {
 		console.log('MainMenu: create');
 
-		game.add.sprite(0,0,'sky');
+		game.background = game.add.sprite(0,0,'sky');
 
 		game.menuTitlePlusY = -600;
 
@@ -92,11 +92,15 @@ MainMenu.prototype = {
 			game.dieSound.play();
 			game.introPlayed = false;
 		}
+				// add group for BG sprites
+		game.bgGroup = game.add.group();
+		game.add.existing(game.bgGroup);
 
+		spawnBGIcons();
 		resetColliderCounts();
 	},
 	update: function() {
-
+				game.world.sendToBack(game.background);
 
 							// take out for final game
 							if (game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT)) {
@@ -123,8 +127,13 @@ MainMenu.prototype = {
 			}
 		}
 
+		//spawnBGIcons();
+
+
+		//star count
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
 		
+		//bring in menu
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
 		game.menuTitle.y = 165 + game.menuTitlePlusY;
 		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
@@ -136,6 +145,7 @@ MainMenu.prototype = {
 			}
 		}
 		game.menuGraphics.anchor.setTo(0.5);
+
 		// make menu rectangle shake if you select a locked mode
 		var currentGraphicsPlusX = game.menuGraphicsPlusX;
 		if (game.menuGraphicsPlusX > 0 && Math.random() > 0.5) {
