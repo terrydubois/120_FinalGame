@@ -63,13 +63,13 @@ Options.prototype = {
 		game.optionsSFXIcon = game.add.sprite(0, 0, 'soundIcon');
 		game.optionsNoSymbol1 = game.add.sprite(0, 0, 'noSymbol');
 		game.optionsNoSymbol2 = game.add.sprite(0, 0, 'noSymbol');
-		game.optionsMusicIcon.scale.setTo(0.2);
+		game.optionsMusicIcon.scale.setTo(0.15);
 		game.optionsMusicIcon.anchor.setTo(0.5);
-		game.optionsSFXIcon.scale.setTo(0.2);
+		game.optionsSFXIcon.scale.setTo(0.15);
 		game.optionsSFXIcon.anchor.setTo(0.5);
-		game.optionsNoSymbol1.scale.setTo(0.2);
+		game.optionsNoSymbol1.scale.setTo(0.15);
 		game.optionsNoSymbol1.anchor.setTo(0.5);
-		game.optionsNoSymbol2.scale.setTo(0.2);
+		game.optionsNoSymbol2.scale.setTo(0.15);
 		game.optionsNoSymbol2.anchor.setTo(0.5);
 
 		// add sprite for star icon
@@ -147,12 +147,12 @@ Options.prototype = {
 
 		// set position for "sound icons" and "no symbols"
 		game.optionsMusicIcon.x = game.optionsOptionsText[0].x + 50;
-		game.optionsMusicIcon.y = game.optionsOptionsText[0].y;
-		game.optionsNoSymbol1.x = game.optionsMusicIcon.x;
+		game.optionsMusicIcon.y = game.optionsOptionsText[0].y - 5;
+		game.optionsNoSymbol1.x = game.optionsMusicIcon.x + 2;
 		game.optionsNoSymbol1.y = game.optionsMusicIcon.y;
 		game.optionsSFXIcon.x = game.optionsOptionsText[1].x + 50;
-		game.optionsSFXIcon.y = game.optionsOptionsText[1].y;
-		game.optionsNoSymbol2.x = game.optionsSFXIcon.x;
+		game.optionsSFXIcon.y = game.optionsOptionsText[1].y - 5;
+		game.optionsNoSymbol2.x = game.optionsSFXIcon.x + 2;
 		game.optionsNoSymbol2.y = game.optionsSFXIcon.y;
 
 		// set position for star icon
