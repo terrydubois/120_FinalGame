@@ -207,7 +207,7 @@ Mode1.prototype = {
 			}
 		}
 
-		if(game.currentHearts == 7 ){
+		if(game.heartMulti >= 2 ){
 			game.multiPos = approachSmooth(game.multiPos, 0, 8);
 		}
 		else{

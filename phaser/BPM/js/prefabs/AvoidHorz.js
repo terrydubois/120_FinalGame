@@ -116,7 +116,7 @@ AvoidHorz.prototype.update = function() {
 				game.heartMulti += 1 ;
 			}
 			game.currentHearts++;
-			if(game.sfx){
+			if(game.sfxOn){
 				game.hitHeartSound.play('', 0, 0.5, false);
 			}
 			spawnFlash(2);
