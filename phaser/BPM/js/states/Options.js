@@ -32,8 +32,7 @@ Options.prototype = {
 		game.menuRectWidthOriginal = game.menuRect.width;
 		game.menuRectWidthDest = 1;
 		game.optionsGraphics.endFill();
-		game.optionsGraphicsAlphaDest = 0;
-		game.optionsGraphics.alpha = 0.8;
+		game.optionsGraphics.alpha = 0;
 		game.optionsGraphicsYDest = 0;
 		game.optionsGraphics.anchor.setTo(0.5);
 		window.graphics = game.optionsGraphics;
@@ -120,6 +119,22 @@ Options.prototype = {
 		game.optionsGraphics.y = approachSmooth(game.optionsGraphics.y, game.optionsGraphicsYDest, 6);
 		game.optionsConfirmQuestionText.y = 230 - game.confirmTextPlusY;
 
+		// fade in blue rectangle after text has entered
+		var currentPlusY = game.optionsTextPlusY;
+		if (game.optionsCurrentMenu == 1) {
+			currentPlusY = game.confirmTextPlusY;
+		}
+		if (Math.abs(currentPlusY - 0) > 10) {
+			game.optionsGraphics.alpha = 0;
+		}
+		else {
+			game.optionsGraphics.alpha += 0.1;
+			game.optionsGraphics.alpha = Math.min(game.optionsGraphics.alpha, 0.8);
+		}
+
+
+
+
 		// set text for confirm question
 		if (game.resetStarsConfirm) {
 			game.optionsConfirmQuestionText.text = 'ARE YOU SURE YOU WANT TO RESET STARS BACK TO 0?  \nTHIS CANNOT BE UNDONE.  ';
@@ -203,8 +218,9 @@ Options.prototype = {
 		}
 
 		// player input for SPACEBAR or ENTER
-		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
-		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
+		if ((game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER))
+		&& game.optionsGraphics.alpha >= 0.5) {
 
 			if (game.resetAlphaTimer <= 0) {
 
