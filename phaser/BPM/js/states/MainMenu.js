@@ -372,7 +372,7 @@ MainMenu.prototype = {
 		game.playFlash2.x += 2;
 		game.playFlash1.alpha -= 0.015;
 		game.playFlash2.alpha -= 0.015;
-		if (game.currentModeLocked || game.menuOptionCurrent >= 2) {
+		if (game.currentModeLocked || game.menuOptionCurrent >= 2 || Math.abs(game.menuTitlePlusY - 0) > 10) {
 			game.playFlash1.alpha = 0;
 			game.playFlash2.alpha = 0;
 		}
