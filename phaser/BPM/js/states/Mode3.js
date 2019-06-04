@@ -121,6 +121,20 @@ Mode3.prototype = {
 		game.HUDgroup.add(game.starCountMenuSprite);
 		game.HUDgroup.add(game.starCountMenuText);
 
+		// text for Multiplier
+		game.multiTextArrLength = 5;
+		game.multiTextArr = [game.multiTextArrLength];
+		for (var i = 0; i < game.multiTextArrLength; i++) {
+			var currentFill = game.multiColor2;
+			if (i == game.scoreTextArrLength - 1) {
+				currentFill = game.multiColor1;
+			}
+			game.multiTextArr[i] = game.add.text(80, 50, "x  "+game.heartMulti+"  ", {font: 'Impact', fontStyle: 'italic', fontSize: '25px', fill: currentFill, align: 'center'});
+			game.multiTextArr[i].anchor.setTo(0);
+			game.HUDgroup.add(game.multiTextArr[i]);
+		}
+		
+
 
 		// text for FPS
 		game.fpsText = game.add.text(game.world.width / 2, 90, 'fps: ' + game.time.fps, {fontStyle: 'italic', fontSize: '15px', fill: '#000', align: 'center'});
@@ -207,6 +221,14 @@ Mode3.prototype = {
 		// Game Over checking
 		if(game.currentHearts == 0) {
 			game.state.start("GameOver");
+		}
+
+		//bring in multiplier
+		if(game.heartMulti >= 2 ){
+			game.multiPos = approachSmooth(game.multiPos, 0, 8);
+		}
+		else{
+			game.multiPos = approachSmooth(game.multiPos, -200,8);
 		}
 
 		// resize speedup bar

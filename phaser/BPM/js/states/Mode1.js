@@ -118,6 +118,20 @@ Mode1.prototype = {
 			game.scoreTextArr[i].anchor.setTo(1);
 			game.HUDgroup.add(game.scoreTextArr[i]);
 		}
+
+
+		// text for Multiplier
+		game.multiTextArrLength = 5;
+		game.multiTextArr = [game.multiTextArrLength];
+		for (var i = 0; i < game.multiTextArrLength; i++) {
+			var currentFill = game.multiColor2;
+			if (i == game.scoreTextArrLength - 1) {
+				currentFill = game.multiColor1;
+			}
+			game.multiTextArr[i] = game.add.text(80, 50, "x  "+game.heartMulti+"  ", {font: 'Impact', fontStyle: 'italic', fontSize: '25px', fill: currentFill, align: 'center'});
+			game.multiTextArr[i].anchor.setTo(0);
+			game.HUDgroup.add(game.multiTextArr[i]);
+		}
 		
 
 		// text for stars
@@ -191,6 +205,13 @@ Mode1.prototype = {
 				spawnBGCircle();
 				game.bgCircleTimer = 0;
 			}
+		}
+
+		if(game.heartMulti >= 2 ){
+			game.multiPos = approachSmooth(game.multiPos, 0, 8);
+		}
+		else{
+			game.multiPos = approachSmooth(game.multiPos, -200,8);
 		}
 
 		// track FPS if we are in debug mode

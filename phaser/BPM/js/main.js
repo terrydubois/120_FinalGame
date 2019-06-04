@@ -24,9 +24,13 @@ game.pause = false;
 game.heartMulti = 1;
 game.sfxOn = true;
 game.musicOn =true;
+game.multiPos = -200;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
+
+game.multiColor1 = '#3361E2';
+game.multiColor2 = '#ffa14d';
 
 var emitter;
 
@@ -139,6 +143,14 @@ function gameplayHUD() {
 		game.scoreTextArr[i].x = game.world.width - 60 - i;
 		game.scoreTextArr[i].y = 75 - i;
 		game.scoreTextArr[i].text = Math.floor(game.scoreTextDisplay) + '  ';
+	}
+
+
+		// update score text for score's drop shadow
+	for (var i = 0; i < game.multiTextArrLength; i++) {
+		game.multiTextArr[i].x = game.multiPos + 80 - i;
+		game.multiTextArr[i].y =  65 - i;
+		game.multiTextArr[i].text = "x  " + game.heartMulti + '  ';
 	}
 	
 
