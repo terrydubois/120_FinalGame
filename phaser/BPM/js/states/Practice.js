@@ -131,6 +131,8 @@ Practice.prototype = {
 		game.HUDgroup.add(game.escapeText);
 
 
+/*
+
 		// text for stars
 		game.starCountMenuSprite = game.add.sprite(game.world.width - 90, 80, 'star');
 		game.starCountMenuSprite.scale.setTo(0.25);
@@ -140,7 +142,7 @@ Practice.prototype = {
 		game.HUDgroup.add(game.starCountMenuSprite);
 		game.HUDgroup.add(game.starCountMenuText);
 
-
+*/
 		// text for PRACTICE
 		game.practiceText = game.add.text(game.world.width / 2, 110, '    PRACTICE     ', {font: 'Impact',fontStyle: 'italic', fontSize: '45px', fill: '#000', align: 'center'});
 		game.practiceText.anchor.setTo(0.5);
