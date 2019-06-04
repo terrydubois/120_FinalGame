@@ -60,6 +60,7 @@ function BGIcons(game, key, frame, scale, rotation, goingUp, ySpeed) {
 
 	this.collisionRad = this.width / 2;
 	this.hasHitPlayer = false;
+	this.rotate = Math.random()*2;
 
 
 }
@@ -80,6 +81,12 @@ BGIcons.prototype.update = function() {
 	// make this move forward
 	this.y += this.yVelocity;
 
+	if(this.rotate < 1){
+		this.angle += .5;
+	}
+	else{
+		this.angle += -.5;	
+	}
 	// destroy this obstacle if it is out of bounds
 	if (this.goingUp && this.y < -100) {
 		this.destroy();

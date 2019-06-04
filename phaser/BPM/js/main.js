@@ -272,7 +272,7 @@ function spawnBGIcons(){
 	var bgIcon = 'bigHeart';
 	}
 	else{
-		
+
 	}
 
 	if(topOrBot >1){
