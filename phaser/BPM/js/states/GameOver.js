@@ -24,6 +24,13 @@ GameOver.prototype = {
 		game.player.animations.add('squiggle', [0,1,2,3,4,5,6,7,8,9],8,true);
 		game.player.animations.play('squiggle');
 
+
+		game.escapeText = game.add.text(143, game.world.height - 27, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
+		game.escapeText = game.add.text(142, game.world.height - 28, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
+		game.escapeText = game.add.text(141, game.world.height - 29, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
 		game.escapeText = game.add.text(140, game.world.height - 30, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#000', align: 'center'});
 		game.escapeText.anchor.setTo(0.5);
 

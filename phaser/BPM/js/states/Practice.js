@@ -117,6 +117,15 @@ Practice.prototype = {
 			game.HUDgroup.add(game.scoreTextArr[i]);
 		}
 		//text to exit
+		game.escapeText = game.add.text(173, 33, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText);
+		game.escapeText = game.add.text(172, 32, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText);
+		game.escapeText = game.add.text(171, 31, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText);
 		game.escapeText = game.add.text(170, 30, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#000', align: 'center'});
 		game.escapeText.anchor.setTo(0.5);
 		game.HUDgroup.add(game.escapeText);
