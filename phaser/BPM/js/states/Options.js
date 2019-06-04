@@ -206,70 +206,79 @@ Options.prototype = {
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
 
-			if (game.optionsCurrentMenu == 0) {
-				// if we are in options menu (as opposed to confirm menu)
+			if (game.resetAlphaTimer <= 0) {
 
-				if (game.optionsOptionCurrent == 0) {
-					// toggle music
-					game.musicOn = !game.musicOn;
-				}
-				else if (game.optionsOptionCurrent == 1) {
-					// toggle sfx
-					game.sfxOn = !game.sfxOn;
-					if (game.sfxOn) {
-						game.sfxOnSound.play();
+				if (game.optionsCurrentMenu == 0) {
+					// if we are in options menu (as opposed to confirm menu)
+
+					if (game.optionsOptionCurrent == 0) {
+						// toggle music
+						game.musicOn = !game.musicOn;
 					}
-				}
-				else if (game.optionsOptionCurrent == 2) {
-					// reset highscores
-					game.optionsCurrentMenu = 1;
-					game.optionsOptionCurrent = 1;
-					game.resetStarsConfirm = false;
-				}
-				else if (game.optionsOptionCurrent == 3) {
-					// reset stars
-					game.optionsCurrentMenu = 1;
-					game.optionsOptionCurrent = 1;
-					game.resetStarsConfirm = true;
-				}
-				else if (game.optionsOptionCurrent == 4) {
-					// return to Main Menu
-					game.state.start("MainMenu");
-				}
-
-				if (game.optionsOptionCurrent >= currentOptionMax) {
-					game.optionsOptionCurrent = 0;
-				}
-			}
-			else {
-				// if we are in confirm menu (as opposed to options menu)
-
-				if (game.optionsOptionCurrent == 0) {
-					if (game.resetAlphaTimer <= 0) {
-						// in this case, they've selected "YES" so we will reset highscores or stars
-						if (game.resetStarsConfirm) {
-							// reset stars for real!
-							game.starsColl = 0;
-							localStorage.setItem('starsColl', '0');
-							game.mode3UnlockedAlert = false;
-							game.mode2UnlockedAlert = false;
-							game.resetAlphaTimer = 120;
-							game.resetStarsSprite.alpha = 1;
+					else if (game.optionsOptionCurrent == 1) {
+						// toggle sfx
+						game.sfxOn = !game.sfxOn;
+						if (game.sfxOn) {
+							game.sfxOnSound.play();
 						}
-						else {
-							// reset highscores for real!
-							localStorage.setItem('highscore1', '0');
-							localStorage.setItem('highscore2', '0');
-							localStorage.setItem('highscore3', '0');
-							game.resetAlphaTimer = 120;
-							game.resetHSSprite.alpha = 1;
-						}
+					}
+					else if (game.optionsOptionCurrent == 2) {
+						// reset highscores
+						game.optionsCurrentMenu = 1;
+						game.optionsOptionCurrent = 1;
+						game.resetStarsConfirm = false;
+					}
+					else if (game.optionsOptionCurrent == 3) {
+						// reset stars
+						game.optionsCurrentMenu = 1;
+						game.optionsOptionCurrent = 1;
+						game.resetStarsConfirm = true;
+					}
+					else if (game.optionsOptionCurrent == 4) {
+						// return to Main Menu
+						game.state.start("MainMenu");
+					}
+
+					if (game.optionsOptionCurrent >= currentOptionMax) {
+						game.optionsOptionCurrent = 0;
 					}
 				}
 				else {
-					// in this case, they've selected "NO" so we return to options menu
-					game.optionsCurrentMenu = 0;
-					game.optionsOptionCurrent = game.optionsOptions.length - 1;
+					// if we are in confirm menu (as opposed to options menu)
+
+					if (game.optionsOptionCurrent == 0) {
+						//if (game.resetAlphaTimer <= 0) {
+							// in this case, they've selected "YES" so we will reset highscores or stars
+							if (game.resetStarsConfirm) {
+								// reset stars for real!
+								game.starsColl = 0;
+								localStorage.setItem('starsColl', '0');
+								game.mode3UnlockedAlert = false;
+								game.mode2UnlockedAlert = false;
+								game.resetAlphaTimer = 120;
+								game.resetStarsSprite.alpha = 1;
+								// go back to options menu
+								game.optionsCurrentMenu = 0;
+								game.optionsOptionCurrent = game.optionsOptions.length - 1;
+							}
+							else {
+								// reset highscores for real!
+								localStorage.setItem('highscore1', '0');
+								localStorage.setItem('highscore2', '0');
+								localStorage.setItem('highscore3', '0');
+								game.resetAlphaTimer = 120;
+								game.resetHSSprite.alpha = 1;
+								// go back to options menu
+								game.optionsCurrentMenu = 0;
+								game.optionsOptionCurrent = game.optionsOptions.length - 1;
+							}
+						//}
+					}
+					else {
+						// in this case, they've selected "NO" so we return to options menu
+						game.optionsCurrentMenu = 0;
+						game.optionsOptionCurrent = game.optionsOptions.length - 1;
+					}
 				}
 			}
 
