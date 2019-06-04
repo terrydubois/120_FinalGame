@@ -189,11 +189,12 @@ GameOver.prototype = {
 		
 		buldge();
 
-		//esc key also goes back to play state
-		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+		// go back to the game if player hits SPACEBAR or ENTER
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
+		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
 			game.sound.stopAll();
 			// play game
-			if(game.sfxOn){
+			if (game.sfxOn) {
 				game.modeStartSound.play();
 			}
 			if (game.currentMode == 0) {
