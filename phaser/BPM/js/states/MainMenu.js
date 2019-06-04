@@ -110,6 +110,8 @@ MainMenu.prototype = {
 			game.introPlayed = false;
 		}
 
+		game.playFlashAlphaUp = false;
+
 		resetColliderCounts();
 	},
 	update: function() {
@@ -361,17 +363,27 @@ MainMenu.prototype = {
 		if (game.playFlash1.alpha <= 0) {
 			game.playFlash1.x = (game.world.width / 2) - 140;
 			game.playFlash2.x = (game.world.width / 2) + 140;
-			if (!game.currentModeLocked && game.menuOptionCurrent < 2) {
-				game.playFlash1.alpha = 1;
-				game.playFlash2.alpha = 1;
-			}
+			game.playFlash1.alpha = 0.05;
+			game.playFlash2.alpha = 0.05;
+			game.playFlashAlphaUp = true;
 		}
 		game.playFlash1.y = game.menuOptionsText[0].y - 4;
 		game.playFlash2.y = game.playFlash1.y;
-		game.playFlash1.x -= 2;
-		game.playFlash2.x += 2;
-		game.playFlash1.alpha -= 0.015;
-		game.playFlash2.alpha -= 0.015;
+		game.playFlash1.x -= 1;
+		game.playFlash2.x += 1;
+
+		if (game.playFlashAlphaUp) {
+			game.playFlash1.alpha += 0.04;
+			game.playFlash2.alpha = game.playFlash1.alpha;
+			if (game.playFlash1.alpha >= 1) {
+				game.playFlashAlphaUp = false;
+			}
+		}
+		else {
+			game.playFlash1.alpha -= 0.015;
+			game.playFlash2.alpha -= 0.015;
+		}
+
 		if (game.currentModeLocked || game.menuOptionCurrent >= 2 || Math.abs(game.menuTitlePlusY - 0) > 10) {
 			game.playFlash1.alpha = 0;
 			game.playFlash2.alpha = 0;
