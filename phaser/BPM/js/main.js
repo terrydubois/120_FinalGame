@@ -50,6 +50,7 @@ game.state.add('Mode3', Mode3);
 game.state.add('GameOver', GameOver);
 game.state.add('Credits', Credits);
 game.state.add('Options', Options);
+game.state.add('UnlockedMode1', UnlockedMode1);
 
 // start on Boot
 game.state.start('Boot');
@@ -637,6 +638,13 @@ function modeUnlockedTextUpdate() {
 		}
 	}
 
+	if (game.state.getCurrentState().key =='UnlockedMode1') {
+		for (var i = 0; i < game.modeUnlockedTextArrLength; i++) {
+			game.modeUnlockedTextArr[i].text = "YOU'VE UNLOCKED MODE 1!  ";
+		}
+	}
+
+
 
 	// the three X-positions the alert should be at
 	if (game.modeUnlockedTextPos == 0) {
@@ -657,6 +665,10 @@ function modeUnlockedTextUpdate() {
 	for (var i = 0; i < game.modeUnlockedTextArrLength; i++) {
 		game.modeUnlockedTextArr[i].x = approachSmooth(game.modeUnlockedTextArr[i].x, game.modeUnlockedTextXDest - i, 12);
 		game.modeUnlockedTextArr[i].y = (game.world.height * 0.8) - i;
+		// move text up if this is unlocking Mode 1
+		if (game.state.getCurrentState().key =='UnlockedMode1') {
+			game.modeUnlockedTextArr[i].y -= 200;
+		}
 
 		// update drop shadow color
 		var currentFill = game.modeUnlockedTextColor;

@@ -78,6 +78,7 @@ Preload.prototype = {
 
 		// set how many stars are needed to unlock each mode
 		game.modeStarsToUnlock = [0, 0, 10, 30];
+		game.mode1UnlockedAlert = game.starsColl >= 1;
 		game.mode2UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[2];
 		game.mode3UnlockedAlert = game.starsColl >= game.modeStarsToUnlock[3];
 

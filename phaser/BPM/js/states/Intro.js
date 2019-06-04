@@ -438,14 +438,22 @@ Intro.prototype = {
 		}
 
 
-		//esc key also goes back to main menu
-		if(game.input.keyboard.justPressed(Phaser.Keyboard.ESC)){
+		// show the player the've unlocked mode 1
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.ESC)){
 			game.sound.stopAll();
-			game.state.start("MainMenu");
+			if (game.starsColl < 1) {
+				game.starsColl = 1;
+				saveStarsColl();
+				game.state.start("UnlockedMode1");
+			}
+			else {
+				game.state.start("MainMenu");
+			}
 		}
-		if(game.starsColl > 0){
+		if (game.starsColl > 0) {
+			saveStarsColl();
 			game.sound.stopAll();
-			game.state.start("MainMenu");	
+			game.state.start("UnlockedMode1");	
 		}
 
 
