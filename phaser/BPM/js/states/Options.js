@@ -251,6 +251,8 @@ Options.prototype = {
 							// reset stars for real!
 							game.starsColl = 0;
 							localStorage.setItem('starsColl', '0');
+							game.mode3UnlockedAlert = false;
+							game.mode2UnlockedAlert = false;
 							game.resetAlphaTimer = 120;
 							game.resetStarsSprite.alpha = 1;
 						}

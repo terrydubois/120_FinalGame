@@ -291,7 +291,7 @@ function spawnBGIcons(){
 	game.bgGroup.add(game.bgMenuAnimation);
 
 	game.world.sendToBack(game.bgGroup);
-	game.time.events.repeat(Phaser.Timer.SECOND * 2, 1, spawnBGIcons, this);
+	game.time.events.repeat(Phaser.Timer.SECOND , 1, spawnBGIcons, this);
 }
 
 
