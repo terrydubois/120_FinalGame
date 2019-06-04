@@ -369,8 +369,8 @@ MainMenu.prototype = {
 		}
 		game.playFlash1.y = game.menuOptionsText[0].y - 4;
 		game.playFlash2.y = game.playFlash1.y;
-		game.playFlash1.x -= 1;
-		game.playFlash2.x += 1;
+		game.playFlash1.x -= 2;
+		game.playFlash2.x += 2;
 
 		if (game.playFlashAlphaUp) {
 			game.playFlash1.alpha += 0.04;
@@ -380,8 +380,8 @@ MainMenu.prototype = {
 			}
 		}
 		else {
-			game.playFlash1.alpha -= 0.015;
-			game.playFlash2.alpha -= 0.015;
+			game.playFlash1.alpha -= 0.05;
+			game.playFlash2.alpha = game.playFlash1.alpha;
 		}
 
 		if (game.currentModeLocked || game.menuOptionCurrent >= 2 || Math.abs(game.menuTitlePlusY - 0) > 10) {
