@@ -44,19 +44,19 @@ GameOver.prototype = {
 			else {
 
 				// in this case, we have a saved browser highscore, so we compare it to this score
-				let storedScore = parseInt(localStorage.getItem('highscore'));
+				let storedScore = parseInt(localStorage.getItem('highscore1'));
 
 				if (game.currentScore > storedScore) {
 					// player beat the highscore, so we overwrite the browser's highscore
 					game.highScore = game.currentScore;
-					localStorage.setItem('highscore', game.highScore.toString());
+					localStorage.setItem('highscore1', game.highScore.toString());
 					newHS = true;
 
 					console.log("player set new hs: " + game.highScore);
 				}
 				else {
 					// player didn't beat highscore, so the highscore remains the browser's highscore
-					game.highScore = parseInt(localStorage.getItem('highscore'));
+					game.highScore = parseInt(localStorage.getItem('highscore1'));
 					newHS = false;
 				}
 			}

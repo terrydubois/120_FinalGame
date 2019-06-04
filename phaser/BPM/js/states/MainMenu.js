@@ -14,7 +14,7 @@ MainMenu.prototype = {
 		game.menuTitle = game.add.sprite(game.world.width / 2, 150 + game.menuTitlePlusY, 'title');
 		game.menuTitle.anchor.setTo(0.5);
 
-		
+		// set up blue rectangle for menu selection
 		game.menuOptionCurrent = 0;
 		game.menuGraphics = game.add.graphics(0, 400);
 		game.menuGraphics.beginFill(0x3361E2);
@@ -30,15 +30,18 @@ MainMenu.prototype = {
 		game.menuGraphicsPlusX = 0;
 		window.graphics = game.menuGraphics;
 
+		// the modes and options as they appear in the menu
 		game.menuModes = ['PRACTICE  ', 'MODE 1  ', 'MODE 2  ', 'MODE 3  '];
 		game.menuOptions = ['PLAY  ', 'MODE  ', 'OPTIONS  ', 'CREDITS  '];
 		game.menuOptionsText = [game.menuOptions.length];
 
+		// add text for the menu options
 		for (var i = 0; i < game.menuOptions.length; i++) {
 			game.menuOptionsText[i] = game.add.text(game.world.width / 2, 350 + (i * 50), game.menuOptions[i], {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 			game.menuOptionsText[i].anchor.setTo(0.5);
 		}
 
+		// add arrows for switching modes
 		game.menuTriangleLeft = game.add.sprite((game.world.width / 2) - 100, 0, 'menuTriangle');
 		game.menuTriangleRight = game.add.sprite((game.world.width / 2) + 100, 0, 'menuTriangle');
 		game.menuTriangleLeft.anchor.setTo(0.5);
@@ -48,12 +51,14 @@ MainMenu.prototype = {
 		game.menuTriangleRightPlusX = 0;
 		game.menuTriangleAlphaDest = 0;
 
+		// add star counter to menu
 		game.currentModeUnlocked = false;
 		game.starCountMenuSprite = game.add.sprite(40, 40, 'star');
 		game.starCountMenuSprite.scale.setTo(0.4);
 		game.starCountMenuSprite.anchor.setTo(0.5);
 		game.starCountMenuText = game.add.text(60, 35, 'x 0', {font: 'Impact', fontStyle: 'italic', fontSize: '25px', fill: '#333', align: 'center'});
 
+		// add flavor text that tells you if the mode is unlocked
 		game.flavorTextPlusY = 100;
 		game.flavorTextPlusYDest = 0;
 		game.flavorText = game.add.text(game.world.width / 2, game.world.height + game.flavorTextPlusY, "FLAVOR TEXT", {font: 'Impact', fontStyle: 'italic', fontSize: '20px', fill: '#333', align: 'center'});
@@ -62,6 +67,7 @@ MainMenu.prototype = {
 		game.flavorTextStar.scale.setTo(0.3);
 		game.flavorTextStar.anchor.setTo(0.5);
 
+		// add lock sprite over the locked modes
 		game.menuLock = game.add.sprite(0, 0, 'menuLock');
 		game.menuLock.alpha = 0;
 		game.menuLockAlphaDest = 0;
@@ -104,6 +110,7 @@ MainMenu.prototype = {
 								console.log("DEBUG CONTROLS: " + game.debugControls);
 							}
 
+		// debug controls (in final game, these will be completely restricted)
 		if (game.debugControls) {
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.L)) {
 				game.starsColl++;
@@ -123,12 +130,15 @@ MainMenu.prototype = {
 			}
 		}
 
+		// update text for the menu's star counter
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
-		
+
+		// slide the title into the screen
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
 		game.menuTitle.y = 165 + game.menuTitlePlusY;
 		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
 
+		// update the Y position of the menu options so they slide in as well
 		for (var i = 0; i < game.menuOptionsText.length; i++) {
 			game.menuOptionsText[i].y = 360 + (i * 50) - game.menuTitlePlusY;
 			if (game.menuOptionCurrent == i) {
@@ -136,6 +146,7 @@ MainMenu.prototype = {
 			}
 		}
 		game.menuGraphics.anchor.setTo(0.5);
+
 		// make menu rectangle shake if you select a locked mode
 		var currentGraphicsPlusX = game.menuGraphicsPlusX;
 		if (game.menuGraphicsPlusX > 0 && Math.random() > 0.5) {

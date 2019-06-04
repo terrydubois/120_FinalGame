@@ -43,6 +43,8 @@ Preload.prototype = {
 		game.load.image('introInstructions3', 'assets/img/introInstructions3.png');
 		game.load.image('soundIcon', 'assets/img/soundIcon.png');
 		game.load.image('noSymbol', 'assets/img/noSymbol.png');
+		game.load.image('resetStars', 'assets/img/resetStars.png');
+		game.load.image('resetHS', 'assets/img/resetHS.png');
 
 
 
