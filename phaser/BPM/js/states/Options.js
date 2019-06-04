@@ -263,32 +263,30 @@ Options.prototype = {
 					// if we are in confirm menu (as opposed to options menu)
 
 					if (game.optionsOptionCurrent == 0) {
-						//if (game.resetAlphaTimer <= 0) {
-							// in this case, they've selected "YES" so we will reset highscores or stars
-							if (game.resetStarsConfirm) {
-								// reset stars for real!
-								game.starsColl = 0;
-								localStorage.setItem('starsColl', '0');
-								game.mode3UnlockedAlert = false;
-								game.mode2UnlockedAlert = false;
-								game.resetAlphaTimer = 120;
-								game.resetStarsSprite.alpha = 1;
-								// go back to options menu
-								game.optionsCurrentMenu = 0;
-								game.optionsOptionCurrent = game.optionsOptions.length - 1;
-							}
-							else {
-								// reset highscores for real!
-								localStorage.setItem('highscore1', '0');
-								localStorage.setItem('highscore2', '0');
-								localStorage.setItem('highscore3', '0');
-								game.resetAlphaTimer = 120;
-								game.resetHSSprite.alpha = 1;
-								// go back to options menu
-								game.optionsCurrentMenu = 0;
-								game.optionsOptionCurrent = game.optionsOptions.length - 1;
-							}
-						//}
+						// in this case, they've selected "YES" so we will reset highscores or stars
+						if (game.resetStarsConfirm) {
+							// reset stars for real!
+							game.starsColl = 0;
+							localStorage.setItem('starsColl', '0');
+							game.mode3UnlockedAlert = false;
+							game.mode2UnlockedAlert = false;
+							game.resetAlphaTimer = 120;
+							game.resetStarsSprite.alpha = 1;
+							// go back to options menu
+							game.optionsCurrentMenu = 0;
+							game.optionsOptionCurrent = game.optionsOptions.length - 1;
+						}
+						else {
+							// reset highscores for real!
+							localStorage.setItem('highscore1', '0');
+							localStorage.setItem('highscore2', '0');
+							localStorage.setItem('highscore3', '0');
+							game.resetAlphaTimer = 120;
+							game.resetHSSprite.alpha = 1;
+							// go back to options menu
+							game.optionsCurrentMenu = 0;
+							game.optionsOptionCurrent = game.optionsOptions.length - 1;
+						}
 					}
 					else {
 						// in this case, they've selected "NO" so we return to options menu

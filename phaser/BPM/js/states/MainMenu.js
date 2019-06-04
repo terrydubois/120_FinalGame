@@ -34,7 +34,6 @@ MainMenu.prototype = {
 		game.menuRectWidthOriginal = game.menuRect.width;
 		game.menuRectWidthDest = 1;
 		game.menuGraphics.endFill();
-		game.menuGraphicsAlphaDest = 0;
 		game.menuGraphics.alpha = 0.8;
 		game.menuGraphicsYDest = 0;
 		game.menuGraphics.anchor.setTo(0.5);
@@ -134,6 +133,8 @@ MainMenu.prototype = {
 			}
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.K)) {
 				game.starsColl = 0;
+				game.mode3UnlockedAlert = false;
+				game.mode2UnlockedAlert = false;
 				localStorage.setItem('starsColl', '0');
 			}
 			if(game.input.keyboard.justPressed(Phaser.Keyboard.M)){

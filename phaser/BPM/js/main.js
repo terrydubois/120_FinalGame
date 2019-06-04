@@ -33,6 +33,8 @@ game.scoreColor2 = '#26D100';
 game.multiColor1 = '#3361E2';
 game.multiColor2 = '#ffa14d';
 
+game.modeUnlockedTextColor = '#ff1900';
+
 var emitter;
 
 // add states to StateManager
@@ -139,7 +141,7 @@ function gameplayHUD() {
 		game.scoreTextDisplay = game.currentScore;
 	}
 	
-	// update score text for score's drop shadow
+	// update score text and position for score's drop shadow
 	for (var i = 0; i < game.scoreTextArrLength; i++) {
 		game.scoreTextArr[i].x = game.world.width - 60 - i;
 		game.scoreTextArr[i].y = 75 - i;
@@ -147,7 +149,7 @@ function gameplayHUD() {
 	}
 
 
-		// update score text for score's drop shadow
+	// update score text and position for score multiplier's drop shadow
 	for (var i = 0; i < game.multiTextArrLength; i++) {
 		game.multiTextArr[i].x = game.multiPos + 80 - i;
 		game.multiTextArr[i].y =  65 - i;
@@ -596,11 +598,17 @@ function arrowKeyInstructionsUpdate() {
 
 // setup the text for saying "YOUVE UNLOCKED A NEW MODE"
 function modeUnlockedTextCreate() {
-	game.modeUnlockedText = game.add.text(game.world.width * 1.5, game.world.height * 0.8, "YOU'VE UNLOCKED A NEW MODE!  ", {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
-	game.HUDgroup.add(game.modeUnlockedText);
-	game.modeUnlockedText.anchor.setTo(0.5);
-	game.modeUnlockedTextPos = 0;
+	game.modeUnlockedTextArrLength = 7;
+	game.modeUnlockedTextArr = [game.modeUnlockedTextArrLength];
+
+	for (var i = 0; i < game.modeUnlockedTextArrLength; i++) {
+		game.modeUnlockedTextArr[i] = game.add.text(game.world.width * 1.5, game.world.height * 0.8, "YOU'VE UNLOCKED A NEW MODE!  ", {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
+		game.modeUnlockedTextArr[i].anchor.setTo(0.5);
+		game.HUDgroup.add(game.modeUnlockedTextArr[i]);
+	}
 	game.modeUnlockedTextXDest = game.world.width * 1.5;
+
+	newModeUnlockedColor();
 }
 
 // control the text saying "YOUVE UNLOCKED A NEW MODE"
@@ -637,7 +645,30 @@ function modeUnlockedTextUpdate() {
 	else if (game.modeUnlockedTextPos == 2) {
 		game.modeUnlockedTextXDest = game.world.width * -0.5;
 	}
-	game.modeUnlockedText.x = approachSmooth(game.modeUnlockedText.x, game.modeUnlockedTextXDest, 12);
+
+	// update mode unlocked position for drop shadow
+	for (var i = 0; i < game.modeUnlockedTextArrLength; i++) {
+		game.modeUnlockedTextArr[i].x = approachSmooth(game.modeUnlockedTextArr[i].x, game.modeUnlockedTextXDest - i, 12);
+		game.modeUnlockedTextArr[i].y = (game.world.height * 0.8) - i;
+
+		// update drop shadow color
+		var currentFill = game.modeUnlockedTextColor;
+		if (i == game.modeUnlockedTextArrLength - 1) {
+			currentFill = '#000';
+		}
+		else if (i == game.modeUnlockedTextArrLength - 2) {
+			currentFill = '#fff';
+		}
+		game.modeUnlockedTextArr[i].addColor(currentFill, 0);
+	}
+}
+
+function newModeUnlockedColor() {
+	// get random hex color (source: https://css-tricks.com/snippets/javascript/random-hex-color/)
+	game.modeUnlockedTextColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+	// repeat this function
+	game.time.events.repeat(Phaser.Timer.SECOND * 0.1, 1, newModeUnlockedColor, this);
 }
 
 function resetColliderCounts() {
