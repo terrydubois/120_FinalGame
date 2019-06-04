@@ -14,7 +14,7 @@ Options.prototype = {
 		options = game.add.sprite(0, 0, 'cutoutBG');
 
 		// setup the options for the options menu
-		game.optionsOptions = ['MUSIC             ', 'SFX             ', 'RESET HIGHSCORES  ', 'RESET STARS  ', 'BACK  '];
+		game.optionsOptions = ['MUSIC             ', 'SFX             ', 'RESET HIGHSCORES  ', 'RESET STARS             ', 'BACK  '];
 		game.optionsOptionsText = [game.optionsOptions.length];
 		game.optionsOptionCurrent = game.optionsOptions.length - 1;
 
@@ -55,12 +55,20 @@ Options.prototype = {
 		game.optionsNoSymbol2.scale.setTo(0.2);
 		game.optionsNoSymbol2.anchor.setTo(0.5);
 
+		// add sprite for star icon
+		game.optionsStarIcon = game.add.sprite(0, 0, 'star');
+		game.optionsStarIcon.scale.setTo(0.4);
+		game.optionsStarIcon.anchor.setTo(0.5);
+
 		
 		// add intro flash
 		game.optionsIntroFlash = game.add.sprite(0, 0, 'sky');
 
 		game.menuBlipSound = game.add.audio('menuBlipSound');
 		game.menuBlipSound.volume = 0.5;
+
+		// sfx on sound
+		game.sfxOnSound = game.add.audio('modeStartSound');
 	},
 	update: function() {
 		game.optionsIntroFlash.alpha -= 0.05;
@@ -87,6 +95,10 @@ Options.prototype = {
 		game.optionsSFXIcon.y = game.optionsOptionsText[1].y;
 		game.optionsNoSymbol2.x = game.optionsSFXIcon.x;
 		game.optionsNoSymbol2.y = game.optionsSFXIcon.y;
+
+		// set position for star icon
+		game.optionsStarIcon.x = game.optionsOptionsText[3].x + 85;
+		game.optionsStarIcon.y = game.optionsOptionsText[3].y - 5;
 
 		// set proper alpha values for "no symbols"
 		game.optionsNoSymbol1.alpha = (game.musicOn) ? 0 : 1;
@@ -129,6 +141,9 @@ Options.prototype = {
 			else if (game.optionsOptionCurrent == 1) {
 				// toggle sfx
 				game.sfxOn = !game.sfxOn;
+				if (game.sfxOn) {
+					game.sfxOnSound.play();
+				}
 			}
 			else if (game.optionsOptionCurrent == 4) {
 				// return to Main Menu
