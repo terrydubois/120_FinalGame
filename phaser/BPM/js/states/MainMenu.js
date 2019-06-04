@@ -14,7 +14,18 @@ MainMenu.prototype = {
 		game.menuTitle = game.add.sprite(game.world.width / 2, 150 + game.menuTitlePlusY, 'title');
 		game.menuTitle.anchor.setTo(0.5);
 
-		
+		// set up play effect if player is hovered over modes
+		game.playFlash1 = game.add.sprite(game.world.width / 2, 0, 'playEffect');
+		game.playFlash2 = game.add.sprite(game.world.width / 2, 0, 'playEffect');
+		game.playFlash1.anchor.setTo(0.5);
+		game.playFlash2.anchor.setTo(0.5);
+		game.playFlash1.scale.setTo(0.8);
+		game.playFlash2.scale.setTo(-0.8);
+		game.playFlash1.alpha = 0;
+		game.playFlash2.alpha = 0;
+
+
+		// set up blue rectangle for menu selection
 		game.menuOptionCurrent = 0;
 		game.menuGraphics = game.add.graphics(0, 400);
 		game.menuGraphics.beginFill(0x3361E2);
@@ -30,15 +41,18 @@ MainMenu.prototype = {
 		game.menuGraphicsPlusX = 0;
 		window.graphics = game.menuGraphics;
 
+		// the modes and options as they appear in the menu
 		game.menuModes = ['PRACTICE  ', 'MODE 1  ', 'MODE 2  ', 'MODE 3  '];
 		game.menuOptions = ['PLAY  ', 'MODE  ', 'OPTIONS  ', 'CREDITS  '];
 		game.menuOptionsText = [game.menuOptions.length];
 
+		// add text for the menu options
 		for (var i = 0; i < game.menuOptions.length; i++) {
 			game.menuOptionsText[i] = game.add.text(game.world.width / 2, 350 + (i * 50), game.menuOptions[i], {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
 			game.menuOptionsText[i].anchor.setTo(0.5);
 		}
 
+		// add arrows for switching modes
 		game.menuTriangleLeft = game.add.sprite((game.world.width / 2) - 100, 0, 'menuTriangle');
 		game.menuTriangleRight = game.add.sprite((game.world.width / 2) + 100, 0, 'menuTriangle');
 		game.menuTriangleLeft.anchor.setTo(0.5);
@@ -48,12 +62,14 @@ MainMenu.prototype = {
 		game.menuTriangleRightPlusX = 0;
 		game.menuTriangleAlphaDest = 0;
 
+		// add star counter to menu
 		game.currentModeUnlocked = false;
 		game.starCountMenuSprite = game.add.sprite(40, 40, 'star');
 		game.starCountMenuSprite.scale.setTo(0.4);
 		game.starCountMenuSprite.anchor.setTo(0.5);
 		game.starCountMenuText = game.add.text(60, 35, 'x 0', {font: 'Impact', fontStyle: 'italic', fontSize: '25px', fill: '#333', align: 'center'});
 
+		// add flavor text that tells you if the mode is unlocked
 		game.flavorTextPlusY = 100;
 		game.flavorTextPlusYDest = 0;
 		game.flavorText = game.add.text(game.world.width / 2, game.world.height + game.flavorTextPlusY, "FLAVOR TEXT", {font: 'Impact', fontStyle: 'italic', fontSize: '20px', fill: '#333', align: 'center'});
@@ -62,6 +78,7 @@ MainMenu.prototype = {
 		game.flavorTextStar.scale.setTo(0.3);
 		game.flavorTextStar.anchor.setTo(0.5);
 
+		// add lock sprite over the locked modes
 		game.menuLock = game.add.sprite(0, 0, 'menuLock');
 		game.menuLock.alpha = 0;
 		game.menuLockAlphaDest = 0;
@@ -97,6 +114,7 @@ MainMenu.prototype = {
 		game.add.existing(game.bgGroup);
 
 		spawnBGIcons();
+		game.playFlashAlphaUp = false;
 		resetColliderCounts();
 	},
 	update: function() {
@@ -108,6 +126,7 @@ MainMenu.prototype = {
 								console.log("DEBUG CONTROLS: " + game.debugControls);
 							}
 
+		// debug controls (in final game, these will be completely restricted)
 		if (game.debugControls) {
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.L)) {
 				game.starsColl++;
@@ -127,17 +146,17 @@ MainMenu.prototype = {
 			}
 		}
 
-		//spawnBGIcons();
-
 
 		//star count
 		game.starCountMenuText.text = 'x ' + game.starsColl + '  ';
 		
-		//bring in menu
+
+		// slide the title into the screen
 		game.menuTitlePlusY = approachSmooth(game.menuTitlePlusY, 0, 8);
 		game.menuTitle.y = 165 + game.menuTitlePlusY;
 		game.menuFlashWhite.alpha = approach(game.menuFlashWhite.alpha, 0, 0.05);
 
+		// update the Y position of the menu options so they slide in as well
 		for (var i = 0; i < game.menuOptionsText.length; i++) {
 			game.menuOptionsText[i].y = 360 + (i * 50) - game.menuTitlePlusY;
 			if (game.menuOptionCurrent == i) {
@@ -337,12 +356,46 @@ MainMenu.prototype = {
 			}
 		}
 
+		// change color of selection rectangle for whether the mode is locked
 		if (game.currentModeLocked && game.menuOptionCurrent < 2) {
 			game.menuGraphics.tint = 0xff6075;
 		}
 		else {
 			game.menuGraphics.tint = 0xffffff;
 		}
+
+		// decrease alpha of play effect as it flies out
+		if (game.playFlash1.alpha <= 0) {
+			game.playFlash1.x = (game.world.width / 2) - 140;
+			game.playFlash2.x = (game.world.width / 2) + 140;
+			game.playFlash1.alpha = 0.05;
+			game.playFlash2.alpha = 0.05;
+			game.playFlashAlphaUp = true;
+		}
+		game.playFlash1.y = game.menuOptionsText[0].y - 4;
+		game.playFlash2.y = game.playFlash1.y;
+		game.playFlash1.x -= 2;
+		game.playFlash2.x += 2;
+
+		if (game.playFlashAlphaUp) {
+			game.playFlash1.alpha += 0.04;
+			game.playFlash2.alpha = game.playFlash1.alpha;
+			if (game.playFlash1.alpha >= 1) {
+				game.playFlashAlphaUp = false;
+			}
+		}
+		else {
+			game.playFlash1.alpha -= 0.05;
+			game.playFlash2.alpha = game.playFlash1.alpha;
+		}
+
+		if (game.currentModeLocked || game.menuOptionCurrent >= 2 || Math.abs(game.menuTitlePlusY - 0) > 10) {
+			game.playFlash1.alpha = 0;
+			game.playFlash2.alpha = 0;
+		}
+		game.playFlash1.alpha = Phaser.Math.clamp(game.playFlash1.alpha, 0, 1);
+		game.playFlash2.alpha = Phaser.Math.clamp(game.playFlash2.alpha, 0, 1);
+
 
 
 	}
