@@ -14,6 +14,17 @@ MainMenu.prototype = {
 		game.menuTitle = game.add.sprite(game.world.width / 2, 150 + game.menuTitlePlusY, 'title');
 		game.menuTitle.anchor.setTo(0.5);
 
+		// set up play effect if player is hovered over modes
+		game.playFlash1 = game.add.sprite(game.world.width / 2, 0, 'playEffect');
+		game.playFlash2 = game.add.sprite(game.world.width / 2, 0, 'playEffect');
+		game.playFlash1.anchor.setTo(0.5);
+		game.playFlash2.anchor.setTo(0.5);
+		game.playFlash1.scale.setTo(0.8);
+		game.playFlash2.scale.setTo(-0.8);
+		game.playFlash1.alpha = 0;
+		game.playFlash2.alpha = 0;
+
+
 		// set up blue rectangle for menu selection
 		game.menuOptionCurrent = 0;
 		game.menuGraphics = game.add.graphics(0, 400);
@@ -338,12 +349,36 @@ MainMenu.prototype = {
 			}
 		}
 
+		// change color of selection rectangle for whether the mode is locked
 		if (game.currentModeLocked && game.menuOptionCurrent < 2) {
 			game.menuGraphics.tint = 0xff6075;
 		}
 		else {
 			game.menuGraphics.tint = 0xffffff;
 		}
+
+		// decrease alpha of play effect as it flies out
+		if (game.playFlash1.alpha <= 0) {
+			game.playFlash1.x = (game.world.width / 2) - 140;
+			game.playFlash2.x = (game.world.width / 2) + 140;
+			if (!game.currentModeLocked && game.menuOptionCurrent < 2) {
+				game.playFlash1.alpha = 1;
+				game.playFlash2.alpha = 1;
+			}
+		}
+		game.playFlash1.y = game.menuOptionsText[0].y - 4;
+		game.playFlash2.y = game.playFlash1.y;
+		game.playFlash1.x -= 2;
+		game.playFlash2.x += 2;
+		game.playFlash1.alpha -= 0.015;
+		game.playFlash2.alpha -= 0.015;
+		if (game.currentModeLocked || game.menuOptionCurrent >= 2) {
+			game.playFlash1.alpha = 0;
+			game.playFlash2.alpha = 0;
+		}
+		game.playFlash1.alpha = Phaser.Math.clamp(game.playFlash1.alpha, 0, 1);
+		game.playFlash2.alpha = Phaser.Math.clamp(game.playFlash2.alpha, 0, 1);
+
 
 
 	}
