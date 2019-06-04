@@ -4,12 +4,12 @@ function BGIcons(game, key, frame, scale, rotation, goingUp, ySpeed) {
 	this.goingUp = goingUp;
 
 	xPos = Math.random() * game.world.width;
-	xPos = Phaser.Math.clamp(xPos, game.posLeft + 150, game.posRight - 150);
+	xPos = Phaser.Math.clamp(xPos,-50, game.world.width + 50);
 
 	var xPosTries = 0;
 	while (Math.abs(xPos - game.lastSpawnX) < 60 && xPosTries < 10) {
 		xPos = Math.random() * game.world.width;
-		xPos = Phaser.Math.clamp(xPos, game.posLeft + 150, game.posRight - 150);
+		xPos = Phaser.Math.clamp(xPos, -50, game.world.width + 50);
 		xPosTries++;
 	}
 	game.lastSpawnX = xPos;
