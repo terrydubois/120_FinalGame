@@ -16,7 +16,7 @@ UnlockedMode1.prototype = {
 		// show text telling player they've unlocked mode 1
 		game.mode1UnlockedAlert = true;
 		game.modeUnlockedTextPos = 1;
-		game.modeUnlockedTextPosCounter = 200;
+		game.modeUnlockedTextPosCounter = 300;
 		if(game.introPlayed){
 			game.bgFlashGroup = game.add.group();
 			game.add.existing(game.bgFlashGroup);
@@ -24,6 +24,8 @@ UnlockedMode1.prototype = {
 			game.hitStarSound.play('', 0, 0.5, false);
 
 		}
+
+		spawnFlash(3);
 	},
 	update: function() {
 
