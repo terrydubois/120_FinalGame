@@ -232,6 +232,7 @@ Options.prototype = {
 						game.musicOn = !game.musicOn;
 						if(game.musicOn && !game.isPlaying){
 							game.song1.play('',0,1,true);
+							game.song1.volume = 0.5;
 							game.isPlaying =true;
 						}
 						else{
