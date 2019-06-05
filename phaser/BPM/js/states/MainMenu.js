@@ -10,8 +10,9 @@ MainMenu.prototype = {
 		game.background = game.add.sprite(0,0,'sky');
 
 		game.song1 = game.add.audio('Menu');
-		if(game.musicOn){
+		if(game.musicOn && !game.isPlaying){
 			game.song1.play('',0,1,true);
+			game.isPlaying =true;
 		}
 		game.song1.volume = 0.5;
 
