@@ -558,7 +558,7 @@ function arrowKeyInstructionsCreate() {
 	game.modeStartSound = game.add.audio('modeStartSound');
 	game.modeStartSound.volume = 0.5;
 	// play game startup sound
-	if(game.sfxOn){
+	if (game.sfxOn && game.state.getCurrentState().key != 'Intro') {
 		game.modeStartSound.play();
 	}
 
