@@ -346,6 +346,10 @@ MainMenu.prototype = {
 					}
 				}
 			}
+			else if (game.menuOptionCurrent == 1 && !game.currentModeLocked) {
+				// if they select one of the modes, bring them to PLAY button
+				game.menuOptionCurrent = 0;
+			}
 			else if (game.menuOptionCurrent == 2) {
 				// show options
 				game.state.start('Options');

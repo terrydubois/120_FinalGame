@@ -193,10 +193,7 @@ GameOver.prototype = {
 		if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)
 		|| game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
 			game.sound.stopAll();
-			// play game
-			if (game.sfxOn) {
-				game.modeStartSound.play();
-			}
+			// play same mode again
 			if (game.currentMode == 0) {
 				//game.state.start('Practice');
 			}
@@ -214,7 +211,7 @@ GameOver.prototype = {
 
 
 		//esc key also goes back to main menu
-		if(game.input.keyboard.justPressed(Phaser.Keyboard.ESC)){
+		if (game.input.keyboard.justPressed(Phaser.Keyboard.ESC)) {
 			game.sound.stopAll();
 			game.state.start("MainMenu");
 		}
