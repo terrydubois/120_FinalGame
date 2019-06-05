@@ -755,7 +755,7 @@ function levelUpCheck(songRateIncr) {
 			game.speedupTextScaleDown = true;
 
 			// if we are in Mode 2, bring the sides in for each levelup
-			if (game.state.getCurrentState().key =='Intro') {
+			if (game.state.getCurrentState().key =='Mode2') {
 				if (game.level < 8) {
 					game.posLeftDest += 50;
 				}
