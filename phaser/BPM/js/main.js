@@ -555,6 +555,13 @@ function blinkPlayer(playerObj) {
 // set up arrow key instructions
 function arrowKeyInstructionsCreate() {
 
+	game.modeStartSound = game.add.audio('modeStartSound');
+	game.modeStartSound.volume = 0.5;
+	// play game startup sound
+	if(game.sfxOn){
+		game.modeStartSound.play();
+	}
+
 	game.arrowKeyInstructions = game.add.sprite(game.world.width / 2, game.world.height / 2, 'arrowKeys');
 	game.arrowKeyInstructions.anchor.setTo(0.5);
 	game.arrowKeyInstructions.alpha = 0;

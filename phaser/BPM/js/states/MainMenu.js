@@ -96,10 +96,8 @@ MainMenu.prototype = {
 
 		// add menu audio
 		game.menuBlipSound = game.add.audio('menuBlipSound');
-		game.modeStartSound = game.add.audio('modeStartSound');
 		game.modeLockedSound = game.add.audio('modeLockedSound');
 		game.menuBlipSound.volume = 0.5;
-		game.modeStartSound.volume = 0.5;
 		game.modeLockedSound.volume = 0.5;
 
 		// add white flash at beginning
@@ -328,10 +326,6 @@ MainMenu.prototype = {
 					game.menuGraphicsPlusX = 20;
 				}
 				else {
-					// play game
-					if(game.sfxOn){
-						game.modeStartSound.play();
-					}
 					if (game.currentMode == 0) {
 						//game.state.start('Intro');
 						game.sound.stopAll();

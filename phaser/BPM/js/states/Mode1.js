@@ -353,7 +353,7 @@ Mode1.prototype = {
 					game.song1._sound.playbackRate.value +=  .05;
 				}
 			}
-			if(game.sfxOn){
+			if (game.sfxOn) {
 				game.levelUpSound.play();
 			}
 		}

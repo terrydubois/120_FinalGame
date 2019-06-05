@@ -72,7 +72,7 @@ Preload.prototype = {
 		game.load.audio('menuBlipSound', 'menuBlip.mp3');
 		game.load.audio('modeStartSound', 'modeStart.mp3');
 		game.load.audio('modeLockedSound', 'modeLocked.mp3');
-		game.load.audio('levelUpSound', 'levelUp.mp3');
+		game.load.audio('levelUpSound', 'levelup.mp3');
 		game.load.audio('dieSound', 'die.mp3');
 	},
 	create: function() {
