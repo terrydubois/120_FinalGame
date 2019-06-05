@@ -341,25 +341,7 @@ Mode3.prototype = {
 		game.playerEmitter.alpha = game.player.alpha;
 
 
-		// level up every time currentPlussesToLevelUp hits zero
-		if (game.currentPlussesToLevelUp <= 0
-		|| (game.debugControls && game.input.keyboard.justPressed(Phaser.Keyboard.O))) {
-			game.level++;
-			game.plussesToLevelUp++;
-			game.currentPlussesToLevelUp = game.plussesToLevelUp;
-			if(game.level <= 20){
-				game.playerYSpeedTarget += 1;
-				game.playerXSpeed += 1.5;
-				game.switchRate -=.03;
-				if(game.musicOn){
-					game.song1._sound.playbackRate.value +=  .05;
-				}
-			}
-			if(game.sfxOn){
-				game.levelUpSound.play();
-			}
-			game.bgAngleIncrDest *= -1;
-		}
+		levelUpCheck(0.05);
 
 
 		//esc key also goes back to main menu
