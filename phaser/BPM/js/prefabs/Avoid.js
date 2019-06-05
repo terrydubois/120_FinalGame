@@ -154,7 +154,7 @@ Avoid.prototype.update = function() {
 			game.starsColl++;
 			saveStarsColl();
 			game.currentScore += 50* game.heartMulti;
-			if(game.sfxOn){
+			if(game.sfxOn && game.state.getCurrentState().key !='Intro'){
 			game.hitStarSound.play('', 0, 0.5, false);
 			}
 			spawnFlash(3);

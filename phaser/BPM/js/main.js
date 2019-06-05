@@ -275,7 +275,7 @@ function spawnBGIcons(){
 	game.backSpawn ++;
 	}
 	else if(game.mode3UnlockedAlert ==true && game.backSpawn == 3){
-	var bgIcon = 'bigHeart';
+	var bgIcon = 'bigStar';
 	game.backSpawn = 0;
 	}
 	else{

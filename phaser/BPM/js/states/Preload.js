@@ -46,6 +46,7 @@ Preload.prototype = {
 		game.load.image('bigSkull', 'assets/img/bigSkull.png');
 		game.load.image('bigPlus', 'assets/img/bigPlus.png');
 		game.load.image('bigHeart', 'assets/img/bigHeart.png');
+		game.load.image('bigStar', 'assets/img/bigStar.png');
 		game.load.image('resetStars', 'assets/img/resetStars.png');
 		game.load.image('resetHS', 'assets/img/resetHS.png');
 		game.load.image('playEffect', 'assets/img/playEffect.png');
