@@ -4,6 +4,18 @@ Preload.prototype = {
 	preload: function() {
 		console.log('Preload: preload');
 
+		// white BG
+		game.stage.backgroundColor = "#ffffff";
+
+		// loading screen sprites
+		loadBar = game.add.sprite(game.world.width / 2, (game.world.height / 2) + 100, 'loadingBar');
+		loadBarText = game.add.sprite(game.world.width / 2, (game.world.height / 2) - 50, 'loading');
+		loadBar.anchor.setTo(0.5);
+		loadBar.scale.setTo(0.75);
+		loadBarText.anchor.setTo(0.5);
+		loadBarText.scale.setTo(0.75);
+		game.load.setPreloadSprite(loadBar);
+
 		//LOAD IMAGES
 		game.load.image('sky', 'assets/img/background.png');
 		game.load.image('goscreen', 'assets/img/gameover.png');
