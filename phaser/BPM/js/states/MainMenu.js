@@ -9,6 +9,12 @@ MainMenu.prototype = {
 
 		game.background = game.add.sprite(0,0,'sky');
 
+		game.song1 = game.add.audio('Menu');
+		if(game.musicOn){
+			game.song1.play('',0,1,true);
+		}
+		game.song1.volume = 0.5;
+
 		game.menuTitlePlusY = -600;
 
 		game.menuTitle = game.add.sprite(game.world.width / 2, 150 + game.menuTitlePlusY, 'title');
@@ -106,6 +112,8 @@ MainMenu.prototype = {
 		spawnBGIcons();
 		game.playFlashAlphaUp = false;
 		resetColliderCounts();
+
+
 	},
 	update: function() {
 				game.world.sendToBack(game.background);
@@ -326,15 +334,20 @@ MainMenu.prototype = {
 					}
 					if (game.currentMode == 0) {
 						//game.state.start('Intro');
+						game.sound.stopAll();
 						game.state.start('Practice');
+
 					}
 					else if (game.currentMode == 1) {
+						game.sound.stopAll();
 						game.state.start('Mode1');
 					}
 					else if (game.currentMode == 2) {
+						game.sound.stopAll();
 						game.state.start('Mode2');
 					}
 					else if (game.currentMode == 3) {
+						game.sound.stopAll();
 						game.state.start('Mode3');
 					}
 				}

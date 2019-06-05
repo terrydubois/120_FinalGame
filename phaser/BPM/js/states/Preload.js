@@ -56,8 +56,12 @@ Preload.prototype = {
 
 		// LOAD AUDIO: Music
 		game.load.path = 'assets/audio/';
-		game.load.audio('ALPHA', ['ALPHA TRACK.mp3']);
-		game.load.audio('BETA', ['BETA TRACK 3.mp3']);
+		game.load.audio('Menu', ['MainMenu.mp3']);
+		game.load.audio('Prac', ['Practicemode.mp3']);
+		game.load.audio('Mode1', ['Mode1Song.mp3']);
+		game.load.audio('Mode2', ['Mode2Song.mp3']);
+		game.load.audio('Mode3', ['Mode3Song.mp3']);
+		
 		game.load.audio('BEAT', ['BETA BEAT.mp3']);
 
 		// LOAD AUDIO: SFX

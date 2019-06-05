@@ -17,7 +17,7 @@ Mode1.prototype = {
 		game.bgFill = game.add.sprite(0,0,'sky');
 
         // add music
-		game.song1 = game.add.audio('BETA');
+		game.song1 = game.add.audio('Mode1');
 		this.beat = game.add.audio('BEAT');
 		this.beat.volume = 0.1;
 

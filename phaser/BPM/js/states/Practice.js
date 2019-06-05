@@ -17,7 +17,7 @@ Practice.prototype = {
 		game.bgFill = game.add.sprite(0,0,'sky');
 
         // add music
-		game.song1 = game.add.audio('BETA');
+		game.song1 = game.add.audio('Prac');
 		this.beat = game.add.audio('BEAT');
 		this.beat.volume = 0.1;
 

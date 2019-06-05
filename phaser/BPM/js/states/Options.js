@@ -230,6 +230,14 @@ Options.prototype = {
 					if (game.optionsOptionCurrent == 0) {
 						// toggle music
 						game.musicOn = !game.musicOn;
+						if(game.musicOn && !game.isPlaying){
+							game.song1.play('',0,1,true);
+							game.isPlaying =true;
+						}
+						else{
+							game.isPlaying = false;
+							game.sound.stopAll();
+						}
 					}
 					else if (game.optionsOptionCurrent == 1) {
 						// toggle sfx
