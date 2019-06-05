@@ -26,6 +26,7 @@ game.sfxOn = true;
 game.musicOn =true;
 game.multiPos = -200;
 game.backSpawn = 0;
+game.isPlaying =true;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
