@@ -17,6 +17,13 @@ UnlockedMode1.prototype = {
 		game.mode1UnlockedAlert = true;
 		game.modeUnlockedTextPos = 1;
 		game.modeUnlockedTextPosCounter = 200;
+		if(game.introPlayed){
+			game.bgFlashGroup = game.add.group();
+			game.add.existing(game.bgFlashGroup);
+			spawnFlash(3);
+			game.hitStarSound.play('', 0, 0.5, false);
+
+		}
 	},
 	update: function() {
 
