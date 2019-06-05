@@ -6,7 +6,7 @@ Preload.prototype = {
 
 		//LOAD IMAGES
 		game.load.image('sky', 'assets/img/background.png');
-		game.load.image('goscreen', 'assets/img/gameOver.png');
+		game.load.image('goscreen', 'assets/img/gameover.png');
 		game.load.image('WBLogo', 'assets/img/logo.png');
 		game.load.image('heart', 'assets/img/heart.png');
 		game.load.image('skull', 'assets/img/skull.png');
