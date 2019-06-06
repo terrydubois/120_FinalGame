@@ -130,7 +130,8 @@ function gameplayHUD() {
 		}
 
 	}
-	
+
+	// set scakeDest for LEVEL text
 	if (game.hasStarted) {
 		if (game.speedupTextScaleDown) {
 			game.speedupTextScaleDest = 0;
@@ -152,6 +153,7 @@ function gameplayHUD() {
 		game.speedupTextScaleDest = 0;
 	}
 
+	// set scaleDest for LEVEL text
 	game.speedupTextScale = approachSmooth(game.speedupTextScale, game.speedupTextScaleDest, 6);
 	game.speedupText.scale.setTo(game.speedupTextScale);
 	game.speedupText2.scale.setTo(game.speedupTextScale);
@@ -222,9 +224,32 @@ function gameplayHUDPractice() {
 		}
 	}
 
-	// update level text
-	game.speedupText.text = 'LEVEL ' + game.level + '  ';
-	game.speedupText2.text = game.speedupText.text;
+	// set scaleDest for LEVEL text
+	if (game.hasStarted) {
+		if (game.speedupTextScaleDown) {
+			game.speedupTextScaleDest = 0;
+			if (Math.abs(game.speedupTextScale - game.speedupTextScaleDest) < 0.2) {
+				// update level text
+				game.speedupText.text = 'LEVEL ' + game.level + '  ';
+				game.speedupText2.text = game.speedupText.text;
+				game.speedupTextScaleDown = false;
+			}
+		}
+		else {
+			game.speedupTextScaleDest = 1;
+		}
+	}
+	else {
+		// update level text
+		game.speedupText.text = 'LEVEL ' + game.level + '  ';
+		game.speedupText2.text = game.speedupText.text;
+		game.speedupTextScaleDest = 0;
+	}
+
+	// scale LEVEL text
+	game.speedupTextScale = approachSmooth(game.speedupTextScale, game.speedupTextScaleDest, 6);
+	game.speedupText.scale.setTo(game.speedupTextScale);
+	game.speedupText2.scale.setTo(game.speedupTextScale);
 
 	// update score text
 	if (game.scoreTextDisplay < game.currentScore) {
@@ -760,6 +785,10 @@ function levelUpCheck(songRateIncr) {
 					game.posLeftDest += 50;
 				}
 				game.bgAngleIncrDest *= -1;
+			}
+			// if we are in Intro, spawn star
+			else if (game.state.getCurrentState().key =='Intro') {
+				game.time.events.repeat(Phaser.Timer.SECOND * 2, 1, spawnStar, this);
 			}
 		}
 
