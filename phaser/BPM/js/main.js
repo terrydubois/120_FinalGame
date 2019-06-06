@@ -26,7 +26,8 @@ game.sfxOn = true;
 game.musicOn =true;
 game.multiPos = -200;
 game.backSpawn = 0;
-game.isPlaying =false;
+game.isPlaying = false;
+game.timeIncr = 0;
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
@@ -601,6 +602,8 @@ function blinkPlayer(playerObj) {
 // set up arrow key instructions
 function arrowKeyInstructionsCreate() {
 
+	game.timeIncr = 0;
+
 	game.speedupTextScale = 0;
 	game.speedupTextScaleDest = 0;
 	game.speedupTextScaleDown = false;
@@ -648,7 +651,13 @@ function arrowKeyInstructionsUpdate() {
 		game.arrowKeyInstructionsScale = approachSmooth(game.arrowKeyInstructionsScale, 1, 20);
 		game.arrowKeyInstructionsScale = Phaser.Math.clamp(game.arrowKeyInstructionsScale, 1, 1.5);
 
-		game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+		// scale arrow key instructions
+		game.timeIncr++;
+		if (game.timeIncr > 1000000) {
+			game.timeIncr = 0;
+		}
+		var newScale = Math.abs(Math.sin(game.timeIncr / 20) * 0.25) + 0.75
+		game.arrowKeyInstructions.scale.setTo(newScale);
 	}
 	else {
 		game.arrowKeyInstructions.alpha = 0;
