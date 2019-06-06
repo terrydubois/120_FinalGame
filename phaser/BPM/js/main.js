@@ -130,10 +130,31 @@ function gameplayHUD() {
 		}
 
 	}
+	
+	if (game.hasStarted) {
+		if (game.speedupTextScaleDown) {
+			game.speedupTextScaleDest = 0;
+			if (Math.abs(game.speedupTextScale - game.speedupTextScaleDest) < 0.2) {
+				// update level text
+				game.speedupText.text = 'LEVEL ' + game.level + '  ';
+				game.speedupText2.text = game.speedupText.text;
+				game.speedupTextScaleDown = false;
+			}
+		}
+		else {
+			game.speedupTextScaleDest = 1;
+		}
+	}
+	else {
+		// update level text
+		game.speedupText.text = 'LEVEL ' + game.level + '  ';
+		game.speedupText2.text = game.speedupText.text;
+		game.speedupTextScaleDest = 0;
+	}
 
-	// update level text
-	game.speedupText.text = 'LEVEL ' + game.level + '  ';
-	game.speedupText2.text = game.speedupText.text;
+	game.speedupTextScale = approachSmooth(game.speedupTextScale, game.speedupTextScaleDest, 6);
+	game.speedupText.scale.setTo(game.speedupTextScale);
+	game.speedupText2.scale.setTo(game.speedupTextScale);
 
 	// update score text
 	if (game.scoreTextDisplay < game.currentScore) {
@@ -555,6 +576,10 @@ function blinkPlayer(playerObj) {
 // set up arrow key instructions
 function arrowKeyInstructionsCreate() {
 
+	game.speedupTextScale = 0;
+	game.speedupTextScaleDest = 0;
+	game.speedupTextScaleDown = false;
+
 	game.modeStartSound = game.add.audio('modeStartSound');
 	game.modeStartSound.volume = 0.5;
 	// play game startup sound
@@ -704,4 +729,38 @@ function resetColliderCounts() {
 	game.plusCount = 0;
 	game.starCount = 0;
 	game.heartCount = 0;
+}
+
+function levelUpCheck(songRateIncr) {
+	// level up every time currentPlussesToLevelUp hits zero
+	if (game.currentPlussesToLevelUp <= 0
+	|| (game.debugControls && game.input.keyboard.justPressed(Phaser.Keyboard.O))) {
+			game.level++;
+			game.plussesToLevelUp++;
+			game.currentPlussesToLevelUp = game.plussesToLevelUp;
+			// do not increase speed of levels after 20
+			if (game.level <= 20) {
+				game.playerXSpeedTarget += 1;
+				game.playerYSpeed += 1.5;
+				game.switchRate -=.03;
+				if(game.musicOn){
+					game.song1._sound.playbackRate.value += songRateIncr;
+				}
+			}
+			// play levelup sound
+			if (game.sfxOn) {
+				game.levelUpSound.play();
+			}
+			// shrink level text
+			game.speedupTextScaleDown = true;
+
+			// if we are in Mode 2, bring the sides in for each levelup
+			if (game.state.getCurrentState().key =='Mode2') {
+				if (game.level < 8) {
+					game.posLeftDest += 50;
+				}
+				game.bgAngleIncrDest *= -1;
+			}
+		}
+
 }

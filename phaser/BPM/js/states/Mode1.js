@@ -255,20 +255,20 @@ Mode1.prototype = {
  		leftside.tilePosition.y -= .33;
 
 
-		 //screen size changing
+		 //screen size changing (debug controls that are inaccessible in final build)
 		if (game.debugControls) {
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
+			if (game.input.keyboard.isDown(Phaser.Keyboard.W)) {
 				game.posLeft--;
 				leftside.x --;
 				rightside.x ++;
 
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
+			if (game.input.keyboard.isDown(Phaser.Keyboard.S)) {
 				game.posLeft++;
 				leftside.x ++;
 				rightside.x --;
 			}
-			if(game.input.keyboard.justPressed(Phaser.Keyboard.T)){
+			if (game.input.keyboard.justPressed(Phaser.Keyboard.T)) {
 				game.currentHearts--;
 			}
 			
@@ -338,25 +338,7 @@ Mode1.prototype = {
 		blinkPlayer(game.player);
 		game.playerEmitter.alpha = game.player.alpha;
 
-
-		// level up every time currentPlussesToLevelUp hits zero
-		if (game.currentPlussesToLevelUp <= 0
-		|| (game.debugControls && game.input.keyboard.justPressed(Phaser.Keyboard.O))) {
-			game.level++;
-			game.plussesToLevelUp++;
-			game.currentPlussesToLevelUp = game.plussesToLevelUp;
-			if(game.level <= 20){
-				game.playerXSpeedTarget += 1;
-				game.playerYSpeed += 1.5;
-				game.switchRate -=.03;
-				if(game.musicOn){
-					game.song1._sound.playbackRate.value +=  .05;
-				}
-			}
-			if (game.sfxOn) {
-				game.levelUpSound.play();
-			}
-		}
+		levelUpCheck(0.05);
 
 
 		//esc key also goes back to main menu
