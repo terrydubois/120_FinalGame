@@ -161,21 +161,7 @@ function gameplayHUD() {
 	game.speedupText.scale.setTo(game.speedupTextScale);
 	game.speedupText2.scale.setTo(game.speedupTextScale);
 
-	// update score text
-	if (game.scoreTextDisplay < game.currentScore) {
-		game.scoreTextDisplay += 0.5;
-	}
-	else if (game.scoreTextDisplay > game.currentScore) {
-		game.scoreTextDisplay = game.currentScore;
-	}
-	
-	// update score text and position for score's drop shadow
-	for (var i = 0; i < game.scoreTextArrLength; i++) {
-		game.scoreTextArr[i].x = game.world.width - 60 - i;
-		game.scoreTextArr[i].y = 75 - i;
-		game.scoreTextArr[i].text = Math.floor(game.scoreTextDisplay) + '  ';
-	}
-
+	updateScoreText();
 
 	// update score text and position for score multiplier's drop shadow
 	for (var i = 0; i < game.multiTextArrLength; i++) {
@@ -254,13 +240,7 @@ function gameplayHUDPractice() {
 	game.speedupText.scale.setTo(game.speedupTextScale);
 	game.speedupText2.scale.setTo(game.speedupTextScale);
 
-	// update score text
-	if (game.scoreTextDisplay < game.currentScore) {
-		game.scoreTextDisplay += 0.5;
-	}
-	else if (game.scoreTextDisplay > game.currentScore) {
-		game.scoreTextDisplay = game.currentScore;
-	}
+	updateScoreText();
 	
 	
 	for (var i = 0; i < game.scoreTextArrLength; i++) {
@@ -837,5 +817,32 @@ function navHelpUpdate() {
 	|| game.input.keyboard.isDown(Phaser.Keyboard.A)
 	|| game.input.keyboard.isDown(Phaser.Keyboard.D)) {
 		game.navHelpTimer = 60 * 3
+	}
+}
+
+function updateScoreText() {
+	// update score text display to approach actual score
+	if (game.scoreTextDisplay < game.currentScore) {
+		
+		// approach faster if there is a bigger difference
+		if (Math.abs(game.scoreTextDisplay - game.currentScore) < 90) {
+			game.scoreTextDisplay += 0.5;
+		}
+		else if (Math.abs(game.scoreTextDisplay - game.currentScore) < 600) {
+			game.scoreTextDisplay += 3;
+		}
+		else {
+			game.scoreTextDisplay = Math.ceil(approachSmooth(game.scoreTextDisplay, game.currentScore, 50));
+		}
+	}
+	else if (game.scoreTextDisplay > game.currentScore) {
+		game.scoreTextDisplay = game.currentScore;
+	}
+	
+	// update score text and position for score's drop shadow
+	for (var i = 0; i < game.scoreTextArrLength; i++) {
+		game.scoreTextArr[i].x = game.world.width - 60 - i;
+		game.scoreTextArr[i].y = 75 - i;
+		game.scoreTextArr[i].text = Math.floor(game.scoreTextDisplay) + '  ';
 	}
 }
