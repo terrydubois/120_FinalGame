@@ -224,7 +224,15 @@ Mode3.prototype = {
 		}
 
 		//bring in multiplier
-		if(game.heartMulti >= 2 ){
+		game.heartMulti = game.level;
+		if(game.currentHearts >= 7){
+			game.multiActive =true;
+		}
+		else{
+			game.multiActive =false;
+		}
+
+		if(game.multiActive){
 			game.multiPos = approachSmooth(game.multiPos, 0, 8);
 		}
 		else{

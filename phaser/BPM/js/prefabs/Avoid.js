@@ -123,12 +123,12 @@ Avoid.prototype.update = function() {
 
 		if (this.heart) {
 			console.log("collision with heart");
-			if(game.currentHearts == 7 ){
+			if(game.multiActive == true){
 				game.currentScore += 10 * game.heartMulti;
 				game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 10*game.heartMulti +'  ');
 				game.add.existing(game.scoreAddText);
-				game.heartMulti += 1 ;
 			}
+
 			game.currentHearts++;
 			if(game.sfxOn){
 				game.hitHeartSound.play('', 0, 0.5, false);
@@ -138,14 +138,24 @@ Avoid.prototype.update = function() {
 		else if (this.plus) {
 			console.log("collision with levelup");
 			game.currentPlussesToLevelUp--;
-			game.currentScore += 10*game.heartMulti;
+			if(game.multiActive){
+				game.currentScore += 10*game.heartMulti;
+			}
+			else{
+				game.currentScore += 10;
+			}
 			if (game.currentPlussesToLevelUp > 0) {
 				if(game.sfxOn){
 					game.hitPlusSound.play('', 0, 0.5, false);
 				}
 			}
 			spawnFlash(1);
-			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 10*game.heartMulti +'  ');
+			if(game.multiActive){
+				game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 10*game.heartMulti +'  ');
+			}
+			else{
+				game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 10 + '  ');
+			}
 			game.add.existing(game.scoreAddText);
 		}
 		else if (this.star) {
@@ -153,17 +163,28 @@ Avoid.prototype.update = function() {
 
 			game.starsColl++;
 			saveStarsColl();
+			if(game.multiActive){
+				game.currentScore += 50* game.heartMulti;
+			}
+			else{
+				game.currentScore += 50;
+			}
 			game.currentScore += 50* game.heartMulti;
 			if(game.sfxOn && game.state.getCurrentState().key !='Intro'){
 			game.hitStarSound.play('', 0, 0.5, false);
 			}
 			spawnFlash(3);
-			game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 50*game.heartMulti +'  ');
+			if(game.multiActive){
+				game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 50*game.heartMulti +'  ');
+			
+			}
+			else{
+				game.scoreAddText = new ScoreAddText(game, '', '', 0, 0, this.x, this.y, '+'+ 50 +'  ');	
+			}
 			game.add.existing(game.scoreAddText);
 		}
 		else {
 			console.log("collision with skull");
-			game.heartMulti = 1;
 			game.hasHitPlayer = true;
 			game.currentHearts--;
 			if(game.sfxOn){
