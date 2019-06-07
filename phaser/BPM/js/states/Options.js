@@ -108,6 +108,8 @@ Options.prototype = {
 		game.resetStarsSprite.alpha = 0;
 		game.resetHSSprite.alpha = 0;
 		game.resetAlphaTimer = 0;
+
+		navHelpCreate();
 	},
 	update: function() {
 		game.optionsIntroFlash.alpha -= 0.05;
@@ -333,5 +335,6 @@ Options.prototype = {
 			game.state.start("MainMenu");
 		}
 
+		navHelpUpdate();
 	}
 }

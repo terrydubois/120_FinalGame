@@ -28,6 +28,8 @@ game.multiPos = -200;
 game.backSpawn = 0;
 game.isPlaying =false;
 game.multiActive =false;
+game.timeIncr = 0;
+
 
 game.scoreColor1 = '#0f7200';
 game.scoreColor2 = '#26D100';
@@ -602,6 +604,8 @@ function blinkPlayer(playerObj) {
 // set up arrow key instructions
 function arrowKeyInstructionsCreate() {
 
+	game.timeIncr = 0;
+
 	game.speedupTextScale = 0;
 	game.speedupTextScaleDest = 0;
 	game.speedupTextScaleDown = false;
@@ -649,7 +653,13 @@ function arrowKeyInstructionsUpdate() {
 		game.arrowKeyInstructionsScale = approachSmooth(game.arrowKeyInstructionsScale, 1, 20);
 		game.arrowKeyInstructionsScale = Phaser.Math.clamp(game.arrowKeyInstructionsScale, 1, 1.5);
 
-		game.arrowKeyInstructions.scale.setTo(game.arrowKeyInstructionsScale);
+		// scale arrow key instructions
+		game.timeIncr++;
+		if (game.timeIncr > 1000000) {
+			game.timeIncr = 0;
+		}
+		var newScale = Math.abs(Math.sin(game.timeIncr / 20) * 0.25) + 0.75
+		game.arrowKeyInstructions.scale.setTo(newScale);
 	}
 	else {
 		game.arrowKeyInstructions.alpha = 0;
@@ -793,4 +803,39 @@ function levelUpCheck(songRateIncr) {
 			}
 		}
 
+}
+
+function navHelpCreate() {
+	// add navHelp to tell player to use ARROW KEYS and SPACE
+	game.navHelpPlusY = 100;
+	game.navHelpPlusYDest = 100;
+	game.navHelp = game.add.sprite(game.world.width / 2, game.world.height + game.flavorTextPlusY, 'navHelp');
+	game.navHelp.anchor.setTo(0.5);
+	// amount of frames to wait until we show player the navHelp
+	game.navHelpTimer = 60 * 3;
+}
+
+function navHelpUpdate() {
+	// set Y position for navHelp
+	game.navHelpPlusY = approachSmooth(game.navHelpPlusY, game.navHelpPlusYDest, 8);
+	game.navHelp.y = (game.world.height - 50) + game.navHelpPlusY;
+	game.navHelpTimer--;
+	game.navHelpTimer = Math.max(game.navHelpTimer, 0);
+	if (game.navHelpTimer < 1) {
+		game.navHelpPlusYDest = 0;
+	}
+	else {
+		game.navHelpPlusYDest = 150;
+	}
+	// reset navHelp timer if player is using any of the controls
+	if (game.input.keyboard.isDown(Phaser.Keyboard.UP)
+	|| game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
+	|| game.input.keyboard.isDown(Phaser.Keyboard.LEFT)
+	|| game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
+	|| game.input.keyboard.isDown(Phaser.Keyboard.W)
+	|| game.input.keyboard.isDown(Phaser.Keyboard.S)
+	|| game.input.keyboard.isDown(Phaser.Keyboard.A)
+	|| game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+		game.navHelpTimer = 60 * 3
+	}
 }

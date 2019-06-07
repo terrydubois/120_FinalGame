@@ -117,18 +117,20 @@ Practice.prototype = {
 			game.HUDgroup.add(game.scoreTextArr[i]);
 		}
 		//text to exit
-		game.escapeText = game.add.text(173, 33, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
-		game.escapeText.anchor.setTo(0.5);
-		game.HUDgroup.add(game.escapeText);
-		game.escapeText = game.add.text(172, 32, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
-		game.escapeText.anchor.setTo(0.5);
-		game.HUDgroup.add(game.escapeText);
-		game.escapeText = game.add.text(171, 31, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
-		game.escapeText.anchor.setTo(0.5);
-		game.HUDgroup.add(game.escapeText);
-		game.escapeText = game.add.text(170, 30, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#000', align: 'center'});
-		game.escapeText.anchor.setTo(0.5);
-		game.HUDgroup.add(game.escapeText);
+		game.escapeText1 = game.add.text(173, 33, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText1.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText1);
+		game.escapeText2 = game.add.text(172, 32, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText2.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText2);
+		game.escapeText3 = game.add.text(171, 31, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#969696', align: 'center'});
+		game.escapeText3.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText3);
+		game.escapeText4 = game.add.text(170, 30, 'PRESS ESC TO EXIT    ', {font: 'Impact',fontStyle: 'italic', fontSize: '25px', fill: '#000', align: 'center'});
+		game.escapeText4.anchor.setTo(0.5);
+		game.HUDgroup.add(game.escapeText4);
+		game.escapeTextPlusX = -300;
+		game.escapeTextPlusXDest = -300;
 
 
 /*
@@ -198,7 +200,7 @@ Practice.prototype = {
 		game.introInstructionsTimer = 0;
 
 		// add sprites for text instructions
-		game.introInstructionsXDest = [game.world.width * 1.5, game.world.width * 1.5, game.world.width * 1.5];
+		game.introInstructionsXDest = [game.world.width * 1.5, game.world.width * 1.5];
 		game.introInstructions1 = game.add.sprite(game.introInstructionsXDest[0], game.world.height * 0.75, 'introInstructions1');
 		game.introInstructions1.scale.setTo(0.5);
 		game.introInstructions1.anchor.setTo(0.5);
@@ -211,28 +213,36 @@ Practice.prototype = {
 	},
 	update: function() {
 
-
-				// slide instructions in smoothly
+		// slide instructions in smoothly
 		game.introInstructions1.x = approachSmooth(game.introInstructions1.x, game.introInstructionsXDest[0], 12);
 		game.introInstructions2.x = approachSmooth(game.introInstructions2.x, game.introInstructionsXDest[1], 12);
-
+		game.escapeTextPlusX = approachSmooth(game.escapeTextPlusX, game.escapeTextPlusXDest, 12);
 
 		// X-position destinations of instruction text
 		if (game.skullCount > 0) {
 			game.introInstructionsXDest[0] = game.world.width * 0.5;
 			game.introInstructionsXDest[1] = game.world.width * 1.5;
-			game.introInstructionsXDest[2] = game.world.width * 1.5;
 		}
 		if (game.plusCount > 0) {
 			game.introInstructionsXDest[0] = game.world.width * -0.5;
 			game.introInstructionsXDest[1] = game.world.width * 0.5;
-			game.introInstructionsXDest[2] = game.world.width * 1.5;
 		}
 		if (game.level > 1) {
 			game.introInstructionsXDest[0] = game.world.width * -0.5;
 			game.introInstructionsXDest[1] = game.world.width * -0.5;
-			game.introInstructionsXDest[2] = game.world.width * 0.5;
+			game.escapeTextPlusXDest = 0;
 		}
+		else {
+			game.escapeTextPlusXDest = -300;
+		}
+
+		// X-position of escape text
+		game.escapeText1.x = 173 + game.escapeTextPlusX;
+		game.escapeText2.x = 172 + game.escapeTextPlusX;
+		game.escapeText3.x = 171 + game.escapeTextPlusX;
+		game.escapeText4.x = 170 + game.escapeTextPlusX;
+
+
 
 		// spawn background animation every 0.25 seconds
 		if (game.hasStarted) {
