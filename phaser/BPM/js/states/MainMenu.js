@@ -84,14 +84,6 @@ MainMenu.prototype = {
 		game.flavorTextStar.scale.setTo(0.3);
 		game.flavorTextStar.anchor.setTo(0.5);
 
-		// add navHelp to tell player to use ARROW KEYS and SPACE
-		game.navHelpPlusY = 100;
-		game.navHelpPlusYDest = 100;
-		game.navHelp = game.add.sprite(game.world.width / 2, game.world.height + game.flavorTextPlusY, 'navHelp');
-		game.navHelp.anchor.setTo(0.5);
-		// amount of frames to wait until we show player the navHelp
-		game.navHelpTimer = 60 * 3;
-
 		// add lock sprite over the locked modes
 		game.menuLock = game.add.sprite(0, 0, 'menuLock');
 		game.menuLock.alpha = 0;
@@ -119,6 +111,8 @@ MainMenu.prototype = {
 		spawnBGIcons();
 		game.playFlashAlphaUp = false;
 		resetColliderCounts();
+
+		navHelpCreate();
 
 
 	},
@@ -294,29 +288,7 @@ MainMenu.prototype = {
 		game.flavorTextStar.x = game.flavorText.x;
 		game.flavorTextStar.y = game.flavorText.y;
 
-		// set Y position for navHelp
-		game.navHelpPlusY = approachSmooth(game.navHelpPlusY, game.navHelpPlusYDest, 8);
-		game.navHelp.y = (game.world.height - 50) + game.navHelpPlusY;
-		game.navHelpTimer--;
-		game.navHelpTimer = Math.max(game.navHelpTimer, 0);
-		if (game.navHelpTimer < 1) {
-			game.navHelpPlusYDest = 0;
-		}
-		else {
-			game.navHelpPlusYDest = 150;
-		}
-		// reset navHelp timer if player is using any of the controls
-		if (game.input.keyboard.isDown(Phaser.Keyboard.UP)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.LEFT)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.W)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.S)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.A)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.D)) {
-			game.navHelpTimer = 60 * 3
-		}
-
+		navHelpUpdate();
 
 
 		
