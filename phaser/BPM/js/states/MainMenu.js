@@ -1,3 +1,18 @@
+/*
+
+	CMPM 120 and ARTG 120 - Spring 2019
+
+	TEAM 16: THE WINGED BOYFRIENDS!
+	Terrence DuBois, Brady Moore, Merita Lundstrom
+
+	_______________________________
+	|	 Final Project: B.P.M.    |
+ 	| (Bouncing Particle Madness) |
+ 	¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+	 Github: https://github.com/terrydubois/120_FinalGame
+	 Itch: https://kittynugget.itch.io/bpm-bouncing-particle-madness
+*/
+
 // define menu state and methods
 var MainMenu = function(game) {};
 MainMenu.prototype = {
@@ -117,13 +132,8 @@ MainMenu.prototype = {
 
 	},
 	update: function() {
-				game.world.sendToBack(game.background);
-
-							// take out for final game
-							if (game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT)) {
-								game.debugControls = !game.debugControls;
-								console.log("DEBUG CONTROLS: " + game.debugControls);
-							}
+		// send background layer to back
+		game.world.sendToBack(game.background);
 
 		// debug controls (in final game, these will be completely restricted)
 		if (game.debugControls) {
@@ -145,6 +155,15 @@ MainMenu.prototype = {
 				game.sfxOn = !game.sfxOn;
 				console.log(game.sfxOn);
 			}
+		}
+
+		// allow player to cheat stars to unlock modes using CTRL+ALT+Q
+		// (this is for grading purposes, if the grader does not want to unlock stars manually)
+		if (game.input.keyboard.isDown(Phaser.Keyboard.CONTROL)
+		&& game.input.keyboard.isDown(Phaser.Keyboard.ALT)
+		&& game.input.keyboard.justPressed(Phaser.Keyboard.Q)) {
+			game.starsColl++;
+			saveStarsColl();
 		}
 
 
@@ -392,6 +411,7 @@ MainMenu.prototype = {
 		game.playFlash1.x -= 2;
 		game.playFlash2.x += 2;
 
+		// manage alpha of bracket effects around PLAY
 		if (game.playFlashAlphaUp) {
 			game.playFlash1.alpha += 0.04;
 			game.playFlash2.alpha = game.playFlash1.alpha;
@@ -403,7 +423,6 @@ MainMenu.prototype = {
 			game.playFlash1.alpha -= 0.05;
 			game.playFlash2.alpha = game.playFlash1.alpha;
 		}
-
 		if (game.currentModeLocked || game.menuOptionCurrent >= 2 || Math.abs(game.menuTitlePlusY - 0) > 10) {
 			game.playFlash1.alpha = 0;
 			game.playFlash2.alpha = 0;

@@ -1,6 +1,6 @@
 /*
 
-	CMPM 120 - Spring 2019
+	CMPM 120 and ARTG 120 - Spring 2019
 
 	TEAM 16: THE WINGED BOYFRIENDS!
 	Terrence DuBois, Brady Moore, Merita Lundstrom
@@ -9,7 +9,8 @@
 	|	 Final Project: B.P.M.    |
  	| (Bouncing Particle Madness) |
  	¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- 	Github: https://github.com/terrydubois/120_FinalGame
+	 Github: https://github.com/terrydubois/120_FinalGame
+	 Itch: https://kittynugget.itch.io/bpm-bouncing-particle-madness
 */
 
 // create game with 1000x600 canvas
