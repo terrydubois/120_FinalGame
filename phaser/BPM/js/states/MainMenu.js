@@ -136,6 +136,7 @@ MainMenu.prototype = {
 		game.world.sendToBack(game.background);
 
 		// debug controls (in final game, these will be completely restricted)
+		/*
 		if (game.debugControls) {
 			if (game.input.keyboard.justPressed(Phaser.Keyboard.L)) {
 				game.starsColl++;
@@ -156,6 +157,8 @@ MainMenu.prototype = {
 				console.log(game.sfxOn);
 			}
 		}
+		*/
+
 
 		// allow player to cheat stars to unlock modes using CTRL+ALT+Q
 		// (this is for grading purposes, if the grader does not want to unlock stars manually)

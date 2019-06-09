@@ -194,6 +194,15 @@ function gameplayHUD() {
 			game.heartSprite[i].scale.setTo(0.5);
 		}
 	}
+
+	// allow player to cheat stars to unlock modes using CTRL+ALT+Q
+	// (this is for grading purposes, if the grader does not want to unlock stars manually)
+	if (game.input.keyboard.isDown(Phaser.Keyboard.CONTROL)
+	&& game.input.keyboard.isDown(Phaser.Keyboard.ALT)
+	&& game.input.keyboard.justPressed(Phaser.Keyboard.Q)) {
+		game.starsColl++;
+		saveStarsColl();
+	}
 }
 
 // handle UI elements in HUD specifically for practice mode
