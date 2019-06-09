@@ -1,3 +1,18 @@
+/*
+
+	CMPM 120 and ARTG 120 - Spring 2019
+
+	TEAM 16: THE WINGED BOYFRIENDS!
+	Terrence DuBois, Brady Moore, Merita Lundstrom
+
+	_______________________________
+	|	 Final Project: B.P.M.    |
+ 	| (Bouncing Particle Madness) |
+ 	¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+	 Github: https://github.com/terrydubois/120_FinalGame
+	 Itch: https://kittynugget.itch.io/bpm-bouncing-particle-madness
+*/
+
 // define gameplay state and methods
 var Practice = function(game) {};
 Practice.prototype = {
@@ -60,28 +75,7 @@ Practice.prototype = {
 		game.lastSpawnX = -1;
 		game.hasHitPlayer = false;
 
-/*
-		//timer to switch sides
-		game.time.events.repeat(Phaser.Timer.SECOND * game.switchRate, 1, switchSides, this);
 
-		//timers to spawn objects
-		game.time.events.repeat(Phaser.Timer.SECOND * 1, 1, spawnEnemy, this);
-		game.time.events.repeat(Phaser.Timer.SECOND * 5, 1, spawnCollect, this);
-		game.time.events.repeat(Phaser.Timer.SECOND * 10, 1, spawnHealth, this);
-
-*/
-
-		
-/*
-		// setup hearts
-		game.maxHearts = 7;
-		game.startingHearts = 5;
-		game.currentHearts = game.startingHearts;
-		game.heartSprite = [];
-		for (var i = 0; i < game.maxHearts; i++) {
-			game.heartSprite[i] = -1;
-		}
-*/
 		game.HUDgroup = game.add.group();
 		game.add.existing(game.HUDgroup);
 		// bar for speedup
