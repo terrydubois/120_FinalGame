@@ -825,7 +825,8 @@ function navHelpUpdate() {
 	|| game.input.keyboard.isDown(Phaser.Keyboard.W)
 	|| game.input.keyboard.isDown(Phaser.Keyboard.S)
 	|| game.input.keyboard.isDown(Phaser.Keyboard.A)
-	|| game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+	|| game.input.keyboard.isDown(Phaser.Keyboard.D)
+	|| game.input.pointer1.isDown) {
 		game.navHelpTimer = 60 * 3
 	}
 }

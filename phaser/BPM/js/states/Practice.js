@@ -327,7 +327,8 @@ Practice.prototype = {
 		if ((game.input.keyboard.isDown(Phaser.Keyboard.UP)
 		|| game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
 		|| game.input.keyboard.isDown(Phaser.Keyboard.W)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.S))
+		|| game.input.keyboard.isDown(Phaser.Keyboard.S)
+		|| game.input.pointer1.isDown)
 		&& !game.hasStarted) {
 
 			//timer to switch sides
@@ -363,6 +364,43 @@ Practice.prototype = {
 			game.player.y += game.playerYSpeed;
 		}
 
+
+		//player input for mobile
+		if(game.input.pointer1.isDown){
+			if (game.input.y > game.world.height/2){
+				game.player.y += game.playerYSpeed;
+			}
+			else{
+				game.player.y -= game.playerYSpeed;
+			}
+		}
+		else if(game.input.pointer2.isDown){
+			if (game.input.y > game.world.height/2){
+				game.player.y += game.playerYSpeed;
+			}
+			else{
+				game.player.y -= game.playerYSpeed;
+			}
+		}
+
+
+		//touch Dev
+		if(game.input.pointer1.isDown){
+			if(50 < game.input.x && game.input.x < 250 &&
+			 15 < game.input.y && game.input.y < 45 
+			  && !game.justTouched && game.level >=2){
+
+			game.sound.stopAll();
+			game.state.start("MainMenu");
+		
+			}
+			game.justTouched = true;
+			}
+
+			else{
+				game.justTouched = false;
+				
+			}
 
 
 		//player bounds checking

@@ -23,9 +23,16 @@ Boot.prototype = {
 		game.load.image('loadingBar', 'assets/img/loadingBar.png');
 		game.load.image('loading', 'assets/img/loading.png');
 
+
+		//set scale to size of screen
+		//game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
 		// align game to center of screen
 		game.scale.pageAlignHorizontally = true;
 		game.scale.pageAlignVertically = true;
+
+		//refresh scale size
+		//game.scale.setScreenSize( true );
 		game.scale.refresh();
 	},
 	create: function() {

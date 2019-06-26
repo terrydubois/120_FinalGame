@@ -347,7 +347,8 @@ Intro.prototype = {
 		if ((game.input.keyboard.isDown(Phaser.Keyboard.UP)
 		|| game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
 		|| game.input.keyboard.isDown(Phaser.Keyboard.W)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.S))
+		|| game.input.keyboard.isDown(Phaser.Keyboard.S)
+		|| game.input.pointer1.isDown)
 		&& !game.hasStarted && game.allowMovement) {
 
 
@@ -384,6 +385,25 @@ Intro.prototype = {
 			if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && game.allowMovement
 			|| game.input.keyboard.isDown(Phaser.Keyboard.S) &&game.allowMovement) {
 				game.player.y += game.playerYSpeed;
+			}
+		}
+
+
+		//player input for mobile
+		if(game.input.pointer1.isDown && game.allowMovement){
+			if (game.input.y > game.world.height/2){
+				game.player.y += game.playerYSpeed;
+			}
+			else{
+				game.player.y -= game.playerYSpeed;
+			}
+		}
+		else if(game.input.pointer2.isDown){
+			if (game.input.y > game.world.height/2){
+				game.player.y += game.playerYSpeed;
+			}
+			else{
+				game.player.y -= game.playerYSpeed;
 			}
 		}
 

@@ -129,7 +129,7 @@ Credits.prototype = {
 					window.open("https://terrydubois.io/");
 				}
 				else {
-					window.open("https://soundcloud.com/foxmod-1");
+					window.open("https://soundcloud.com/foxmode");
 				}
 			}
 			else if (game.creditsCurrentOption == 3) {
@@ -140,6 +140,119 @@ Credits.prototype = {
 					window.open("https://soundcloud.com/technicolormotionpicture");
 				}
 			}
+		}
+
+		//touch controls dev
+/*
+			console.log(game.input.x);
+			console.log(game.input.y);
+*/			
+//500, 425, 225, 170
+		if(game.input.pointer1.isDown){
+
+			//back buton checks
+			if(game.world.width/2-75 < game.input.x && game.input.x < game.world.width/2+75 &&
+			 game.world.height/2+210 < game.input.y && game.input.y < game.world.height/2+240 
+			 && game.creditsCurrentOption == 0 && !game.justTouched){	
+				game.state.start("MainMenu");
+			}
+			if(game.world.width/2-75 < game.input.x && game.input.x < game.world.width/2+75 &&
+			 game.world.height/2+210 < game.input.y && game.input.y < game.world.height/2+240 
+			 && game.creditsCurrentOption != 0 && !game.justTouched){
+				game.creditsCurrentOption = 0;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+			}
+
+			//merita link checks
+			if(game.world.width/2-125 < game.input.x && game.input.x < game.world.width/2+125 &&
+			 game.world.height/2+135 < game.input.y && game.input.y < game.world.height/2+165
+			 && game.creditsCurrentOption == 1 && !game.justTouched){	
+			 	window.open("https://www.instagram.com/meritaart/?hl=en");
+			}
+			if(game.world.width/2-125 < game.input.x && game.input.x < game.world.width/2+125 &&
+			 game.world.height/2+135 < game.input.y && game.input.y < game.world.height/2+165 
+			 && game.creditsCurrentOption != 1 && !game.justTouched){
+				game.creditsCurrentOption = 1;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+			}
+
+
+			//Terry link checks
+			if(game.world.width/2 - 375 < game.input.x && game.input.x < game.world.width/2 - 150 &&
+			 game.world.height/2 - 65 < game.input.y && game.input.y < game.world.height/2 - 25 
+			 && game.creditsCurrentOption == 2 && !game.justTouched && game.creditsGraphicsLeftSide){	
+				window.open("https://terrydubois.io/");
+			}
+			if(game.world.width/2 - 375 < game.input.x && game.input.x < game.world.width/2 - 150 &&
+			 game.world.height/2 - 65 < game.input.y && game.input.y < game.world.height/2 - 25 
+			  && !game.justTouched){
+				game.creditsCurrentOption = 2;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+				game.creditsGraphicsLeftSide = true;
+			}
+
+			//Brady link checks
+			if(game.world.width/2 - 350 < game.input.x && game.input.x < game.world.width/2 - 175 &&
+			 game.world.height/2 - 120 < game.input.y && game.input.y < game.world.height/2 - 80 
+			 && game.creditsCurrentOption == 3 && !game.justTouched  && game.creditsGraphicsLeftSide){	
+				window.open("https://kittynugget.itch.io/");
+			}
+			if(game.world.width/2 - 350 < game.input.x && game.input.x < game.world.width/2 - 175 &&
+			 game.world.height/2 - 120 < game.input.y && game.input.y < game.world.height/2 - 80 
+			  && !game.justTouched){
+				game.creditsCurrentOption = 3;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+				game.creditsGraphicsLeftSide = true;
+			}
+
+
+
+			//Alex link checks
+			if(game.world.width/2 + 175 < game.input.x && game.input.x < game.world.width/2 + 325 &&
+			 game.world.height/2 - 65 < game.input.y && game.input.y < game.world.height/2 - 25 
+			 && game.creditsCurrentOption == 2 && !game.justTouched && !game.creditsGraphicsLeftSide){	
+				window.open("https://soundcloud.com/foxmode");
+			}
+			if(game.world.width/2 + 175 < game.input.x && game.input.x < game.world.width/2 + 325 &&
+			 game.world.height/2 - 65 < game.input.y && game.input.y < game.world.height/2 - 25 
+			 && !game.justTouched){
+				game.creditsCurrentOption = 2;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+				game.creditsGraphicsLeftSide = false;
+			}
+
+			//Devin link checks
+			if(game.world.width/2 + 125 < game.input.x && game.input.x < game.world.width/2 + 380 &&
+			 game.world.height/2 - 120 < game.input.y && game.input.y < game.world.height/2 - 80 
+			 && game.creditsCurrentOption == 3 && !game.justTouched  && !game.creditsGraphicsLeftSide){	
+			 	window.open("https://soundcloud.com/technicolormotionpicture");
+			}
+			if(game.world.width/2 + 125 < game.input.x && game.input.x < game.world.width/2 + 380 &&
+			 game.world.height/2 - 120 < game.input.y && game.input.y < game.world.height/2 - 80 
+			  && !game.justTouched){
+				game.creditsCurrentOption = 3;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+				game.creditsGraphicsLeftSide = false;
+			}
+
+			game.justTouched = true;
+
+		}
+		else{
+			game.justTouched = false;
+			
 		}
 
 		//esc key also goes back to main menu

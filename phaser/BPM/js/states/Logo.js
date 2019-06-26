@@ -67,7 +67,7 @@ LogoScreen.prototype = {
 		}
 
 		// press SPACEBAR to skip logo
-		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || game.input.pointer1.isDown) {
 			game.logoTimer = 0;
 		}
 	}

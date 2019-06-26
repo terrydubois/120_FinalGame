@@ -313,7 +313,8 @@ Mode2.prototype = {
 		if ((game.input.keyboard.isDown(Phaser.Keyboard.UP)
 		|| game.input.keyboard.isDown(Phaser.Keyboard.DOWN)
 		|| game.input.keyboard.isDown(Phaser.Keyboard.W)
-		|| game.input.keyboard.isDown(Phaser.Keyboard.S))
+		|| game.input.keyboard.isDown(Phaser.Keyboard.S)
+		|| game.input.pointer1.isDown)
 		&& !game.hasStarted) {
 
 			//timer to switch sides
@@ -349,6 +350,27 @@ Mode2.prototype = {
 		|| game.input.keyboard.isDown(Phaser.Keyboard.S)) {
 			game.player.y += game.playerYSpeed;
 		}
+
+		//touch controls
+
+		//player input for mobile
+		if(game.input.pointer1.isDown){
+			if (game.input.y > game.world.height/2){
+				game.player.y += game.playerYSpeed;
+			}
+			else{
+				game.player.y -= game.playerYSpeed;
+			}
+		}
+		else if(game.input.pointer2.isDown){
+			if (game.input.y > game.world.height/2){
+				game.player.y += game.playerYSpeed;
+			}
+			else{
+				game.player.y -= game.playerYSpeed;
+			}
+		}
+
 
 		//player bounds checking
 		game.player.y = Phaser.Math.clamp(game.player.y,0,game.world.height);

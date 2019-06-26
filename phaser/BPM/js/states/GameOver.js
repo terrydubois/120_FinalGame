@@ -232,8 +232,46 @@ GameOver.prototype = {
 		}
 
 
+
+//touch Dev
+		if(game.input.pointer1.isDown){
+			//play button checks
+			if(game.world.width/2-25 < game.input.x && game.input.x < game.world.width/2+150 &&
+			 game.world.height/2+90 < game.input.y && game.input.y < game.world.height/2+140 
+			 && !game.justTouched){
+			 	
+				if (game.currentMode == 0) {
+					//game.state.start('Practice');
+				}
+				else if (game.currentMode == 1) {
+					game.state.start('Mode1');
+				}
+				else if (game.currentMode == 2) {
+					game.state.start('Mode2');
+				}
+				else if (game.currentMode == 3) {
+					game.state.start('Mode3');
+				}
+		
+			}
+			if(40 < game.input.x && game.input.x < 225 &&
+			 game.world.height- 45 < game.input.y && game.input.y < game.world.height-15 
+			  && !game.justTouched){
+
+			game.sound.stopAll();
+			game.state.start("MainMenu");
+		
+			}
+			game.justTouched = true;
+			}
+
+			else{
+				game.justTouched = false;
+				
+			}
+
 	
-	}
+		}
 }
 
 

@@ -106,6 +106,7 @@ Options.prototype = {
 
 		// whether the player is attempting to reset stars OR reset highscores
 		game.resetStarsConfirm = false;
+		game.onConfirmScreen = false;
 
 		// set up confirm question text
 		game.optionsConfirmQuestionText = game.add.text(game.world.width / 2, -100, 'ARE YOU SURE?  ', {font: 'Impact', fontStyle: 'italic', fontSize: '30px', fill: '#000', align: 'center'});
@@ -206,6 +207,190 @@ Options.prototype = {
 			game.optionsTextPlusYDest = 0;
 			game.confirmTextPlusYDest = 700;
 		}
+
+
+
+
+			//Touch DEV
+			/*
+			console.log(game.input.x);
+			console.log(game.input.y);
+			*/
+			if(game.input.pointer1.isDown){
+
+			//Music toggle checks
+			if(game.world.width/2-75 < game.input.x && game.input.x < game.world.width/2+75 &&
+			 game.world.height/2-135 < game.input.y && game.input.y < game.world.height/2-110 
+			 && game.optionsOptionCurrent == 0 && !game.justTouched && !game.onConfirmScreen){
+		 			game.musicOn = !game.musicOn;
+					if(game.musicOn && !game.isPlaying){
+						game.song1.play('',0,1,true);
+						game.song1.volume = 0.5;
+						game.isPlaying =true;
+					}
+					else{
+						game.isPlaying = false;
+						game.sound.stopAll();
+					}		
+			}
+			if(game.world.width/2-75 < game.input.x && game.input.x < game.world.width/2+75 &&
+			 game.world.height/2-135 < game.input.y && game.input.y < game.world.height/2-110 
+			 && game.optionsOptionCurrent != 0 && !game.justTouched && !game.onConfirmScreen){
+				game.optionsOptionCurrent = 0;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+			}
+
+			//SFX toggle checks
+			if(game.world.width/2-75 < game.input.x && game.input.x < game.world.width/2+75 &&
+			 game.world.height/2-75 < game.input.y && game.input.y < game.world.height/2-40 
+			 && game.optionsOptionCurrent == 1 && !game.justTouched && !game.onConfirmScreen){
+					game.sfxOn = !game.sfxOn;
+					if (game.sfxOn) {
+						game.sfxOnSound.play();
+					}
+			}
+
+			if(game.world.width/2-75 < game.input.x && game.input.x < game.world.width/2+75 &&
+			 game.world.height/2-75 < game.input.y && game.input.y < game.world.height/2-40 
+			 && game.optionsOptionCurrent != 1 && !game.justTouched && !game.onConfirmScreen){
+			 	game.optionsOptionCurrent = 1;
+			 	if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+				}
+			}
+
+			
+			//Reset Highscores checks
+			if(game.world.width/2-100 < game.input.x && game.input.x < game.world.width/2+100 &&
+			 game.world.height/2 < game.input.y && game.input.y < game.world.height/2+30 
+			 && game.optionsOptionCurrent == 2 && !game.justTouched && !game.onConfirmScreen){
+			 			// reset highscores
+						game.optionsCurrentMenu = 1;
+						game.optionsOptionCurrent = 1;
+						game.confirmTextPlusY = game.world.height - 130;
+						game.resetStarsConfirm = false;
+						game.onConfirmScreen = true;
+			}
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2 < game.input.y && game.input.y < game.world.height/2+30 
+			 && game.optionsOptionCurrent != 2 && !game.justTouched && !game.onConfirmScreen){
+			 	game.optionsOptionCurrent = 2;
+				if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+			 	}
+			}
+
+			//Reset Stars checks
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+75 < game.input.y && game.input.y < game.world.height/2+105 
+			 && game.optionsOptionCurrent == 3 && !game.justTouched && !game.onConfirmScreen){
+		 			// reset stars
+					game.optionsCurrentMenu = 1;
+					game.optionsOptionCurrent = 1;
+					game.confirmTextPlusY = game.world.height - 130;
+					game.resetStarsConfirm = true;
+					game.onConfirmScreen = true;
+
+			}
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+75 < game.input.y && game.input.y < game.world.height/2+105 
+			 && game.optionsOptionCurrent != 3 && !game.justTouched && !game.onConfirmScreen){
+			 	game.optionsOptionCurrent = 3;
+				if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+			 	}
+			}
+
+			//Back button checks
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+145 < game.input.y && game.input.y < game.world.height/2+175 
+			 && game.optionsOptionCurrent == 4 && !game.justTouched && !game.onConfirmScreen){
+		 			// return to Main Menu
+					game.state.start("MainMenu");
+			}
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+145 < game.input.y && game.input.y < game.world.height/2+175 
+			 && game.optionsOptionCurrent != 4 && !game.justTouched && !game.onConfirmScreen){
+			 	game.optionsOptionCurrent = 4;
+				if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+			 	}
+			}
+
+
+
+
+			//confirm double check
+			if(game.world.width/2-100 < game.input.x && game.input.x < game.world.width/2+100 &&
+			 game.world.height/2+85 < game.input.y && game.input.y < game.world.height/2+115 
+			 && game.optionsOptionCurrent == 0 && !game.justTouched && game.onConfirmScreen){
+				if (game.resetStarsConfirm) {
+					// reset stars for real!
+					game.starsColl = 0;
+					localStorage.setItem('starsColl', '0');
+					game.mode3UnlockedAlert = false;
+					game.mode2UnlockedAlert = false;
+					game.resetAlphaTimer = 120;
+					game.resetStarsSprite.alpha = 1;
+					// go back to options menu
+					game.optionsCurrentMenu = 0;
+					game.onConfirmScreen = false;
+					game.optionsOptionCurrent = 4;
+				}
+				else {
+					// reset highscores for real!
+					localStorage.setItem('highscore1', '0');
+					localStorage.setItem('highscore2', '0');
+					localStorage.setItem('highscore3', '0');
+					game.resetAlphaTimer = 120;
+					game.resetHSSprite.alpha = 1;
+					// go back to options menu
+					game.optionsCurrentMenu = 0;
+					game.onConfirmScreen = false;
+					game.optionsOptionCurrent = 4;
+				}
+
+			}
+			if(game.world.width/2-100 < game.input.x && game.input.x < game.world.width/2+100 &&
+			 game.world.height/2+85 < game.input.y && game.input.y < game.world.height/2+115 
+			 && game.optionsOptionCurrent != 0 && !game.justTouched && game.onConfirmScreen){
+			 	game.optionsOptionCurrent = 0;
+			 	if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+			 	}
+			}
+
+			//deny double check
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+155 < game.input.y && game.input.y < game.world.height/2+185 
+			 && game.optionsOptionCurrent == 1 && !game.justTouched && game.onConfirmScreen){
+						// in this case, they've selected "NO" so we return to options menu
+						game.optionsCurrentMenu = 0;
+						game.optionsOptionCurrent = 4;
+						game.onConfirmScreen = false;
+
+			}
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+155 < game.input.y && game.input.y < game.world.height/2+185 
+			 && game.optionsOptionCurrent != 1 && !game.justTouched && game.onConfirmScreen){
+			 	game.optionsOptionCurrent = 1;
+			 	if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+			 	}
+			}
+
+			game.justTouched = true;
+
+		}
+		else{
+			game.justTouched = false;
+			
+		}
+
+
+
 
 
 		// player cycles through options using UP and DOWN
@@ -329,6 +514,7 @@ Options.prototype = {
 
 		// update text for the option's star counter
 		game.starCountOptionsText.text = 'x ' + game.starsColl + '  ';
+
 
 
 

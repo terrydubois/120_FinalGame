@@ -110,6 +110,9 @@ MainMenu.prototype = {
 		game.menuLockMaxScale = 0.75;
 		game.menuLockMinScale = 0.25;
 
+		// touch variables
+		game.justTouched = false;
+
 		// add menu audio
 		game.menuBlipSound = game.add.audio('menuBlipSound');
 		game.modeLockedSound = game.add.audio('modeLockedSound');
@@ -158,6 +161,139 @@ MainMenu.prototype = {
 			}
 		}
 		*/
+
+
+		//touch controls DEV
+
+		if(game.input.pointer1.isDown){
+			//play button checks
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+25 < game.input.y && game.input.y < game.world.height/2+75 
+			 && game.menuOptionCurrent == 0 && !game.justTouched){
+				
+				if (game.currentModeLocked) {
+					// shake blue menu rectangle
+					if (game.sfxOn) {
+						game.modeLockedSound.play();
+					}
+				}
+				else {
+					if (game.currentMode == 0) {
+						//game.state.start('Intro');
+						game.sound.stopAll();
+						game.isPlaying = false;
+						game.state.start('Practice');
+
+					}
+					else if (game.currentMode == 1) {
+						game.sound.stopAll();
+						game.isPlaying = false;
+						game.state.start('Mode1');
+					}
+					else if (game.currentMode == 2) {
+						game.sound.stopAll();
+						game.isPlaying = false;
+						game.state.start('Mode2');
+					}
+					else if (game.currentMode == 3) {
+						game.sound.stopAll();
+						game.isPlaying = false;
+						game.state.start('Mode3');
+					}
+				}
+
+			}
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+25 < game.input.y && game.input.y < game.world.height/2+75 
+			 && game.menuOptionCurrent != 0 && !game.justTouched){
+				game.menuOptionCurrent = 0;
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+			}
+
+			//mode select checks
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+75 < game.input.y && game.input.y < game.world.height/2+125 
+			 && game.menuOptionCurrent != 1 && !game.justTouched){
+			 	game.menuOptionCurrent = 1;
+			 	if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+				}
+			}
+			if(game.world.width/2-125 < game.input.x && game.input.x < game.world.width/2-75 &&
+			 game.world.height/2+75 < game.input.y && game.input.y < game.world.height/2+125
+			 && game.menuOptionCurrent == 1 && !game.justTouched){
+				if (game.sfxOn) {
+						game.menuBlipSound.play();
+				}
+				if (game.currentMode > 0) {
+					game.currentMode--;
+				}
+				else {
+					game.currentMode = game.menuModes.length - 1;
+				}
+				game.menuTriangleLeftPlusX += 20;
+				game.menuLockScaleDest = game.menuLockMaxScale;
+				game.menuLockScaleCurrent = 1;
+				game.menuLock.alpha = 0;
+			}
+			if(game.world.width/2+75 < game.input.x && game.input.x < game.world.width/2+125 &&
+			 game.world.height/2+75 < game.input.y && game.input.y < game.world.height/2+125
+			 && game.menuOptionCurrent == 1 && !game.justTouched){
+				if (game.sfxOn) {
+					game.menuBlipSound.play();
+				}
+				if (game.currentMode < game.menuModes.length - 1) {
+					game.currentMode++;
+				}
+				else {
+					game.currentMode = 0;
+				}
+				game.menuTriangleRightPlusX += 20;
+				game.menuLockScaleDest = game.menuLockMaxScale;
+				game.menuLockScaleCurrent = 1;
+				game.menuLock.alpha = 0;
+			}
+
+			//options select checks
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+125 < game.input.y && game.input.y < game.world.height/2+175 
+			 && game.menuOptionCurrent == 2 && !game.justTouched){
+				game.state.start('Options');
+			}
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+125 < game.input.y && game.input.y < game.world.height/2+175 
+			 && game.menuOptionCurrent != 2 && !game.justTouched){
+			 	game.menuOptionCurrent = 2;
+				if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+			 	}
+			}
+
+			//Credits select checks
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+175 < game.input.y && game.input.y < game.world.height/2+225 
+			 && game.menuOptionCurrent == 3 && !game.justTouched){
+				game.state.start('Credits');
+			}
+			if(game.world.width/2-50 < game.input.x && game.input.x < game.world.width/2+50 &&
+			 game.world.height/2+175 < game.input.y && game.input.y < game.world.height/2+225 
+			 && game.menuOptionCurrent != 3 && !game.justTouched){
+			 	game.menuOptionCurrent = 3;
+				if (game.sfxOn) {
+			 		game.menuBlipSound.play();
+			 	}
+			}
+
+			game.justTouched = true;
+
+		}
+		else{
+			game.justTouched = false;
+			
+		}
+
 
 
 		// allow player to cheat stars to unlock modes using CTRL+ALT+Q
@@ -284,7 +420,7 @@ MainMenu.prototype = {
 
 		// determine whether the current mode is locked
 		game.currentModeLocked = (game.modeStarsToUnlock[game.currentMode] > game.starsColl);
-		if (game.currentModeLocked) {
+		if (game.currentModeLocked && game.menuOptionCurrent == 1) {
 			game.flavorText.text = "COLLECT " + game.modeStarsToUnlock[game.currentMode] + "              TO UNLOCK! ";
 			game.menuLockAlphaDest = 1;
 			game.menuLockScaleDest = game.menuLockMinScale;
